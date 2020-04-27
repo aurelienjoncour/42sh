@@ -64,7 +64,7 @@ SRC_UT =	tests_unit/test_minishell.c								\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME	=	mysh
+NAME	=	42sh
 
 CFLAGS	+= -Wall -Wextra -W $(INCLUDE) -g # -Werror
 
