@@ -125,5 +125,6 @@ NormEZ.rb
 42sh
 .vscode
 .vscode/
+*.sublime-*
 
 # End of https://www.gitignore.io/api/c,emacs
