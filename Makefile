@@ -20,17 +20,17 @@ SRC	=	$(DSRC)main.c									\
 		$(DSRC)$(DCMD)/binary/get_bin_path.c			\
 		$(DSRC)$(DCMD)/binary/check_access_right_file.c	\
 		$(DSRC)$(DCMD)/binary/get_bin_path_search_bin.c	\
-		$(DSRC)$(DCMD)/shell/exec_cmd_shell.c			\
-		$(DSRC)$(DCMD)/shell/cmd/my_exit.c				\
-		$(DSRC)$(DCMD)/shell/cmd/my_clear.c				\
-		$(DSRC)$(DCMD)/shell/cmd/my_pwd.c				\
-		$(DSRC)$(DCMD)/shell/cmd/my_env.c				\
-		$(DSRC)$(DCMD)/shell/cmd/my_unsetenv.c			\
-		$(DSRC)$(DCMD)/shell/cmd/my_setenv.c			\
-		$(DSRC)$(DCMD)/shell/cmd/my_cd/my_cd.c			\
-		$(DSRC)$(DCMD)/shell/cmd/my_cd/test_path.c  	\
-		$(DSRC)$(DCMD)/shell/cmd/my_cd/get_path.c 		\
-		$(DSRC)$(DCMD)/shell/cmd/show_exit_status.c		\
+		$(DSRC)$(DCMD)/builtin/exec_cmd_builtin.c		\
+		$(DSRC)$(DCMD)/builtin/cmd/my_exit.c			\
+		$(DSRC)$(DCMD)/builtin/cmd/my_clear.c			\
+		$(DSRC)$(DCMD)/builtin/cmd/my_pwd.c				\
+		$(DSRC)$(DCMD)/builtin/cmd/my_env.c				\
+		$(DSRC)$(DCMD)/builtin/cmd/my_unsetenv.c		\
+		$(DSRC)$(DCMD)/builtin/cmd/my_setenv.c			\
+		$(DSRC)$(DCMD)/builtin/cmd/my_cd/my_cd.c		\
+		$(DSRC)$(DCMD)/builtin/cmd/my_cd/test_path.c  	\
+		$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
+		$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
 		$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 		$(DSRC)$(DTOOL)/merge_path_filename.c			\
 		$(DSRC)$(DTOOL)/word_array_search.c				\
