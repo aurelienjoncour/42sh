@@ -6,15 +6,15 @@
 ##
 
 DSRC	=	./src/
-DCMD 	=	cmd
-DMINI 	=	minishell
+DCMD 	=	entry/cmd
+DMASTER =	master
 DTOOL 	=	tool
 
 SRC	=	$(DSRC)main.c									\
-		$(DSRC)$(DMINI)/minishell_create_destroy.c		\
-		$(DSRC)$(DMINI)/minishell_exit.c				\
-		$(DSRC)$(DMINI)/minishell_run.c					\
-		$(DSRC)$(DMINI)/prompt.c						\
+		$(DSRC)$(DMASTER)/shell_create_destroy.c		\
+		$(DSRC)$(DMASTER)/shell_exit.c					\
+		$(DSRC)$(DMASTER)/shell_run.c					\
+		$(DSRC)$(DMASTER)/prompt.c						\
 		$(DSRC)$(DCMD)/minishell_exec_cmd.c				\
 		$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
 		$(DSRC)$(DCMD)/binary/get_bin_path.c			\

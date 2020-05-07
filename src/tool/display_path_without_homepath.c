@@ -7,6 +7,8 @@
 
 #include "minishell.h"
 
+// Replace HOME PATH => '~'
+
 void display_path_without_homepath(env_t *env, char *path)
 {
     char *home_path = my_env_get_value(env, "HOME");
