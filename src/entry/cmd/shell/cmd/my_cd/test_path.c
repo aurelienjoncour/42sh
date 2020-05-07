@@ -5,7 +5,7 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 #include "my_cd.h"
 
 static void show_error_message(char *path)

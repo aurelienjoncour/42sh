@@ -5,7 +5,7 @@
 ** Created: 2020-04-08T14:10:49+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 int do_redirection(cmd_t *cmd)
 {

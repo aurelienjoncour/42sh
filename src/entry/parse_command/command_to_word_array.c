@@ -5,7 +5,7 @@
 ** Created: 2020-04-03T10:47:38+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 extern const int TYPE_WORD;
 extern const int TYPE_REDIR;

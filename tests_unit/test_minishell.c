@@ -8,7 +8,7 @@
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 
-#include "minishell.h"
+#include "shell.h"
 
 void disp(char **wa)
 {

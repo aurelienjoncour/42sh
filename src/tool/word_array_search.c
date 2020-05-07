@@ -5,7 +5,7 @@
 ** tool function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 int word_array_search(char **array, const int size, const char *str)
 {

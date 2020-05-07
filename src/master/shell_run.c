@@ -5,9 +5,9 @@
 ** minishell main function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int minishell_run(minishell_t *shell)
+int minishell_run(shell_t *shell)
 {
     char *entry = NULL;
 

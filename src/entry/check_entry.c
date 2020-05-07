@@ -5,7 +5,7 @@
 ** Created: 2020-04-15T17:49:09+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 bool check_sub_entry(const char *sub_entry)
 {

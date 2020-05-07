@@ -5,7 +5,7 @@
 ** Created: 2020-04-06T18:29:56+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const char *CHAR_SPACE = " \t";
 static const char *CHAR_DELIM = "\"'";

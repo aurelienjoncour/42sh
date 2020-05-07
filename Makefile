@@ -15,7 +15,7 @@ SRC	=	$(DSRC)main.c									\
 		$(DSRC)$(DMASTER)/shell_exit.c					\
 		$(DSRC)$(DMASTER)/shell_run.c					\
 		$(DSRC)$(DMASTER)/prompt.c						\
-		$(DSRC)$(DCMD)/minishell_exec_cmd.c				\
+		$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 		$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
 		$(DSRC)$(DCMD)/binary/get_bin_path.c			\
 		$(DSRC)$(DCMD)/binary/check_access_right_file.c	\
@@ -37,8 +37,8 @@ SRC	=	$(DSRC)main.c									\
 		$(DSRC)$(DTOOL)/tool.c							\
 		$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
 		$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
-		$(DSRC)entry/minishell_exec.c					\
-		$(DSRC)entry/pipe/minishell_exec_piped.c		\
+		$(DSRC)entry/shell_exec.c						\
+		$(DSRC)entry/pipe/shell_exec_piped.c			\
 		$(DSRC)entry/pipe/pipe_process_cmd.c			\
 		$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
 		$(DSRC)entry/split_entry.c						\
@@ -53,9 +53,9 @@ SRC	=	$(DSRC)main.c									\
 		$(DSRC)entry/parse_command/check_command.c			\
 		$(DSRC)entry/parse_command/split_word_array.c		\
 		$(DSRC)entry/parse_command/is_invalid_redirection.c	\
-		$(DSRC)entry/redirect/do_redirection.c				\
-		$(DSRC)entry/redirect/redirect_open_file.c			\
-		$(DSRC)entry/redirect/redirect_stdin_to_command.c	\
+		$(DSRC)modules/redirection/do_redirection.c				\
+		$(DSRC)modules/redirection/redirect_open_file.c			\
+		$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
 
 SRC_UT =	tests_unit/test_minishell.c								\
 			$(DSRC)entry/parse_command/command_format.c			\

@@ -5,7 +5,7 @@
 ** Created: 2020-04-07T17:06:50+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 const char *REDIR_PATT[] =
 {

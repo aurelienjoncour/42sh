@@ -5,9 +5,9 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int my_unsetenv(char **cmd, minishell_t *shell)
+int my_unsetenv(char **cmd, shell_t *shell)
 {
     if (cmd[1] == NULL) {
         my_putstr_error("unsetenv: Too few arguments.\n");

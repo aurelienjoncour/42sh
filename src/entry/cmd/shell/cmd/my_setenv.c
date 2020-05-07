@@ -5,7 +5,7 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static int check_entry_char(char *label)
 {
@@ -42,7 +42,7 @@ static int set_variable(char *label, char *value, env_t *env)
     return EXIT_SUCCESS;
 }
 
-int my_setenv(char **cmd, minishell_t *shell)
+int my_setenv(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
 

@@ -5,9 +5,9 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int my_pwd(char **cmd, minishell_t *shell)
+int my_pwd(char **cmd, shell_t *shell)
 {
     char *pwd = NULL;
 

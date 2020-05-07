@@ -5,9 +5,9 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int my_env(char **cmd, minishell_t *shell)
+int my_env(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
 

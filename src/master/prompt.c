@@ -5,7 +5,7 @@
 ** function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static void show_user(char *user, char *host)
 {
@@ -20,7 +20,7 @@ static void show_user(char *user, char *host)
     }
 }
 
-static void show_prompt(minishell_t *shell)
+static void show_prompt(shell_t *shell)
 {
     char *host = my_env_get_value(&shell->env, "HOST");
     char *user = my_env_get_value(&shell->env, "USER");
@@ -38,7 +38,7 @@ static void show_prompt(minishell_t *shell)
     free(user);
 }
 
-char *minishell_prompt(minishell_t *shell)
+char *minishell_prompt(shell_t *shell)
 {
     char *entry = NULL;
     size_t size = 0;

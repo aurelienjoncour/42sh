@@ -5,7 +5,7 @@
 ** Created: 2020-04-13T17:34:58+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static char *get_line_stdin(void)
 {

@@ -5,7 +5,7 @@
 ** Created: 2020-04-08T09:15:52+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static void reset_file_redirect_from_stdin(cmd_t *cmd)
 {

@@ -5,9 +5,9 @@
 ** function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int minishell_exec_cmd(minishell_t *shell, char **cmd)
+int minishell_exec_cmd(shell_t *shell, char **cmd)
 {
     int ret = minishell_exec_shell_cmd(cmd, shell);
 

@@ -5,7 +5,7 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const char *ERR_SYNT = "exit: Expression Syntax.\n";
 static const char *ERR_NBR = "exit: Badly formed number.\n";
@@ -41,7 +41,7 @@ static int check_exit_status(char *status)
     return 0;
 }
 
-int my_exit(char **cmd, minishell_t *shell)
+int my_exit(char **cmd, shell_t *shell)
 {
     int ret;
 

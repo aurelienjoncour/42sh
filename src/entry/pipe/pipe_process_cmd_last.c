@@ -5,7 +5,7 @@
 ** Created: 2020-03-31T15:04:50+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static int close_pipe_redirection(fd_t *fd)
 {
@@ -35,7 +35,7 @@ static int create_pipe_redirection(fd_t *fd)
     return EXIT_SUCCESS;
 }
 
-int pipe_process_cmd_last(minishell_t *shell, char *command)
+int pipe_process_cmd_last(shell_t *shell, char *command)
 {
     if (pipe(shell->fd.pipe_fd) == -1) {
         return puterr("pipe : fail\n", EXIT_ERROR);

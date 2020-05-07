@@ -5,7 +5,7 @@
 ** Created: 2020-04-06T08:23:05+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const int STATE_IGN_CHAR = 0;
 static const int STATE_ADD_CHAR = 1;

@@ -5,7 +5,7 @@
 ** Created: 2020-04-08T14:10:49+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const mode_t FILE_RIGHT = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 

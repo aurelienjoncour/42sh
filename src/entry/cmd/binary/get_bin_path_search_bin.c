@@ -5,7 +5,7 @@
 ** Search the binary file in PATH
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static int manage_access_status(char **bin_path, char **eacces_bin_path)
 {
@@ -46,7 +46,7 @@ static char *get_path_bin(char *bin_name, char *path_list)
     return bin_path;
 }
 
-int get_bin_path_search_bin(char ***cmd, minishell_t *shell)
+int get_bin_path_search_bin(char ***cmd, shell_t *shell)
 {
     char *name_cmd = (*cmd)[0];
     char *path_list = NULL;

@@ -5,11 +5,11 @@
 ** Created: 2020-04-02T16:00:49+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const char *ENTRY_CHAR_IGNORE = " \t";
 
-static bool process_check_entry(char *entry, minishell_t *shell,
+static bool process_check_entry(char *entry, shell_t *shell,
 char **sub_entries)
 {
     for (size_t i = 0; sub_entries[i] != NULL; i++) {
@@ -23,7 +23,7 @@ char **sub_entries)
     return false;
 }
 
-int minishell_exec(minishell_t *shell, char *entry)
+int minishell_exec(shell_t *shell, char *entry)
 {
     char **sub_entries  = split_entry(entry);
 

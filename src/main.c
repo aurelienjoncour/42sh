@@ -5,11 +5,11 @@
 ** main function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 int main(int argc, char **argv, char **env)
 {
-    minishell_t minishell;
+    shell_t minishell;
     int ret;
 
     (void)argc;

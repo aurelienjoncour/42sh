@@ -5,9 +5,9 @@
 ** minishell main function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-void minishell_exit(minishell_t *shell, int status)
+void minishell_exit(shell_t *shell, int status)
 {
     shell->exit_status = status;
     shell->exit = true;

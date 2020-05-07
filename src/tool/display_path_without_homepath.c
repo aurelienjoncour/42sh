@@ -5,7 +5,7 @@
 ** tool function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 // Replace HOME PATH => '~'
 

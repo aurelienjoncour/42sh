@@ -5,7 +5,7 @@
 ** Created: 2020-04-13T11:41:48+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 bool is_invalid_redirection(const char *str)
 {

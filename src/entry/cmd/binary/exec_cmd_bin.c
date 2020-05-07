@@ -5,9 +5,9 @@
 ** function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-static void sub_process(char **cmd, minishell_t *shell)
+static void sub_process(char **cmd, shell_t *shell)
 {
     int ret = execve(cmd[0], cmd, shell->env.var);
     char *err_msg = NULL;
@@ -30,7 +30,7 @@ static void sub_process(char **cmd, minishell_t *shell)
     }
 }
 
-static void child_exit_status(int wstatus, minishell_t *shell)
+static void child_exit_status(int wstatus, shell_t *shell)
 {
     if (!wstatus) {
         shell->exit_status = SUCCESS_STATUS;
@@ -53,7 +53,7 @@ static void child_exit_status(int wstatus, minishell_t *shell)
     }
 }
 
-int fork_process(char **cmd, minishell_t *shell)
+int fork_process(char **cmd, shell_t *shell)
 {
     pid_t pid;
     int wstatus = 0;
@@ -76,7 +76,7 @@ int fork_process(char **cmd, minishell_t *shell)
     return EXIT_SUCCESS;
 }
 
-int minishell_exec_bin_cmd(char **cmd, minishell_t *shell)
+int minishell_exec_bin_cmd(char **cmd, shell_t *shell)
 {
     char *save_cmd_head = cmd[0];
 

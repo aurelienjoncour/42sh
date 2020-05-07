@@ -5,7 +5,7 @@
 ** Created: 2020-04-02T15:59:37+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 char **split_entry(char *entry)
 {

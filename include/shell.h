@@ -5,8 +5,8 @@
 ** minishell header
 */
 
-#ifndef H_MINISHELL
-#define H_MINISHELL
+#ifndef H_SHELL
+#define H_SHELL
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -26,16 +26,16 @@
 #define SEGFAULT_STATUS 139
 #define DIVZERO_STATUS 136
 
-#include "minishell_t.h"
+#include "shell_t.h"
 #include "fd_t.h"
 #include "cmd_t.h"
 
 //  MAIN FUNCTIONS
-int minishell_create(minishell_t *shell, char **env);
-void minishell_exit(minishell_t *shell, int status);
-int minishell_run(minishell_t *shell);
-int minishell_destroy(minishell_t *shell);
-char *minishell_prompt(minishell_t *shell);
+int minishell_create(shell_t *shell, char **env);
+void minishell_exit(shell_t *shell, int status);
+int minishell_run(shell_t *shell);
+int minishell_destroy(shell_t *shell);
+char *minishell_prompt(shell_t *shell);
 
 //  TOOLS
 void display_path_without_homepath(env_t *env, char *path);
@@ -54,20 +54,20 @@ void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
 
 //  ENTRY
-int minishell_exec(minishell_t *shell, char *entry);
+int minishell_exec(shell_t *shell, char *entry);
 char **split_entry(char *entry);
 
 // ENTRY : PIPE
-int minishell_exec_piped(minishell_t *shell, char *sub_entry);
-int pipe_process_cmd(minishell_t *shell, char *command);
-int pipe_process_cmd_last(minishell_t *shell, char *command);
+int minishell_exec_piped(shell_t *shell, char *sub_entry);
+int pipe_process_cmd(shell_t *shell, char *command);
+int pipe_process_cmd_last(shell_t *shell, char *command);
 
 // ENTRY : CHECK SUB-ENTRY
 bool check_sub_entry(const char *sub_entry);
 bool check_position_redirection_in_pipe(const char *sub_entry);
 
 // ENTRY : PROCESS
-int cmd_process(minishell_t *shell, char *command);
+int cmd_process(shell_t *shell, char *command);
 void cmd_destroy(cmd_t *cmd);
 void cmd_create(cmd_t *cmd, char *command);
 
@@ -91,20 +91,20 @@ int do_redirection(cmd_t *cmd);
 int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
 //  CMD
-int minishell_exec_cmd(minishell_t *shell, char **cmd);
-int minishell_exec_shell_cmd(char **cmd, minishell_t *shell);
-int minishell_exec_bin_cmd(char **cmd, minishell_t *shell);
+int minishell_exec_cmd(shell_t *shell, char **cmd);
+int minishell_exec_shell_cmd(char **cmd, shell_t *shell);
+int minishell_exec_bin_cmd(char **cmd, shell_t *shell);
 int check_access_right_file(const char *bin_path);
-int get_bin_path(char ***ptr_cmd, minishell_t *shell);
-int get_bin_path_search_bin(char ***cmd, minishell_t *shell);
+int get_bin_path(char ***ptr_cmd, shell_t *shell);
+int get_bin_path_search_bin(char ***cmd, shell_t *shell);
 
-int my_exit(char **cmd, minishell_t *shell);
-int my_clear(char **cmd, minishell_t *shell);
-int my_cd(char **cmd, minishell_t *shell);
-int my_env(char **cmd, minishell_t *shell);
-int my_unsetenv(char **cmd, minishell_t *shell);
-int my_setenv(char **cmd, minishell_t *shell);
-int my_pwd(char **cmd, minishell_t *shell);
-int show_exit_status(char **cmd, minishell_t *shell);
+int my_exit(char **cmd, shell_t *shell);
+int my_clear(char **cmd, shell_t *shell);
+int my_cd(char **cmd, shell_t *shell);
+int my_env(char **cmd, shell_t *shell);
+int my_unsetenv(char **cmd, shell_t *shell);
+int my_setenv(char **cmd, shell_t *shell);
+int my_pwd(char **cmd, shell_t *shell);
+int show_exit_status(char **cmd, shell_t *shell);
 
 #endif

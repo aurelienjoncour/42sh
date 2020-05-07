@@ -5,7 +5,7 @@
 ** function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static int is_bin_path(char *str)
 {
@@ -25,7 +25,7 @@ static int is_bin_path(char *str)
     return 0;
 }
 
-int get_bin_path(char ***ptr_cmd, minishell_t *shell)
+int get_bin_path(char ***ptr_cmd, shell_t *shell)
 {
     char *name_cmd = (*ptr_cmd)[0];
 

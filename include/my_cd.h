@@ -9,6 +9,6 @@
 #define H_CD
 
 int test_opendir(char *path);
-char *my_cd_get_path(char **cmd, minishell_t *shell);
+char *my_cd_get_path(char **cmd, shell_t *shell);
 
 #endif

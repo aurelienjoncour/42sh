@@ -5,16 +5,16 @@
 ** Created: 2020-03-31T15:04:50+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-static int set_error(minishell_t *shell, cmd_t *cmd)
+static int set_error(shell_t *shell, cmd_t *cmd)
 {
     cmd_destroy(cmd);
     shell->exit_status = ERROR_STATUS;
     return EXIT_SUCCESS;
 }
 
-int cmd_process(minishell_t *shell, char *command)
+int cmd_process(shell_t *shell, char *command)
 {
     cmd_t cmd;
 

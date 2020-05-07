@@ -5,9 +5,9 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int my_clear(char **cmd, minishell_t *shell)
+int my_clear(char **cmd, shell_t *shell)
 {
     (void)cmd;
     (void)shell;

@@ -5,9 +5,9 @@
 ** minishell main function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
-int minishell_create(minishell_t *shell, char **env)
+int minishell_create(shell_t *shell, char **env)
 {
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS) {
         return EXIT_ERROR;
@@ -24,7 +24,7 @@ int minishell_create(minishell_t *shell, char **env)
     return EXIT_SUCCESS;
 }
 
-int minishell_destroy(minishell_t *shell)
+int minishell_destroy(shell_t *shell)
 {
     my_env_destroy(&shell->env);
     free(shell->prev_path);

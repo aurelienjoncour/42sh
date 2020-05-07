@@ -5,7 +5,7 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 #include "my_cd.h"
 
 static char *convert_path(char *path, char *last_path, env_t *env)
@@ -32,7 +32,7 @@ static char *convert_path(char *path, char *last_path, env_t *env)
     return ret;
 }
 
-char *my_cd_get_path(char **cmd, minishell_t *shell)
+char *my_cd_get_path(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
     char *path;

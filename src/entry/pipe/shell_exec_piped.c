@@ -5,7 +5,7 @@
 ** Created: 2020-03-31T15:04:50+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 static const char *ERR_NULL_CMD = "Invalid null command.\n";
 
@@ -19,7 +19,7 @@ static void wait_end_all_child_process(void)
     } while (pid != -1);
 }
 
-static int process_all_pipe(minishell_t *shell, char **piped_cmd)
+static int process_all_pipe(shell_t *shell, char **piped_cmd)
 {
     bool is_last = false;
 
@@ -39,7 +39,7 @@ static int process_all_pipe(minishell_t *shell, char **piped_cmd)
     return EXIT_SUCCESS;
 }
 
-int minishell_exec_piped(minishell_t *shell, char *sub_entry)
+int minishell_exec_piped(shell_t *shell, char *sub_entry)
 {
     char **piped_cmd = my_str_to_word_array(sub_entry, "|");
 

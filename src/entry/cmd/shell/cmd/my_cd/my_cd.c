@@ -5,10 +5,10 @@
 ** shell command function
 */
 
-#include "minishell.h"
+#include "shell.h"
 #include "my_cd.h"
 
-int my_cd(char **cmd, minishell_t *shell)
+int my_cd(char **cmd, shell_t *shell)
 {
     char *path;
     char *env_cmd[4] = {"setenv", "PWD", NULL, NULL};

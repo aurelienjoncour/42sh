@@ -5,7 +5,7 @@
 ** Created: 2020-03-31T15:04:50+02:00 | Author: simon
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 extern const char *REDIR_PATT_IN[];
 extern const char *REDIR_PATT_OUT[];

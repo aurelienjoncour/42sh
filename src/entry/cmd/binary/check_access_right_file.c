@@ -5,7 +5,7 @@
 ** function
 */
 
-#include "minishell.h"
+#include "shell.h"
 
 int check_access_right_file(const char *bin_path)
 {

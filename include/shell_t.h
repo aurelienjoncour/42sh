@@ -5,8 +5,8 @@
 ** minishell header
 */
 
-#ifndef H_MINISHELL_T
-#define H_MINISHELL_T
+#ifndef H_SHELL_T
+#define H_SHELL_T
 
 #include "fd_t.h"
 
@@ -16,6 +16,6 @@ typedef struct minishell {
     int exit_status;
     bool exit;
     fd_t fd;
-} minishell_t;
+} shell_t;
 
 #endif
