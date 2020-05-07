@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** PSU_minishell2_2019
+** PSU_42sh_2019
 ** File description:
 ** Created: 2020-04-08T10:23:42+02:00 | Author: simon
 */
