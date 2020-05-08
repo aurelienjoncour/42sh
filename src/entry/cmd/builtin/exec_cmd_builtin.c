@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-static const int NB_SHELL_CMD = 8;
+static const int NB_SHELL_CMD = 15;
 
 static const char *CMD_NAME[] =
 {
@@ -18,7 +18,14 @@ static const char *CMD_NAME[] =
     "unsetenv",
     "clear",
     "my_pwd",
-    "$?"
+    "$?",
+    "echo",
+    "alias",
+    "set",
+    "which",
+    "where",
+    "history",
+    "fg"
 };
 
 static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
@@ -30,7 +37,14 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_unsetenv,
     &my_clear,
     &my_pwd,
-    &show_exit_status
+    &show_exit_status,
+    NULL, // echo
+    NULL, // alias
+    NULL, // set
+    NULL, // which
+    NULL, // where
+    NULL, // history
+    NULL  // fg
 };
 
 int shell_exec_shell_cmd(char **cmd, shell_t *shell)
@@ -40,7 +54,7 @@ int shell_exec_shell_cmd(char **cmd, shell_t *shell)
 
     if (idx_cmd == -1) {
         return EXIT_FAIL;
-    } else {
+    } else if (CMD_FUNCT_PTR[idx_cmd] != NULL) {
         ret = CMD_FUNCT_PTR[idx_cmd](cmd, shell);
         if (ret == EXIT_ERROR)
             return EXIT_ERROR;
