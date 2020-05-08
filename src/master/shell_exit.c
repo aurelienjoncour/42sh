@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-void minishell_exit(shell_t *shell, int status)
+void shell_exit(shell_t *shell, int status)
 {
     shell->exit_status = status;
     shell->exit = true;

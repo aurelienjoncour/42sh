@@ -33,7 +33,7 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &show_exit_status
 };
 
-int minishell_exec_shell_cmd(char **cmd, shell_t *shell)
+int shell_exec_shell_cmd(char **cmd, shell_t *shell)
 {
     int idx_cmd = word_array_search2(CMD_NAME, NB_SHELL_CMD, cmd[0]);
     int ret;

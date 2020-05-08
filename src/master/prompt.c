@@ -38,7 +38,7 @@ static void show_prompt(shell_t *shell)
     free(user);
 }
 
-char *minishell_prompt(shell_t *shell)
+char *shell_prompt(shell_t *shell)
 {
     char *entry = NULL;
     size_t size = 0;

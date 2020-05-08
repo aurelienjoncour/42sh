@@ -14,11 +14,11 @@ int main(int argc, char **argv, char **env)
 
     (void)argc;
     (void)argv;
-    if (minishell_create(&minishell, env)) {
+    if (shell_create(&minishell, env)) {
         return EXIT_ERROR;
     } else {
-        ret = minishell_run(&minishell);
-        minishell_destroy(&minishell);
+        ret = shell_run(&minishell);
+        shell_destroy(&minishell);
         return ret;
     }
 }

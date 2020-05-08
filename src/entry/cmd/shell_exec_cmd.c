@@ -7,12 +7,12 @@
 
 #include "shell.h"
 
-int minishell_exec_cmd(shell_t *shell, char **cmd)
+int shell_exec_cmd(shell_t *shell, char **cmd)
 {
-    int ret = minishell_exec_shell_cmd(cmd, shell);
+    int ret = shell_exec_shell_cmd(cmd, shell);
 
     if (ret == EXIT_FAIL) {
-        ret = minishell_exec_bin_cmd(cmd, shell);
+        ret = shell_exec_bin_cmd(cmd, shell);
     }
     if (ret == EXIT_FAIL && cmd) {
         my_putstr_error(cmd[0]);

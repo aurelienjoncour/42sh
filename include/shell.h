@@ -31,11 +31,11 @@
 #include "cmd_t.h"
 
 //  MAIN FUNCTIONS
-int minishell_create(shell_t *shell, char **env);
-void minishell_exit(shell_t *shell, int status);
-int minishell_run(shell_t *shell);
-int minishell_destroy(shell_t *shell);
-char *minishell_prompt(shell_t *shell);
+int shell_create(shell_t *shell, char **env);
+void shell_exit(shell_t *shell, int status);
+int shell_run(shell_t *shell);
+int shell_destroy(shell_t *shell);
+char *shell_prompt(shell_t *shell);
 
 //  TOOLS
 void display_path_without_homepath(env_t *env, char *path);
@@ -54,11 +54,11 @@ void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
 
 //  ENTRY
-int minishell_exec(shell_t *shell, char *entry);
+int shell_exec(shell_t *shell, char *entry);
 char **split_entry(char *entry);
 
 // ENTRY : PIPE
-int minishell_exec_piped(shell_t *shell, char *sub_entry);
+int shell_exec_piped(shell_t *shell, char *sub_entry);
 int pipe_process_cmd(shell_t *shell, char *command);
 int pipe_process_cmd_last(shell_t *shell, char *command);
 
@@ -91,9 +91,9 @@ int do_redirection(cmd_t *cmd);
 int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
 //  CMD
-int minishell_exec_cmd(shell_t *shell, char **cmd);
-int minishell_exec_shell_cmd(char **cmd, shell_t *shell);
-int minishell_exec_bin_cmd(char **cmd, shell_t *shell);
+int shell_exec_cmd(shell_t *shell, char **cmd);
+int shell_exec_shell_cmd(char **cmd, shell_t *shell);
+int shell_exec_bin_cmd(char **cmd, shell_t *shell);
 int check_access_right_file(const char *bin_path);
 int get_bin_path(char ***ptr_cmd, shell_t *shell);
 int get_bin_path_search_bin(char ***cmd, shell_t *shell);

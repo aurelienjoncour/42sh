@@ -31,7 +31,7 @@ int cmd_process(shell_t *shell, char *command)
         shell->exit_status = ERROR_STATUS;
         return EXIT_SUCCESS;
     }
-    minishell_exec_cmd(shell, cmd.cmd);
+    shell_exec_cmd(shell, cmd.cmd);
     cmd_destroy(&cmd);
     return shell->exit_status;
 }

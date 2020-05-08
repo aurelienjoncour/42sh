@@ -76,7 +76,7 @@ int fork_process(char **cmd, shell_t *shell)
     return EXIT_SUCCESS;
 }
 
-int minishell_exec_bin_cmd(char **cmd, shell_t *shell)
+int shell_exec_bin_cmd(char **cmd, shell_t *shell)
 {
     char *save_cmd_head = cmd[0];
 

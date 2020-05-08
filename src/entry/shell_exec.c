@@ -23,7 +23,7 @@ char **sub_entries)
     return false;
 }
 
-int minishell_exec(shell_t *shell, char *entry)
+int shell_exec(shell_t *shell, char *entry)
 {
     char **sub_entries  = split_entry(entry);
 
@@ -37,7 +37,7 @@ int minishell_exec(shell_t *shell, char *entry)
         if (str_have_only_chars(sub_entries[i], ENTRY_CHAR_IGNORE) == true) {
             continue;
         }
-        if (minishell_exec_piped(shell, sub_entries[i]) != EXIT_SUCCESS) {
+        if (shell_exec_piped(shell, sub_entries[i]) != EXIT_SUCCESS) {
             return EXIT_ERROR;
         }
     }
