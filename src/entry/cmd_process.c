@@ -7,34 +7,29 @@
 
 #include "shell.h"
 
-static int set_error(shell_t *shell, cmd_t *cmd)
-{
-    cmd_destroy(cmd);
-    shell->exit_status = ERROR_STATUS;
-    return EXIT_SUCCESS;
-}
-
 /*
     TODO : REFACTO
 */
-int cmd_process(shell_t *shell, char *command)
+int cmd_process(shell_t *shell, cmd_t *cmd)
 {
-    cmd_t cmd;
+    // TODO : file redirection
+    // redirection_open_file(&cmd);
+    // if (cmd.err == true) {
+    //     return set_error(shell, &cmd);
+    // }
+    // if (do_redirection(&cmd) == EXIT_ERROR) {
+    //     shell->exit_status = ERROR_STATUS;
+    //     return EXIT_SUCCESS;
+    // }
 
-    cmd_create(&cmd, command);
-    command_parse(&cmd);
-    if (cmd.err == true) {
-        return set_error(shell, &cmd);
-    }
-    redirection_open_file(&cmd);
-    if (cmd.err == true) {
-        return set_error(shell, &cmd);
-    }
-    if (do_redirection(&cmd) == EXIT_ERROR) {
-        shell->exit_status = ERROR_STATUS;
-        return EXIT_SUCCESS;
-    }
-    shell_exec_cmd(shell, cmd.cmd);
-    cmd_destroy(&cmd);
+    // TODO : job control
+
+    //--call : magic quotes exec
+
+    //--call : exec cmd
+    // TODO : linked list to word array
+    //shell_exec_cmd(shell, cmd.cmd);
+
+    //--call : parenthesis exec
     return shell->exit_status;
 }

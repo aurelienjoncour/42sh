@@ -42,18 +42,8 @@ ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
-			$(DSRC)entry/split_entry.c						\
+			$(DSRC)entry/bool_op/shell_exec_segment.c		\
 			$(DSRC)entry/cmd_process.c						\
-			$(DSRC)entry/cmd_create_destroy.c				\
-			$(DSRC)entry/check_entry.c						\
-			$(DSRC)entry/check_pos_redirect.c				\
-			$(DSRC)entry/parse_command/command_parse_tool.c		\
-			$(DSRC)entry/parse_command/command_parse.c			\
-			$(DSRC)entry/parse_command/command_to_word_array.c	\
-			$(DSRC)entry/parse_command/command_format.c			\
-			$(DSRC)entry/parse_command/check_command.c			\
-			$(DSRC)entry/parse_command/split_word_array.c		\
-			$(DSRC)entry/parse_command/is_invalid_redirection.c	\
 
 TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/merge_path_filename.c			\

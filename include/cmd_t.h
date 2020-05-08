@@ -21,18 +21,7 @@ typedef enum redirect_mode_out {
 } redirect_mode_out_t;
 
 typedef struct cmd {
-    char *command;
-    char *formatted;
-    char **wa;
-    char **cmd;
-    char **redirect_in;
-    char **redirect_out;
-    bool err;
-    enum redirect_mode_in red_mode_in;
-    enum redirect_mode_out red_mode_out;
-    int file_fd_in;
-    int file_fd_out;
-    int pipe_redirect[2];
+    // TODO
 } cmd_t;
 
 

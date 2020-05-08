@@ -13,11 +13,11 @@ int shell_exec_segment(shell_t *shell, cmd_t *cmd)
 
     //  TODO : execute [shell_exec_piped] for all sub-lists
     //
-    // for (size_t i = 0; sub_entries[i] != NULL; i++) {
-    //     if (str_have_only_chars(sub_entries[i], ENTRY_CHAR_IGNORE) == true) {
-    //         continue; // CHECK FOR EMPTY COMMAND
+    // for (size_t i = 0; ...; i++) {
+    //     if (...) {
+    //         continue; // CHECK FOR EMPTY LIST
     //     }
-    //     if (shell_exec_piped(shell, sub_entries[i]) != EXIT_SUCCESS) {
+    //     if (shell_exec_piped(shell, sub-list...) != EXIT_SUCCESS) {
     //         return EXIT_ERROR;
     //     }
     // }

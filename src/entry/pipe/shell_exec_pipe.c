@@ -39,7 +39,7 @@ static int process_all_pipe(shell_t *shell, char **piped_cmd)
     return EXIT_SUCCESS;
 }
 
-int shell_exec_piped(shell_t *shell, char *sub_entry)
+int shell_exec_piped(shell_t *shell, char *sub_entry) // TODO : REFACTO of directory
 {
     char **piped_cmd = my_str_to_word_array(sub_entry, "|");
 

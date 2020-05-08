@@ -30,7 +30,7 @@
 #include "fd_t.h"
 #include "cmd_t.h"
 
-//  MAIN FUNCTIONS
+//  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
 void shell_exit(shell_t *shell, int status);
 int shell_run(shell_t *shell);
@@ -53,44 +53,19 @@ int my_str_count_pattern(char *str, const char *pattern);
 void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
 
+//-------------------------------------------------
 //  ENTRY
 int shell_exec(shell_t *shell, char *entry);
-char **split_entry(char *entry);
 
 // ENTRY : PIPE
-int shell_exec_piped(shell_t *shell, char *sub_entry);
-int pipe_process_cmd(shell_t *shell, char *command);
-int pipe_process_cmd_last(shell_t *shell, char *command);
-
-// ENTRY : CHECK SUB-ENTRY
-bool check_sub_entry(const char *sub_entry);
-bool check_position_redirection_in_pipe(const char *sub_entry);
+// int shell_exec_piped(shell_t *shell, char *sub_entry);
+// int pipe_process_cmd(shell_t *shell, char *command);
+// int pipe_process_cmd_last(shell_t *shell, char *command);
 
 // ENTRY : PROCESS
-int cmd_process(shell_t *shell, char *command);
-void cmd_destroy(cmd_t *cmd);
-void cmd_create(cmd_t *cmd, char *command);
+int cmd_process(shell_t *shell, cmd_t *cmd);
 
-// ENTRY : PARSE/CHECK-CMD
-void command_parse(cmd_t *cmd);
-char *command_format(const char *command);
-char **command_to_word_array(const char *formatted);
-bool set_delim_mode(const int type_char, const int prev_type_char, int *delim);
-int get_type_char(const char c, const int delim);
-bool have_missing_str_quote(cmd_t *cmd);
-bool have_missing_name_redirection(cmd_t *cmd);
-bool have_several_redirection(cmd_t *cmd);
-bool have_null_command(cmd_t *cmd);
-bool is_invalid_redirection(const char *str);
-int cmd_split_word_array(cmd_t *cmd);
-
-// ENTRY : REDIRECT
-void redirection_open_file(cmd_t *cmd);
-void show_error(const char *param);
-int do_redirection(cmd_t *cmd);
-int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
-
-//  CMD
+// ENTRY : CMD EXEC
 int shell_exec_cmd(shell_t *shell, char **cmd);
 int shell_exec_shell_cmd(char **cmd, shell_t *shell);
 int shell_exec_bin_cmd(char **cmd, shell_t *shell);
@@ -98,6 +73,7 @@ int check_access_right_file(const char *bin_path);
 int get_bin_path(char ***ptr_cmd, shell_t *shell);
 int get_bin_path_search_bin(char ***cmd, shell_t *shell);
 
+// BUILTINS
 int my_exit(char **cmd, shell_t *shell);
 int my_clear(char **cmd, shell_t *shell);
 int my_cd(char **cmd, shell_t *shell);
@@ -106,5 +82,14 @@ int my_unsetenv(char **cmd, shell_t *shell);
 int my_setenv(char **cmd, shell_t *shell);
 int my_pwd(char **cmd, shell_t *shell);
 int show_exit_status(char **cmd, shell_t *shell);
+
+//-------------------------------------------------
+//                 - MODULES -
+// MOD : REDIRECT
+// void redirection_open_file(cmd_t *cmd);
+// void show_error(const char *param);
+// int do_redirection(cmd_t *cmd);
+// int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
+
 
 #endif
