@@ -10,54 +10,63 @@ DCMD 	=	entry/cmd
 DMASTER =	master
 DTOOL 	=	tool
 
-SRC	=	$(DSRC)main.c									\
-		$(DSRC)$(DMASTER)/shell_create_destroy.c		\
-		$(DSRC)$(DMASTER)/shell_exit.c					\
-		$(DSRC)$(DMASTER)/shell_run.c					\
-		$(DSRC)$(DMASTER)/prompt.c						\
-		$(DSRC)$(DCMD)/shell_exec_cmd.c					\
-		$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
-		$(DSRC)$(DCMD)/binary/get_bin_path.c			\
-		$(DSRC)$(DCMD)/binary/check_access_right_file.c	\
-		$(DSRC)$(DCMD)/binary/get_bin_path_search_bin.c	\
-		$(DSRC)$(DCMD)/builtin/exec_cmd_builtin.c		\
-		$(DSRC)$(DCMD)/builtin/cmd/my_exit.c			\
-		$(DSRC)$(DCMD)/builtin/cmd/my_clear.c			\
-		$(DSRC)$(DCMD)/builtin/cmd/my_pwd.c				\
-		$(DSRC)$(DCMD)/builtin/cmd/my_env.c				\
-		$(DSRC)$(DCMD)/builtin/cmd/my_unsetenv.c		\
-		$(DSRC)$(DCMD)/builtin/cmd/my_setenv.c			\
-		$(DSRC)$(DCMD)/builtin/cmd/my_cd/my_cd.c		\
-		$(DSRC)$(DCMD)/builtin/cmd/my_cd/test_path.c  	\
-		$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
-		$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
-		$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
-		$(DSRC)$(DTOOL)/merge_path_filename.c			\
-		$(DSRC)$(DTOOL)/word_array_search.c				\
-		$(DSRC)$(DTOOL)/tool.c							\
-		$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
-		$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
-		$(DSRC)entry/shell_exec.c						\
-		$(DSRC)entry/pipe/shell_exec_piped.c			\
-		$(DSRC)entry/pipe/pipe_process_cmd.c			\
-		$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
-		$(DSRC)entry/split_entry.c						\
-		$(DSRC)entry/cmd_process.c						\
-		$(DSRC)entry/cmd_create_destroy.c				\
-		$(DSRC)entry/check_entry.c						\
-		$(DSRC)entry/check_pos_redirect.c				\
-		$(DSRC)entry/parse_command/command_parse_tool.c		\
-		$(DSRC)entry/parse_command/command_parse.c			\
-		$(DSRC)entry/parse_command/command_to_word_array.c	\
-		$(DSRC)entry/parse_command/command_format.c			\
-		$(DSRC)entry/parse_command/check_command.c			\
-		$(DSRC)entry/parse_command/split_word_array.c		\
-		$(DSRC)entry/parse_command/is_invalid_redirection.c	\
-		$(DSRC)modules/redirection/do_redirection.c				\
-		$(DSRC)modules/redirection/redirect_open_file.c			\
-		$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
+MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
+			$(DSRC)$(DMASTER)/shell_exit.c					\
+			$(DSRC)$(DMASTER)/shell_run.c					\
+			$(DSRC)$(DMASTER)/prompt.c						\
 
-SRC_UT =	tests_unit/test_minishell.c								\
+MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
+			$(DSRC)modules/redirection/redirect_open_file.c			\
+			$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
+			$(DSRC)modules/parser/parser.c					\
+
+CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
+			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
+			$(DSRC)$(DCMD)/binary/get_bin_path.c			\
+			$(DSRC)$(DCMD)/binary/check_access_right_file.c	\
+			$(DSRC)$(DCMD)/binary/get_bin_path_search_bin.c	\
+			$(DSRC)$(DCMD)/builtin/exec_cmd_builtin.c		\
+			$(DSRC)$(DCMD)/builtin/cmd/my_exit.c			\
+			$(DSRC)$(DCMD)/builtin/cmd/my_clear.c			\
+			$(DSRC)$(DCMD)/builtin/cmd/my_pwd.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_env.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_unsetenv.c		\
+			$(DSRC)$(DCMD)/builtin/cmd/my_setenv.c			\
+			$(DSRC)$(DCMD)/builtin/cmd/my_cd/my_cd.c		\
+			$(DSRC)$(DCMD)/builtin/cmd/my_cd/test_path.c  	\
+			$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
+			$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
+
+ENTRY 	=	$(DSRC)entry/shell_exec.c						\
+			$(DSRC)entry/shell_exec_segment.c				\
+			$(DSRC)entry/pipe/shell_exec_pipe.c				\
+			$(DSRC)entry/pipe/pipe_process_cmd.c			\
+			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
+			$(DSRC)entry/split_entry.c						\
+			$(DSRC)entry/cmd_process.c						\
+			$(DSRC)entry/cmd_create_destroy.c				\
+			$(DSRC)entry/check_entry.c						\
+			$(DSRC)entry/check_pos_redirect.c				\
+			$(DSRC)entry/parse_command/command_parse_tool.c		\
+			$(DSRC)entry/parse_command/command_parse.c			\
+			$(DSRC)entry/parse_command/command_to_word_array.c	\
+			$(DSRC)entry/parse_command/command_format.c			\
+			$(DSRC)entry/parse_command/check_command.c			\
+			$(DSRC)entry/parse_command/split_word_array.c		\
+			$(DSRC)entry/parse_command/is_invalid_redirection.c	\
+
+TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
+			$(DSRC)$(DTOOL)/merge_path_filename.c			\
+			$(DSRC)$(DTOOL)/word_array_search.c				\
+			$(DSRC)$(DTOOL)/tool.c							\
+			$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
+			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
+
+SRC	=	$(DSRC)main.c										\
+		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
+
+
+SRC_UT =	tests_unit/test_minishell.c							\
 			$(DSRC)entry/parse_command/command_format.c			\
 			$(DSRC)entry/parse_command/command_parse_tool.c		\
 			$(DSRC)entry/parse_command/command_to_word_array.c	\

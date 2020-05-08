@@ -14,6 +14,9 @@ static int set_error(shell_t *shell, cmd_t *cmd)
     return EXIT_SUCCESS;
 }
 
+/*
+    TODO : REFACTO
+*/
 int cmd_process(shell_t *shell, char *command)
 {
     cmd_t cmd;

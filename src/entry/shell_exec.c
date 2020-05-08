@@ -25,22 +25,12 @@ char **sub_entries)
 
 int shell_exec(shell_t *shell, char *entry)
 {
-    char **sub_entries  = split_entry(entry);
+    // TODO : fredou parser (+ cleaner)
 
-    if (process_check_entry(entry, shell, sub_entries)) {
-        return EXIT_SUCCESS;
-    }
+    // TODO : substitute variables
+
+    // TODO : entry checker (error)
+
     free(entry);
-    if (!sub_entries)
-        return EXIT_ERROR;
-    for (size_t i = 0; sub_entries[i] != NULL; i++) {
-        if (str_have_only_chars(sub_entries[i], ENTRY_CHAR_IGNORE) == true) {
-            continue;
-        }
-        if (shell_exec_piped(shell, sub_entries[i]) != EXIT_SUCCESS) {
-            return EXIT_ERROR;
-        }
-    }
-    word_array_destroy(sub_entries);
     return EXIT_SUCCESS;
 }
