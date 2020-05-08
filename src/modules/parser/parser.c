@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "parser.h"
 
-parser_t delimit[] =
+const parser_t delimit[] =
 {
     {" ", "", D_NORMAL, ID_SPACE},
     {"\t", "", D_NORMAL, ID_TAB},
@@ -27,4 +27,4 @@ parser_t delimit[] =
     {"|", "", D_GET, ID_PIPE},
     {"&", "", D_GET, ID_BACKGROUND},
     {NULL, NULL, ID_WIHOUT, ID_WIHOUT},
-}
+};
