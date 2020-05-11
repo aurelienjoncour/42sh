@@ -42,7 +42,7 @@ ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
-			$(DSRC)entry/bool_op/shell_exec_segment.c		\
+			$(DSRC)entry/bool_op/shell_exec_boolop.c		\
 			$(DSRC)entry/cmd_process.c						\
 
 TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
