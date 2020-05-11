@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-static const int NB_SHELL_CMD = 15;
+static const int NB_SHELL_CMD = 16;
 
 static const char *CMD_NAME[] =
 {
@@ -21,6 +21,7 @@ static const char *CMD_NAME[] =
     "$?",
     "echo",
     "alias",
+    "unalias",
     "set",
     "which",
     "where",
@@ -40,6 +41,7 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &show_exit_status,
     NULL, // echo
     NULL, // alias
+    NULL, // unalias
     NULL, // set
     NULL, // which
     NULL, // where
