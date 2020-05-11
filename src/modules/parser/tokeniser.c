@@ -11,82 +11,113 @@
 #include "parser.h"
 #include "node.h"
 
-static char *add_one_char(char *str, char c)
+static char *my_strncat_realloc(char *s1, char *s2, size_t n)
 {
-    size_t size = strlen(str);
-    char *new_str = malloc(sizeof(char) * (size + 2));
+    char *result = malloc(sizeof(char) * (strlen(s1) + n +1));
 
-    if (new_str == NULL)
+    if (result == NULL)
         return NULL;
-    strcpy(new_str, str);
-    free(str);
-    new_str[size] = c;
-    new_str[size + 1] = '\0';
-    return new_str;
+    strcpy(result, s1);
+    strncat(result, s2, n);
+    free(s1);
+    return result;
 }
 
-static int is_special_id(char *str)
+static ssize_t is_special_id(char *str, size_t cursor[2])
 {
-    for (int i = 0; delimit[i].start != 0; i++) {
-        if (!strncmp(delimit[i].start, str, strlen(delimit[i].start))) {
+    for (ssize_t i = 0; delimit[i].start != 0; i++) {
+        if (!strncmp(delimit[i].start, str+cursor[1], strlen(delimit[i].start))) {
             return i;
         }
     }
     return -1;
 }
 
-static token_t *init_node(char *av)
-{
-    token_t *start = NULL;
-    char str[2] = {0};
-
-    str[0] = av[0];
-    start = create_node(str, ID_WIHOUT, D_NORMAL);
-    return start;
-}
-
-static int add_special_token(int index, token_t *start, token_t *last)
+int create_token(token_t *last, char *argv, size_t cursor[2], ssize_t index)
 {
     token_t *data = NULL;
-    char str[2] = {0};
 
-    str[0] = delimit[index].start[0];
-    if (!strlen(last->token)) {
-        last->token = add_one_char(last->token, delimit[index].start[0]);
+    if (cursor[0] != cursor[1]) {
+        if (strlen(last->token)) {
+            data = create_node("\0", 0, 0);
+            add_node_at_the_end(last, data);
+        }
+        last = get_last_token(last);
+        last->token = my_strncat_realloc(last->token, argv+cursor[0], cursor[1] - cursor[0]);
+        cursor[0] = cursor[1];
+        data = create_node("\0", 0, 0);
+        add_node_at_the_end(last, data);
+    }
+    if (delimit[index].type == D_NORMAL) {
+        cursor[0] += strlen(delimit[index].start);
+        cursor[1] += strlen(delimit[index].start);
+    } else if (delimit[index].type == D_DELIM) {
+        printf("La\n");
+        cursor[1] += strlen(delimit[index].start);
+        while (strncmp(argv+cursor[1], delimit[index].end, strlen(delimit[index].end))) {
+            cursor[1]++;
+            if (argv[cursor[1]] == '\0')
+                return EXIT_ERROR;
+        }
+        if (strlen(last->token)) {
+            data = create_node("\0", 0, 0);
+            add_node_at_the_end(last, data);
+        }
+        last = get_last_token(last);
+        last->token = my_strncat_realloc(last->token, argv+cursor[0], cursor[1] - cursor[0] + 1);
         last->id = delimit[index].id;
         last->type = delimit[index].type;
+        cursor[1]++;
+        printf("->%s\n", argv+cursor[1]);
+        cursor[0] = cursor[1];
+        data = create_node("\0", 0, 0);
+        add_node_at_the_end(last, data);
+
     } else {
-        data = create_node(str, delimit[index].id, delimit[index].type);
-        if (data == NULL)
-            return EXIT_ERROR;
-        add_node_at_the_end(start, data);
+        if (strlen(last->token)) {
+            data = create_node("\0", 0, 0);
+            add_node_at_the_end(last, data);
+        }
+        last = get_last_token(last);
+        last->token = my_strncat_realloc(last->token, delimit[index].start, strlen(delimit[index].start));
+        last->id = delimit[index].id;
+        last->type = delimit[index].type;
+        cursor[1] += strlen(delimit[index].start);
+        cursor[0] = cursor[1];
+        data = create_node("\0", 0, 0);
+        add_node_at_the_end(last, data);
     }
-    data = create_node(NULL, 0, 0);
-    if (data == NULL)
-        return EXIT_ERROR;
-    add_node_at_the_end(start, data);
     return EXIT_SUCCESS;
 }
 
-token_t *tokeniser(char *av)
+
+token_t *tokeniser(char *argv)
 {
-    int index = 0;
-    token_t *start = init_node(av);
+    ssize_t index = 0;
+    size_t cursor[2] = {0};
+    token_t *start = create_node("\0", ID_WIHOUT, D_NORMAL);
     token_t *last = NULL;
+    token_t *data = NULL;
 
     if (start == NULL)
         return NULL;
-    for (size_t i = 1; av[i] != '\0'; i++) {
-        index = is_special_id(av+i);
-        last = get_last_token(start);
+    while (argv[cursor[1]] != '\0') {
+        printf("%s\n", argv+cursor[1]);
+        index = is_special_id(argv, cursor);
         if (index == -1) {
-            last->token = add_one_char(last->token, av[i]);
-            if (last->token == NULL)
-                return NULL;
+            cursor[1]++;
         } else {
-            if (add_special_token(index, start, last) == EXIT_ERROR)
+            last = get_last_token(start);
+            if (create_token(last, argv, cursor, index) == EXIT_ERROR)
                 return NULL;
         }
     }
+    last = get_last_token(last);
+    if (strlen(last->token)) {
+        data = create_node("\0", 0, 0);
+        add_node_at_the_end(last, data);
+        last = get_last_token(last);
+    }
+    last->token = my_strncat_realloc(last->token, argv+cursor[0], cursor[1] - cursor[0] + 1);
     return start;
 }

@@ -24,4 +24,6 @@ void free_node_array(token_t **array);
 
 token_t *tokeniser(char *av);
 
+#define EXIT_ERROR 84
+
 #endif /* !NODE_H_ */
