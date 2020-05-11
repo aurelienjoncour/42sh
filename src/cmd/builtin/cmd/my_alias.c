@@ -7,9 +7,9 @@
 
 #include "my.h"
 
-static int print_alias(char **cmd, shell_t *shell)
+static int print_alias(char *label, shell_t *shell)
 {
-    char *str = my_env_get_value(shell->alias, argv[1]);
+    char *str = my_env_get_value(shell->alias, label);
 
     if (str == NULL)
         return EXIT_ERROR;
@@ -30,11 +30,11 @@ static char *my_array_to_str(char const **tab)
     return str;
 }
 
-static int add_alias(env_t alias, char **cmd, char *target_cmd)
+static int set_alias(env_t *alias, const char *label, const char *target_cmd,
+        int (*func)(env_t *alias, const char *label, const char *target_cmd))
 {
-    int exit_value;
+    int exit_value = func(alias, label, target_cmd);
 
-    exit_value = my_env_add(shell->alias, cmd[1], target_cmd);
     free(target_cmd);
     return exit_value;
 }
@@ -43,23 +43,17 @@ int my_alias(char **cmd, shell_t *shell)
 {
     int argc = word_array_len(cmd);
     char *target_cmd;
-    char *str;
-    int exit_value;
 
     if (argc == 1) {
         my_env_display(shell->alias);
         return EXIT_SUCCESS;
     }
     if (argc == 2)
-        return print_alias(cmd, shell);
+        return print_alias(cmd[1], shell);
     target_cmd = my_array_to_str(cmd + 2);
     if (target_cmd == NULL)
         return EXIT_ERROR;
-    str = my_env_get(shell->shell);
-    if (str == NULL)
-        return add_alias(shell->alias, cmd, target_cmd);
-    free(str);
-    exit_value = my_env_update(shell->alias, cmd[1], target_cmd);
-    free(target_cmd);
-    return exit_value;
+    if (my_env_exist(&shell->alias, cmd[1]))
+        return update_alias(&shell->alias, cmd[1], target_cmd, &my_env_update);
+    return add_alias(&shell->alias, cmd[1], target_cmd, &my_env_add);
 }
