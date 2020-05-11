@@ -12,6 +12,9 @@ int shell_create(shell_t *shell, char **env)
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS) {
         return EXIT_ERROR;
     }
+    if (my_env_create(&shell->local, env) != EXIT_SUCCESS) {
+        return EXIT_ERROR;
+    }
     shell->prev_path = NULL;
     shell->exit = false;
     shell->exit_status = EXIT_SUCCESS;
@@ -27,6 +30,7 @@ int shell_create(shell_t *shell, char **env)
 int shell_destroy(shell_t *shell)
 {
     my_env_destroy(&shell->env);
+    my_env_destroy(&shell->local);
     free(shell->prev_path);
     close(shell->fd.stdin);
     close(shell->fd.stdout);
