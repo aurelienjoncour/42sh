@@ -6,7 +6,7 @@
 ##
 
 DSRC	=	./src/
-DCMD 	=	entry/cmd
+DCMD 	=	cmd
 DMASTER =	master
 DTOOL 	=	tool
 
