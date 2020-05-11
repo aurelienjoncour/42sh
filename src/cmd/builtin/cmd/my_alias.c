@@ -33,8 +33,14 @@ static char *my_array_to_str(char const **tab)
 static int set_alias(env_t *alias, const char *label, const char *target_cmd,
         int (*func)(env_t *alias, const char *label, const char *target_cmd))
 {
-    int exit_value = func(alias, label, target_cmd);
+    int exit_value
 
+    if (!my_strcmp(label, "unalias")) {
+        free(target_cmd);
+        my_puterror("unalias: Too dangerous to alias that.\n");
+        return EXIT_FAILURE;
+    }
+    exit_value = func(alias, label, target_cmd);
     free(target_cmd);
     return exit_value;
 }
