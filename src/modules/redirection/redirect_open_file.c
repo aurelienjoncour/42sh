@@ -18,7 +18,7 @@ void show_error(const char *param)
     my_putstr_error(msg);
     my_putstr_error(".\n");
 }
-
+/*
 static int open_file_write(char *filepath, redirect_mode_out_t redirect_mode)
 {
     int flags = O_CREAT | O_WRONLY;
@@ -49,21 +49,21 @@ static int open_file_read(char *filepath)
     }
     return fd;
 }
-
+*/
 void redirection_open_file(cmd_t *cmd)
 {
-    if (cmd->red_mode_out == TO_OUT || cmd->red_mode_out == TO_OUT_ADD) {
-        cmd->file_fd_out = open_file_write(cmd->redirect_out[1],
-                                            cmd->red_mode_out);
-        if (cmd->file_fd_out == -1) {
-            cmd->err = true;
-            return;
-        }
-    }
-    if (cmd->red_mode_in == FROM_IN) {
-        cmd->file_fd_in = open_file_read(cmd->redirect_in[1]);
-        if (cmd->file_fd_in == -1) {
-            cmd->err = true;
-        }
-    }
+    // if (cmd->red_mode_out == TO_OUT || cmd->red_mode_out == TO_OUT_ADD) {
+    //     cmd->file_fd_out = open_file_write(cmd->redirect_out[1],
+    //                                         cmd->red_mode_out);
+    //     if (cmd->file_fd_out == -1) {
+    //         cmd->err = true;
+    //         return;
+    //     }
+    // }
+    // if (cmd->red_mode_in == FROM_IN) {
+    //     cmd->file_fd_in = open_file_read(cmd->redirect_in[1]);
+    //     if (cmd->file_fd_in == -1) {
+    //         cmd->err = true;
+    //     }
+    // }
 }

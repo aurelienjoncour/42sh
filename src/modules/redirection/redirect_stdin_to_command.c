@@ -55,20 +55,20 @@ int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd)
     char *data = NULL;
     int len_data;
 
-    if (pipe(cmd->pipe_redirect) == -1) {
-        return puterr("pipe : fail\n", EXIT_ERROR);
-    }
-    data = read_stdin(end_pattern);
-    if (data) {
-        len_data = my_strlen(data);
-        write(cmd->pipe_redirect[1], data, len_data);
-        free(data);
-    }
-    if (close(cmd->pipe_redirect[1]) == -1) {
-        return puterr("close pipe_red[1] : fail\n", EXIT_ERROR);
-    }
-    if (dup2(cmd->pipe_redirect[0], 0) == -1) {
-        return puterr("dup2 : fail\n", EXIT_ERROR);
-    }
+    // if (pipe(cmd->pipe_redirect) == -1) {
+    //     return puterr("pipe : fail\n", EXIT_ERROR);
+    // }
+    // data = read_stdin(end_pattern);
+    // if (data) {
+    //     len_data = my_strlen(data);
+    //     write(cmd->pipe_redirect[1], data, len_data);
+    //     free(data);
+    // }
+    // if (close(cmd->pipe_redirect[1]) == -1) {
+    //     return puterr("close pipe_red[1] : fail\n", EXIT_ERROR);
+    // }
+    // if (dup2(cmd->pipe_redirect[0], 0) == -1) {
+    //     return puterr("dup2 : fail\n", EXIT_ERROR);
+    // }
     return EXIT_SUCCESS;
 }

@@ -9,8 +9,8 @@
 #define H_CMD_T
 
 typedef struct cmd {
-    token_t *begin;
-    token_t *end;
+    //token_t *begin;
+    //token_t *end;
     size_t size;
 } cmd_t;
 
