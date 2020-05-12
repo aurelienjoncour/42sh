@@ -42,7 +42,7 @@ void display_path_without_homepath(env_t *env, char *path);
 char *merge_path_filename(const char *path, const char *filename);
 
 int word_array_search(char **array, const int size, const char *str);
-int word_array_search2(const char **array, const int size, const char *str);
+int word_array_search2(const char **array, const char *str);
 
 bool char_is_letter(const char c);
 bool str_is_alphanum(const char *str);
@@ -86,6 +86,7 @@ int show_exit_status(char **cmd, shell_t *shell);
 
 int my_echo(char **cmd, shell_t *shell);
 int my_set(char **cmd, shell_t *shell);
+int my_which(char **cmd, shell_t *shell);
 
 //-------------------------------------------------
 //                 - MODULES -

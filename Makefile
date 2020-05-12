@@ -38,6 +38,7 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
 			$(DSRC)$(DCMD)/builtin/cmd/my_echo.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_set.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_which.c			\
 
 ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/shell_exec_segment.c				\
