@@ -68,6 +68,7 @@ SRC_STR  =	$(DSTR)my_putchar.c				\
 			$(DSTR)my_strcmp.c					\
 			$(DSTR)my_strcpy.c					\
 			$(DSTR)my_strdup.c					\
+			$(DSTR)my_strndup.c					\
 			$(DSTR)my_str_isalpha.c				\
 			$(DSTR)my_str_islower.c				\
 			$(DSTR)my_str_isnum.c				\
