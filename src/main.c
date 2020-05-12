@@ -9,16 +9,16 @@
 
 int main(int argc, char **argv, char **env)
 {
-    shell_t minishell;
+    shell_t shell;
     int ret;
 
     (void)argc;
     (void)argv;
-    if (shell_create(&minishell, env)) {
+    if (shell_create(&shell, env)) {
         return EXIT_ERROR;
     } else {
-        ret = shell_run(&minishell);
-        shell_destroy(&minishell);
+        ret = shell_run(&shell);
+        shell_destroy(&shell);
         return ret;
     }
 }
