@@ -55,7 +55,6 @@ char **ptr_value)
 static int get_label_and_value(char **wa, size_t idx,
 char **ptr_label, char **ptr_value)
 {
-    char **split_str = NULL;
     bool have_equal = false;
 
     for (size_t i = 0; wa[idx][i] != '\0'; i++) {

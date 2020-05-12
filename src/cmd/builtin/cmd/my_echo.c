@@ -26,6 +26,7 @@ int my_echo(char **cmd, shell_t *shell)
 {
     bool display_new_line = true;
 
+    (void)shell;
     for (size_t i = 1; cmd[i] != NULL; i++) {
         if (is_option(cmd[i]) == true) {
             display_new_line = false;
