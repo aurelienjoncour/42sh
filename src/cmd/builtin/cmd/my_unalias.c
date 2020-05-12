@@ -6,13 +6,12 @@
 */
 
 #include "my.h"
+#include "shell_t.h"
 
 int my_unalias(char **cmd, shell_t *shell)
 {
-    if (word_array_len(cmd) <= 1) {
-        my_puterror("unalias: Too few arguments.\n")
-        return EXIT_FAILURE;
-    }
+    if (word_array_len(cmd) <= 1)
+        return my_puterror("unalias: Too few arguments.\n", EXIT_FAILURE);
     for (int i = 1; cmd[i] != NULL; i++) {
         if (cmd[i][0] == '-')
             continue;

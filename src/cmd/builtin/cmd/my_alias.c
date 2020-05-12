@@ -8,10 +8,11 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "my.h"
+#include "shell_t.h"
 
-static int print_alias(char *label, shell_t *shell)
+static int print_alias(char *label, env_t *alias)
 {
-    char *str = my_env_get_value(shell->alias, label);
+    char *str = my_env_get_value(alias, label);
 
     if (str == NULL)
         return EXIT_ERROR;
@@ -20,7 +21,7 @@ static int print_alias(char *label, shell_t *shell)
     return EXIT_SUCCESS;
 }
 
-static char *my_array_to_str(char const **tab)
+static char *my_array_to_str(char **tab)
 {
     char *str = malloc(sizeof(char) * word_array_len(tab));
 
@@ -32,18 +33,18 @@ static char *my_array_to_str(char const **tab)
     return str;
 }
 
-static int set_alias(env_t *alias, const char *label, const char *target_cmd,
+static int set_alias(env_t *alias, const char *label, char *target_cmd,
                     bool update)
 {
-    int exit_value
+    int exit_value;
 
     if (update)
         exit_value = my_env_update(alias, label, target_cmd);
     else {
-        if (!my_strcmp(alias, "unalias")) {
+        if (!my_strcmp(label, "unalias")) {
             free(target_cmd);
-            my_puterror("unalias: Too dangerous to alias that.\n");
-            return EXIT_FAILURE;
+            return my_puterror("unalias: Too dangerous to alias that.\n",
+                                EXIT_FAILURE);
         }
         exit_value = my_env_add(alias, label, target_cmd);
     }
@@ -51,19 +52,19 @@ static int set_alias(env_t *alias, const char *label, const char *target_cmd,
     return exit_value;
 }
 
-static bool get_alias_opt(int argc, char const **argv)
+static bool get_alias_opt(int argc, char * const *argv)
 {
     static char *print = NULL;
     int opt;
     char *arg = "NULL";
 
     do {
-        opt = get_opt(argc, argv, "p::");
+        opt = getopt(argc, argv, "p::");
         if (opt == '?')
             return true;
         if (opt == 'p')
             arg = my_strdup(optarg);
-    } while (opt != -1)
+    } while (opt != -1);
     if (arg != NULL && !my_strcmp(arg, "NULL"))
         return false;
     if (arg == NULL && print != NULL)
@@ -83,11 +84,11 @@ int my_alias(char **cmd, shell_t *shell)
     if (get_alias_opt(argc, cmd))
         return EXIT_SUCCESS;
     if (argc == 1) {
-        my_env_display(shell->alias);
+        my_env_display(&shell->alias);
         return EXIT_SUCCESS;
     }
     if (argc == 2)
-        return print_alias(cmd[1], shell);
+        return print_alias(cmd[1], &shell->alias);
     target_cmd = my_array_to_str(cmd + 2);
     if (target_cmd == NULL)
         return EXIT_ERROR;
