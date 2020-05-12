@@ -34,7 +34,7 @@ static char *my_array_to_str(char **tab)
 
     for (int i = 0; tab[i] != NULL; i++)
         size += my_strlen(tab[i]);
-    str = malloc(sizeof(char) * size);
+    str = malloc(sizeof(char) * size + 1);
     if (str == NULL)
         return NULL;
     str[0] = '\0';
