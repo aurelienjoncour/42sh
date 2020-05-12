@@ -58,7 +58,7 @@ static bool get_alias_opt(int argc, char const **argv)
     char *arg = "NULL";
 
     do {
-        opt = get_opt(argc, argv, "p::")
+        opt = get_opt(argc, argv, "p::");
         if (opt == '?')
             return true;
         if (opt == 'p')
