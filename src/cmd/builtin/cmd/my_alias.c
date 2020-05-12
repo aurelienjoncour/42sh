@@ -35,11 +35,6 @@ static int set_alias(env_t *alias, const char *label, const char *target_cmd,
 {
     int exit_value
 
-    if (!my_strcmp(label, "unalias")) {
-        free(target_cmd);
-        my_puterror("unalias: Too dangerous to alias that.\n");
-        return EXIT_FAILURE;
-    }
     exit_value = func(alias, label, target_cmd);
     free(target_cmd);
     return exit_value;
@@ -60,6 +55,11 @@ int my_alias(char **cmd, shell_t *shell)
     if (target_cmd == NULL)
         return EXIT_ERROR;
     if (my_env_exist(&shell->alias, cmd[1]))
-        return update_alias(&shell->alias, cmd[1], target_cmd, &my_env_update);
-    return add_alias(&shell->alias, cmd[1], target_cmd, &my_env_add);
+        return set_alias(&shell->alias, cmd[1], target_cmd, &my_env_update);
+    if (!my_strcmp(cmd[1], "unalias")) {
+        free(target_cmd);
+        my_puterror("unalias: Too dangerous to alias that.\n");
+        return EXIT_FAILURE;
+    }
+    return set_alias(&shell->alias, cmd[1], target_cmd, &my_env_add);
 }
