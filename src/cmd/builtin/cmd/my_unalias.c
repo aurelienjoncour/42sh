@@ -13,7 +13,10 @@ int my_unalias(char **cmd, shell_t *shell)
         my_puterror("unalias: Too few arguments.\n")
         return EXIT_FAILURE;
     }
-    for (int i = 1; cmd[i] != NULL; i++)
+    for (int i = 1; cmd[i] != NULL; i++) {
+        if (cmd[i][0] == '-')
+            continue;
         my_env_rm(&shell->alias, cmd[i]);
+    }
     return EXIT_SUCCESS;
 }
