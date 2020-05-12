@@ -33,6 +33,9 @@ int my_echo(char **cmd, shell_t *shell)
         } else {
             printf("%s", cmd[i]);
         }
+        if (cmd[i + 1] != NULL && !is_option(cmd[i])) {
+            printf(" ");
+        }
     }
     fflush(stdout);
     if (display_new_line == true) {
