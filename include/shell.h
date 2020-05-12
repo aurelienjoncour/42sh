@@ -69,9 +69,10 @@ int cmd_process(shell_t *shell, cmd_t *cmd);
 int shell_exec_cmd(shell_t *shell, char **cmd);
 int shell_exec_shell_cmd(char **cmd, shell_t *shell);
 int shell_exec_bin_cmd(char **cmd, shell_t *shell);
+
+int get_bin_path(const char *cmd_name, char **ptr_path, shell_t *shell);
 int check_access_right_file(const char *bin_path);
-int get_bin_path(char ***ptr_cmd, shell_t *shell);
-int get_bin_path_search_bin(char ***cmd, shell_t *shell);
+char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell);
 
 // BUILTINS
 int my_exit(char **cmd, shell_t *shell);
