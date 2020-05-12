@@ -81,7 +81,7 @@ int shell_exec_bin_cmd(char **cmd, shell_t *shell)
     char *save_head = NULL;
     char *bin_path = NULL;
 
-    if (get_bin_path(cmd[0], &bin_path, shell) == EXIT_FAIL) {
+    if (get_bin_path(cmd[0], &bin_path, shell) != EXIT_SUCCESS) {
         return EXIT_FAIL;
     }
     save_head = cmd[0];
