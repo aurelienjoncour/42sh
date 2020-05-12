@@ -65,6 +65,7 @@ int my_puterror(const char *str, int status);
 int puterr(const char *str, int status);
 int my_strlen(char const *str);
 char *my_strdup(char const *src);
+char *my_strndup(char const *src, int size);
 char *my_strcpy(char *dest, char const *src);
 char *my_strncpy(char *dest, char const *src, int n);
 char *my_revstr(char *str);
