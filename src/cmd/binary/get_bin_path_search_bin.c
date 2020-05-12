@@ -24,7 +24,7 @@ static int manage_access_status(char **bin_path, char **eacces_bin_path)
     return 0;
 }
 
-static char *get_path_bin(char *bin_name, char *path_list)
+static char *get_path_bin(const char *bin_name, char *path_list)
 {
     char **path_array = my_str_to_word_array(path_list, ":");
     char *bin_path = NULL;
@@ -46,24 +46,16 @@ static char *get_path_bin(char *bin_name, char *path_list)
     return bin_path;
 }
 
-int get_bin_path_search_bin(char ***cmd, shell_t *shell)
+char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell)
 {
-    char *name_cmd = (*cmd)[0];
     char *path_list = NULL;
     char *bin_path = NULL;
 
     path_list = my_env_get_value(&shell->env, "PATH");
     if (!path_list) {
-        free(path_list);
-        return EXIT_FAIL;
+        return NULL;
     }
-    bin_path = get_path_bin(name_cmd, path_list);
-    if (bin_path) {
-        (*cmd)[0][0] = '\0';
-        (*cmd)[0] = bin_path;
-        free(path_list);
-        return EXIT_SUCCESS;
-    }
+    bin_path = get_path_bin(cmd_name, path_list);
     free(path_list);
-    return EXIT_FAIL;
+    return bin_path;
 }

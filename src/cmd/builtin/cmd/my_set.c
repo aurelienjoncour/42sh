@@ -55,7 +55,6 @@ char **ptr_value)
 static int get_label_and_value(char **wa, size_t idx,
 char **ptr_label, char **ptr_value)
 {
-    char **split_str = NULL;
     bool have_equal = false;
 
     for (size_t i = 0; wa[idx][i] != '\0'; i++) {
@@ -66,11 +65,12 @@ char **ptr_label, char **ptr_value)
             break;
         }
     }
-    if (have_equal && split_parameter(wa[idx], ptr_label, ptr_value) != 0) {
-        return EXIT_ERROR;
+    if (have_equal) {
+        if (split_parameter(wa[idx], ptr_label, ptr_value) != 0)
+            return EXIT_ERROR;
     } else {
         *ptr_label = my_strdup(wa[idx]);
-        *ptr_value = my_strdup(wa[idx + 1]);
+        *ptr_value = NULL;
     }
     return EXIT_SUCCESS;
 }
@@ -102,6 +102,7 @@ static int set_variable(char **wa, size_t idx, env_t *var)
 int my_set(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
+    int ret;
 
     if (len == 1) {
         my_env_display(&shell->local);
@@ -109,7 +110,8 @@ int my_set(char **cmd, shell_t *shell)
         return EXIT_SUCCESS;
     }
     for (size_t i = 1; cmd[i] != NULL; i++) {
-        if (set_variable(cmd, i, &shell->local)) {
+        ret = set_variable(cmd, i, &shell->local);
+        if (ret == EXIT_ERROR) {
             shell->exit_status = ERROR_STATUS;
             return EXIT_ERROR;
         }

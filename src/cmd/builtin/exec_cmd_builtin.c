@@ -7,9 +7,7 @@
 
 #include "shell.h"
 
-static const int NB_SHELL_CMD = 16;
-
-static const char *CMD_NAME[] =
+const char *BUILTIN_NAME[] =
 {
     "cd",
     "exit",
@@ -26,7 +24,8 @@ static const char *CMD_NAME[] =
     "which",
     "where",
     "history",
-    "fg"
+    "fg",
+    NULL
 };
 
 static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
@@ -43,15 +42,15 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_alias,
     &my_unalias,
     &my_set,
-    NULL, // which
-    NULL, // where
+    &my_which,
+    &my_where,
     NULL, // history
     NULL  // fg
 };
 
 int shell_exec_shell_cmd(char **cmd, shell_t *shell)
 {
-    int idx_cmd = word_array_search2(CMD_NAME, NB_SHELL_CMD, cmd[0]);
+    int idx_cmd = word_array_search2(BUILTIN_NAME, cmd[0]);
     int ret;
 
     if (idx_cmd == -1) {

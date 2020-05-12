@@ -42,7 +42,7 @@ void display_path_without_homepath(env_t *env, char *path);
 char *merge_path_filename(const char *path, const char *filename);
 
 int word_array_search(char **array, const int size, const char *str);
-int word_array_search2(const char **array, const int size, const char *str);
+int word_array_search2(const char **array, const char *str);
 
 bool char_is_letter(const char c);
 bool str_is_alphanum(const char *str);
@@ -69,9 +69,10 @@ int cmd_process(shell_t *shell, cmd_t *cmd);
 int shell_exec_cmd(shell_t *shell, char **cmd);
 int shell_exec_shell_cmd(char **cmd, shell_t *shell);
 int shell_exec_bin_cmd(char **cmd, shell_t *shell);
+
+int get_bin_path(const char *cmd_name, char **ptr_path, shell_t *shell);
 int check_access_right_file(const char *bin_path);
-int get_bin_path(char ***ptr_cmd, shell_t *shell);
-int get_bin_path_search_bin(char ***cmd, shell_t *shell);
+char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell);
 
 // BUILTINS
 int my_exit(char **cmd, shell_t *shell);
@@ -87,6 +88,11 @@ int my_echo(char **cmd, shell_t *shell);
 int my_alias(char **cmd, shell_t *shell);
 int my_unalias(char **cmd, shell_t *shell);
 int my_set(char **cmd, shell_t *shell);
+int my_which(char **cmd, shell_t *shell);
+int my_where(char **cmd, shell_t *shell);
+
+// Builtins : sub-function
+int where_show_all_path(const char *cmd_name, shell_t *shell);
 
 //-------------------------------------------------
 //                 - MODULES -

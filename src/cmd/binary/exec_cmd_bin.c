@@ -78,15 +78,18 @@ int fork_process(char **cmd, shell_t *shell)
 
 int shell_exec_bin_cmd(char **cmd, shell_t *shell)
 {
-    char *save_cmd_head = cmd[0];
+    char *save_head = NULL;
+    char *bin_path = NULL;
 
-    if (get_bin_path(&cmd, shell) == EXIT_FAIL) {
+    if (get_bin_path(cmd[0], &bin_path, shell) != EXIT_SUCCESS) {
         return EXIT_FAIL;
     }
+    save_head = cmd[0];
+    cmd[0] = bin_path;
     if (fork_process(cmd, shell) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    if (save_cmd_head[0] == 0)
-        free(cmd[0]);
+    free(bin_path);
+    cmd[0] = save_head;
     return EXIT_SUCCESS;
 }
