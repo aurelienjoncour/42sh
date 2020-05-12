@@ -5,6 +5,8 @@
 ** shell command function
 */
 
+#include <unistd.h>
+#include <stdbool.h>
 #include "my.h"
 
 static int print_alias(char *label, shell_t *shell)
@@ -31,13 +33,46 @@ static char *my_array_to_str(char const **tab)
 }
 
 static int set_alias(env_t *alias, const char *label, const char *target_cmd,
-        int (*func)(env_t *alias, const char *label, const char *target_cmd))
+                    bool update)
 {
     int exit_value
 
-    exit_value = func(alias, label, target_cmd);
+    if (update)
+        exit_value = my_env_update(alias, label, target_cmd);
+    else {
+        if (!my_strcmp(alias, "unalias")) {
+            free(target_cmd);
+            my_puterror("unalias: Too dangerous to alias that.\n");
+            return EXIT_FAILURE;
+        }
+        exit_value = my_env_add(alias, label, target_cmd);
+    }
     free(target_cmd);
     return exit_value;
+}
+
+static bool get_alias_opt(int argc, char const **argv)
+{
+    static char *print = NULL;
+    int opt;
+    char *arg = "NULL";
+
+    do {
+        opt = get_opt(argc, argv, "p::")
+        if (opt == '?')
+            return true;
+        if (opt == 'p')
+            arg = my_strdup(optarg);
+    } while (opt != -1)
+    if (arg != NULL && !my_strcmp(arg, "NULL"))
+        return false;
+    if (arg == NULL && print != NULL)
+        printf("%s\n", print);
+    else if (arg) {
+        free(print);
+        print = arg;
+    }
+    return true;
 }
 
 int my_alias(char **cmd, shell_t *shell)
@@ -45,6 +80,8 @@ int my_alias(char **cmd, shell_t *shell)
     int argc = word_array_len(cmd);
     char *target_cmd;
 
+    if (get_alias_opt(argc, cmd))
+        return EXIT_SUCCESS;
     if (argc == 1) {
         my_env_display(shell->alias);
         return EXIT_SUCCESS;
@@ -55,11 +92,6 @@ int my_alias(char **cmd, shell_t *shell)
     if (target_cmd == NULL)
         return EXIT_ERROR;
     if (my_env_exist(&shell->alias, cmd[1]))
-        return set_alias(&shell->alias, cmd[1], target_cmd, &my_env_update);
-    if (!my_strcmp(cmd[1], "unalias")) {
-        free(target_cmd);
-        my_puterror("unalias: Too dangerous to alias that.\n");
-        return EXIT_FAILURE;
-    }
-    return set_alias(&shell->alias, cmd[1], target_cmd, &my_env_add);
+        return set_alias(&shell->alias, cmd[1], target_cmd, true);
+    return set_alias(&shell->alias, cmd[1], target_cmd, false);
 }
