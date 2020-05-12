@@ -42,7 +42,7 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_echo,
     NULL, // alias
     NULL, // unalias
-    NULL, // set
+    &my_set,
     NULL, // which
     NULL, // where
     NULL, // history

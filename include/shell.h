@@ -84,6 +84,7 @@ int my_pwd(char **cmd, shell_t *shell);
 int show_exit_status(char **cmd, shell_t *shell);
 
 int my_echo(char **cmd, shell_t *shell);
+int my_set(char **cmd, shell_t *shell);
 
 //-------------------------------------------------
 //                 - MODULES -
