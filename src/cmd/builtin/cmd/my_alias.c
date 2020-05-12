@@ -15,8 +15,9 @@ static int print_alias(char *label, env_t *alias)
     char *str = my_env_get_value(alias, label);
 
     if (str == NULL)
-        return EXIT_ERROR;
+        return EXIT_SUCCESS;
     my_putstr(str);
+    my_putstr("\n");
     free(str);
     return EXIT_SUCCESS;
 }
