@@ -87,6 +87,10 @@ int show_exit_status(char **cmd, shell_t *shell);
 int my_echo(char **cmd, shell_t *shell);
 int my_set(char **cmd, shell_t *shell);
 int my_which(char **cmd, shell_t *shell);
+int my_where(char **cmd, shell_t *shell);
+
+// Builtins : sub-function
+int where_show_all_path(const char *cmd_name, shell_t *shell);
 
 //-------------------------------------------------
 //                 - MODULES -
