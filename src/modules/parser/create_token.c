@@ -13,23 +13,23 @@
 
 extern const parser_t DELIMIT[];
 
-static void first_block(token_t **ptr_data, token_t **ptr_last, char *argv,
-size_t *cursor)
+static void first_block(token_t **ptr_last, char *argv, size_t *cursor)
 {
     size_t size;
+    token_t *data = NULL;
 
     if (cursor[0] != cursor[1]) {
         if (strlen((*ptr_last)->token)) {
-            (*ptr_data) = create_node("\0", 0, 0);
-            add_node_at_the_end((*ptr_last), (*ptr_data));
+            data = create_node("\0", 0, 0);
+            add_node_at_the_end((*ptr_last), data);
         }
         (*ptr_last) = get_last_token((*ptr_last));
         size = (cursor[1] - cursor[0]);
         (*ptr_last)->token = my_strncat_realloc((*ptr_last)->token,
                                                 (argv + cursor[0]), size);
         cursor[0] = cursor[1];
-        (*ptr_data) = create_node("\0", 0, 0);
-        add_node_at_the_end((*ptr_last), (*ptr_data));
+        data = create_node("\0", 0, 0);
+        add_node_at_the_end((*ptr_last), data);
     }
 }
 
@@ -101,8 +101,10 @@ int create_token(token_t *last, char *argv, size_t cursor[2], ssize_t index)
 {
     token_t *data = NULL;
 
-    first_block(&data, &last, argv, cursor);
+    first_block(&last, argv, cursor);
     if (DELIMIT[index].type == D_NORMAL) {
+        if (argv[cursor[0]] == '\0')
+            return EXIT_SUCCESS;
         cursor[0] += strlen(DELIMIT[index].start);
         cursor[1] += strlen(DELIMIT[index].start);
     } else if (DELIMIT[index].type == D_DELIM) {

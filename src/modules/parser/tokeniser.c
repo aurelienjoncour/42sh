@@ -38,6 +38,15 @@ token_t **ptr_last)
     return EXIT_SUCCESS;
 }
 
+static void push_text_if_empty(token_t *start, token_t **ptr_last,
+char *entry, size_t *cursor)
+{
+    if (start->token[0] == '\0' || !start->token) {
+        (*ptr_last) = get_last_token(start);
+        create_token((*ptr_last), entry, cursor, 0);
+    }
+}
+
 token_t *tokeniser(char *entry)
 {
     size_t cursor[2] = {0};
@@ -48,11 +57,11 @@ token_t *tokeniser(char *entry)
 
     if (start == NULL)
         return NULL;
-    else if (tokeniser_build(entry, cursor, start, &last) == EXIT_ERROR) {
+    else if (tokeniser_build(entry, cursor, start, &last) == EXIT_ERROR)
         return NULL;
-    }
+    push_text_if_empty(start, &last, entry, cursor);
     last = get_last_token(last);
-    if (strlen(last->token)) {
+    if (last && strlen(last->token)) {
         data = create_node("\0", 0, 0);
         add_node_at_the_end(last, data);
         last = get_last_token(last);
