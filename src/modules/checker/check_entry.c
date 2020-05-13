@@ -9,22 +9,17 @@
 
 static const char *ERR_MISSING_QUOTE = "Unmatched '%c'.\n";
 static const char *ERR_MISSING_REDIR_NAME = "Missing name for redirect.\n";
-static const char *ERR_SEVERAL_REDIR_OUT = "Ambiguous output redirect.\n";
-static const char *ERR_SEVERAL_REDIR_IN = "Ambiguous input redirect.\n";
 static const char *ERR_NULL_CMD = "Invalid null command.\n";
 
 static const char *QUOTES = "\"'`";
 
-static bool str_is_word(const char *str)
+static bool is_redirection(ID token_id)
 {
-    // if (str == NULL)
-    //     return false;
-    // for (size_t i = 0; REDIR_PATT[i] != NULL; i++) {
-    //     if (my_strcmp(str, REDIR_PATT[i]) == 0) {
-    //         return false;
-    //     }
-    // }
-    return true;
+    if (ptr->id == ID_DOUBLE_RIGHT || ptr->id == ID_RIGHT
+        || ptr->id == ID_DOUBLE_LEFT || ptr->id == ID_LEFT) {
+        return true;
+    }
+    return false;
 }
 
 bool have_missing_str_quote(const char *entry)
@@ -51,12 +46,10 @@ bool have_missing_str_quote(const char *entry)
 bool have_missing_name_redirection(cmd_t *cmd)
 {
     for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
-        if (ptr->id != ID_REDIRECTION && ptr->id != ID_DOUBLE_RIGHT
-            && ptr->id != ID_RIGHT && ptr->id != ID_DOUBLE_LEFTT
-            && ptr->id != ID_LEFT) {
+        if (is_redirection(ptr->id) == false) {
             continue;
         }
-        if (ptr->next == NULL || ptr->next->id != ID_WIHOUT) {
+        if (ptr->next == NULL || ptr->next->id != ID_WITHOUT) {
             my_putstr_error(ERR_MISSING_REDIR_NAME);
             return true;
         }
@@ -64,48 +57,34 @@ bool have_missing_name_redirection(cmd_t *cmd)
     return false;
 }
 
-bool have_several_redirection(cmd_t *cmd)
+static bool have_null_command_check_token(bool *have_text, token_t *ptr,
+token_t *prev_ptr)
 {
-    int serie;
-    int occur;
-    bool err = false;
-
-    my_str_count_char_suite(cmd->command, '<', &occur, &serie);
-    if (occur > 2 || (occur == 2 && serie != 2)) {
-        my_putstr_error(ERR_SEVERAL_REDIR_IN);
-        err = true;
-    }
-    my_str_count_char_suite(cmd->command, '>', &occur, &serie);
-    if (occur > 2 || (occur == 2 && serie != 2)) {
-        my_putstr_error(ERR_SEVERAL_REDIR_OUT);
-        err = true;
-    }
-    if (err == true) {
-        return true;
+    if (ptr->type == D_SEPARATOR || ptr->id == ID_PIPE) {
+        if (*have_text == false
+                && !(ptr->id == ID_SEP && prev_ptr->id == ID_SEP)) {
+            return true;
+        }
+        *have_text = false;
+    } else if ((ptr->type == ID_WITHOUT
+            && (!prev_ptr || !is_redirection(prev_ptr->id)))
+            || (ptr->type == D_DELIM && ptr->id != ID_PARENTHESE)) {
+        *have_text = true;
     }
     return false;
 }
 
 bool have_null_command(cmd_t *cmd)
 {
-    // int len = word_array_len(cmd->wa);
-    // bool have_redirection_alpha = false;
-    // bool have_redirection_beta = false;
-    //
-    // if (len != 4 && len != 2) {
-    //     return false;
-    // }
-    // for (size_t j = 0; REDIR_PATT[j] != NULL; j++) {
-    //     if (my_strcmp(REDIR_PATT[j], cmd->wa[0]) == 0) {
-    //         have_redirection_alpha = true;
-    //     }
-    //     if (len == 4 && my_strcmp(REDIR_PATT[j], cmd->wa[2]) == 0) {
-    //         have_redirection_beta = true;
-    //     }
-    // }
-    // if (have_redirection_alpha && (len != 4 || have_redirection_beta)) {
-    //     my_putstr_error(ERR_NULL_CMD);
-    //     return true;
-    // }
+    bool have_text = false;
+    token_t *prev_ptr = NULL;
+
+    for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
+        if (have_null_command_check_token(&have_text, ptr, prev_ptr)) {
+            my_putstr_error(ERR_NULL_CMD);
+            return true;
+        }
+        prev_ptr = ptr;
+    }
     return false;
 }
