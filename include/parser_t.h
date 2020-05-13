@@ -11,7 +11,7 @@
 #define EXIT_ERROR 84
 
 typedef enum id {
-    ID_WIHOUT,
+    ID_WITHOUT,
     ID_SPACE,
     ID_TAB,
     ID_DOUBLE_QUOTE,

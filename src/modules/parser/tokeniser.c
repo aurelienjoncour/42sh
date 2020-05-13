@@ -16,13 +16,13 @@ extern const parser_t DELIMIT[];
 static int tokeniser_build(char *entry, size_t *cursor, token_t *start,
 token_t **ptr_last)
 {
-    ID prev_id = ID_WIHOUT;
+    ID prev_id = ID_WITHOUT;
     ssize_t index = 0;
 
     while (entry[cursor[1]] != '\0') {
         index = is_special_id(entry, cursor);
         if (index != -1 && prev_id == ID_IGNORE) {
-            prev_id = ID_WIHOUT;
+            prev_id = ID_WITHOUT;
             cursor[1] += strlen(DELIMIT[index].start);
             continue;
         }
@@ -51,7 +51,7 @@ token_t *tokeniser(char *entry)
 {
     size_t cursor[2] = {0};
     size_t size;
-    token_t *start = create_node("\0", ID_WIHOUT, D_NORMAL);
+    token_t *start = create_node("\0", ID_WITHOUT, D_NORMAL);
     token_t *last = NULL;
     token_t *data = NULL;
 
