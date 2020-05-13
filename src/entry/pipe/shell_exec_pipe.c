@@ -7,8 +7,6 @@
 
 #include "shell.h"
 
-static const char *ERR_NULL_CMD = "Invalid null command.\n";
-
 static void wait_end_all_child_process(void)
 {
     int wstatus;
@@ -19,7 +17,7 @@ static void wait_end_all_child_process(void)
     } while (pid != -1);
 }
 
-static int process_all_pipe(shell_t *shell, char **piped_cmd)
+static int process_all_pipe(shell_t *shell, cmd_t **piped_cmd)
 {
     bool is_last = false;
 
@@ -39,20 +37,16 @@ static int process_all_pipe(shell_t *shell, char **piped_cmd)
     return EXIT_SUCCESS;
 }
 
-int shell_exec_piped(shell_t *shell, char *sub_entry) // TODO : REFACTO of directory
+int shell_exec_piped(shell_t *shell, cmd_t *cmd) // TODO : REFACTO of directory
 {
-    char **piped_cmd = my_str_to_word_array(sub_entry, "|");
+    //cmd_t **piped_cmd = split_cmd_list(cmd, token_id);
 
-    if (!piped_cmd) {
-        return EXIT_ERROR;
-    }
-    if (word_array_have_empty_str(piped_cmd) == true) {
-        shell->exit_status = ERROR_STATUS;
-        my_putstr(ERR_NULL_CMD);
-        return EXIT_SUCCESS;
-    } else if (process_all_pipe(shell, piped_cmd) == EXIT_ERROR) {
-        return EXIT_ERROR;
-    }
-    word_array_destroy(piped_cmd);
+    // if (!piped_cmd) {
+    //     return EXIT_ERROR;
+    // }
+    // if (process_all_pipe(shell, piped_cmd) == EXIT_ERROR) {
+    //     return EXIT_ERROR;
+    // }
+    //cmd_list_array_destroy(piped_cmd);
     return EXIT_SUCCESS;
 }
