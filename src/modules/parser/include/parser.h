@@ -5,10 +5,16 @@
 ** node
 */
 
-#ifndef NODE_H_
-#define NODE_H_
+#ifndef PARSER_H_
+#define PARSER_H_
 
 #include "parser_t.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+
+#include "cmd_t.h"
 
 // Sub functions Node
 void add_node(token_t *node, token_t *node_add);
@@ -27,9 +33,12 @@ char *my_strncat_realloc(char *s1, char *s2, size_t n);
 ssize_t is_special_id(char *str, size_t cursor[2]);
 void destroy_list(token_t *ptr);
 void display_list(token_t *start);
-
-// Main
 token_t *tokeniser(char *entry);
+
+////////////////////////////
+// Main Functions
+void cmd_destroy(cmd_t *cmd);
+cmd_t *parse_entry(char *entry);
 
 #define EXIT_ERROR 84
 

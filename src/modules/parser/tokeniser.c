@@ -13,12 +13,6 @@
 
 extern const parser_t DELIMIT[];
 
-static void ignore_token(size_t *cursor)
-{
-    cursor[1]++;
-    cursor[0] = cursor[1];
-}
-
 static int tokeniser_build(char *entry, size_t *cursor, token_t *start,
 token_t **ptr_last)
 {

@@ -5,8 +5,8 @@
 ** parser
 */
 
-#ifndef PARSER_H_
-#define PARSER_H_
+#ifndef T_PARSER_H_
+#define T_PARSER_H_
 
 #define EXIT_ERROR 84
 
