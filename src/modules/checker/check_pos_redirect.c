@@ -10,18 +10,6 @@
 static const char *ERR_AMBIG_IN = "Ambiguous input redirect.\n";
 static const char *ERR_AMBIG_OUT = "Ambiguous output redirect.\n";
 
-static int count_pipe(c)
-{
-    int count = 0;
-
-    for (size_t i = 0; sub_entry[i] != '\0'; i++) {
-        if (sub_entry[i] == PIPE_CHAR) {
-            count++;
-        }
-    }
-    return count;
-}
-
 static bool check_error(token_t *ptr, bool have_rd_right, in nb_pipe)
 {
     if (ptr->id == ID_PIPE && have_rd_right == true) {
