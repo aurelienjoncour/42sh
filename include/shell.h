@@ -92,6 +92,7 @@ int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
 bool check_position_redirection_in_pipe(cmd_t *cmd);
 bool check_have_empty_pipe(cmd_t *cmd);
 bool have_missing_str_quote(const char *entry);
+bool check_parenthesis(cmd_t *cmd);
 bool have_missing_name_redirection(cmd_t *cmd);
 bool have_several_redirection(cmd_t *cmd);
 bool have_null_command(cmd_t *cmd);

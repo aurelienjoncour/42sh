@@ -36,6 +36,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_pos_redirect.c				\
 			$(DSRC)modules/checker/check_have_empty_pipe.c			\
 			$(DSRC)modules/checker/check_entry.c					\
+			$(DSRC)modules/checker/check_parenthesis.c				\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\

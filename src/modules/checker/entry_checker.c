@@ -11,7 +11,10 @@ static int call_check_function(cmd_t *cmd, const char *entry)
 {
     if (have_missing_str_quote(entry) == true) {
         return EXIT_ERROR;
-    } else if (have_missing_name_redirection(cmd) == true) {
+    } else if (have_several_redirection(cmd) || !cmd) {
+        return EXIT_ERROR;
+    }
+    if (have_missing_name_redirection(cmd) == true) {
         return EXIT_ERROR;
     }
     if (check_position_redirection_in_pipe(cmd) == true) {
