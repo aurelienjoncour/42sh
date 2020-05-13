@@ -19,6 +19,7 @@ SRC			=	main.c						\
 				parser_array.c				\
 				create_token.c				\
 				tokeniser.c					\
+				tool.c					\
 
 OBJ			=	$(SRC:.c=.o)
 

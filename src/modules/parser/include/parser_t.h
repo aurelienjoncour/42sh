@@ -44,8 +44,6 @@ typedef struct parser_s{
     ID id;
 }parser_t;
 
-extern const parser_t delimit[];
-
 typedef struct token_s{
     char *token;
     ID id;
