@@ -15,8 +15,8 @@ static const char *QUOTES = "\"'`";
 
 static bool is_redirection(ID token_id)
 {
-    if (ptr->id == ID_DOUBLE_RIGHT || ptr->id == ID_RIGHT
-        || ptr->id == ID_DOUBLE_LEFT || ptr->id == ID_LEFT) {
+    if (token_id == ID_DOUBLE_RIGHT || token_id == ID_RIGHT
+        || token_id == ID_DOUBLE_LEFT || token_id == ID_LEFT) {
         return true;
     }
     return false;
@@ -66,7 +66,7 @@ token_t *prev_ptr)
             return true;
         }
         *have_text = false;
-    } else if ((ptr->type == ID_WITHOUT
+    } else if ((ptr->id == ID_WITHOUT
             && (!prev_ptr || !is_redirection(prev_ptr->id)))
             || (ptr->type == D_DELIM && ptr->id != ID_PARENTHESE)) {
         *have_text = true;

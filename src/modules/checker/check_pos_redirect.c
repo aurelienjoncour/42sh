@@ -10,7 +10,7 @@
 static const char *ERR_AMBIG_IN = "Ambiguous input redirect.\n";
 static const char *ERR_AMBIG_OUT = "Ambiguous output redirect.\n";
 
-static bool check_error(token_t *ptr, bool have_rd_right, in nb_pipe)
+static bool check_error(token_t *ptr, bool have_rd_right, int nb_pipe)
 {
     if (ptr->id == ID_PIPE && have_rd_right == true) {
         my_putstr_error(ERR_AMBIG_OUT);
