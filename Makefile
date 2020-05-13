@@ -18,7 +18,19 @@ MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
 MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/redirection/redirect_open_file.c			\
 			$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
-			$(DSRC)modules/parser/parser.c					\
+			$(DSRC)modules/parser/node/add_node.c					\
+			$(DSRC)modules/parser/node/connect_node.c				\
+			$(DSRC)modules/parser/node/create_node.c				\
+			$(DSRC)modules/parser/node/rm_node.c					\
+			$(DSRC)modules/parser/node/rm_next_node.c				\
+			$(DSRC)modules/parser/node/add_node_at_the_end.c		\
+			$(DSRC)modules/parser/destroy_list.c					\
+			$(DSRC)modules/parser/display_list.c					\
+			$(DSRC)modules/parser/parser_array.c					\
+			$(DSRC)modules/parser/create_token.c					\
+			$(DSRC)modules/parser/tokeniser.c						\
+			$(DSRC)modules/parser/tool.c							\
+			$(DSRC)modules/parser/main_parser.c						\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
