@@ -12,23 +12,24 @@ SRC			=	main.c						\
 				node/connect_node.c			\
 				node/create_node.c			\
 				node/rm_node.c				\
-				node/destroy_list.c			\
-				node/display_list.c			\
 				node/rm_next_node.c			\
 				node/add_node_at_the_end.c	\
-				parser.c					\
+				destroy_list.c				\
+				display_list.c				\
+				parser_array.c				\
+				create_token.c				\
 				tokeniser.c					\
 
 OBJ			=	$(SRC:.c=.o)
 
 NAME		=	parser
 
-CFLAGS		+=	-Wall -Wextra -W -I./include
+CFLAGS		+=	-Wall -Wextra -W -I./include -g
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-		gcc -o $(NAME) $(OBJ)
+		gcc -o $(NAME) $(OBJ) -g
 
 clean:
 			@rm -f $(OBJ)

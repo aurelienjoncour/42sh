@@ -6,8 +6,8 @@
 */
 
 #include <stdlib.h>
-#include "node.h"
 #include "parser.h"
+#include "parser_t.h"
 
 static char *arg = " echo coucou \"comment lol mdr\" ca va | cat -e | grep coucou || ls | cat -e | grep include && pwd | grep home | cat -e";
 

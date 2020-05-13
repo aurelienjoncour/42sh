@@ -5,7 +5,7 @@
 ** connect_node
 */
 
-#include "parser.h"
+#include "parser_t.h"
 
 void connect_node(token_t *node_1, token_t *node_2)
 {

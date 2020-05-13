@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "parser.h"
+#include "parser_t.h"
 
 static void init_value_node(token_t *node, ID id, TYPE type)
 {

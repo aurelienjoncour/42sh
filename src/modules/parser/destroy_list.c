@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
 void destroy_list(token_t *ptr)
 {

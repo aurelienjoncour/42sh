@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
 const parser_t delimit[] =
 {

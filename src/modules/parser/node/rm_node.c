@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
 token_t *rm_node(token_t *deleted)
 {
