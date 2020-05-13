@@ -9,6 +9,11 @@
 
 int shell_exec(shell_t *shell, char *entry)
 {
+    cmd_t *cmd;
+
+    char **cmd = my_str_to_word_array(entry, " "); // DEBUG
+    shell_exec_cmd(shell, cmd); // DEBUG
+
     // TODO : fredou parser (+ cleaner)
 
     // TODO : substitute variables
@@ -16,5 +21,8 @@ int shell_exec(shell_t *shell, char *entry)
     // TODO : entry checker (error)
 
     free(entry);
+    if (shell_exec_segment(shell, cmd) != EXIT_SUCCESS) {
+        return EXIT_ERROR;
+    }
     return EXIT_SUCCESS;
 }
