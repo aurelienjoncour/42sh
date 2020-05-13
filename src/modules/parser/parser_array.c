@@ -26,5 +26,6 @@ const parser_t DELIMIT[] =
     {";", "", D_SEPARATOR, ID_SEP},
     {"|", "", D_GET, ID_PIPE},
     {"&", "", D_GET, ID_BACKGROUND},
-    {NULL, NULL, ID_WIHOUT, ID_WIHOUT},
+    {"\\", "", D_NORMAL, ID_IGNORE},
+    {NULL, NULL, ID_WIHOUT, ID_WIHOUT}
 };

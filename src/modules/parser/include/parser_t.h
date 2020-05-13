@@ -27,29 +27,30 @@ typedef enum id {
     ID_AND,
     ID_SEP,
     ID_PIPE,
-    ID_BACKGROUND
-}ID;
+    ID_BACKGROUND,
+    ID_IGNORE
+} ID;
 
 typedef enum type {
     D_NORMAL,
     D_DELIM,
     D_GET,
     D_SEPARATOR
-}TYPE;
+} TYPE;
 
-typedef struct parser_s{
+typedef struct parser_s {
     char *start;
     char *end;
     TYPE type;
     ID id;
-}parser_t;
+} parser_t;
 
-typedef struct token_s{
+typedef struct token_s {
     char *token;
     ID id;
     TYPE type;
     struct token_s *next;
     struct token_s *prev;
-}token_t;
+} token_t;
 
 #endif /* !PARSER_H_ */

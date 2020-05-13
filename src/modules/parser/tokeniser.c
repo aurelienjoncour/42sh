@@ -11,20 +11,34 @@
 #include "parser_t.h"
 #include "parser.h"
 
+extern const parser_t DELIMIT[];
+
+static void ignore_token(size_t *cursor)
+{
+    cursor[1]++;
+    cursor[0] = cursor[1];
+}
+
 static int tokeniser_build(char *entry, size_t *cursor, token_t *start,
 token_t **ptr_last)
 {
+    ID prev_id = ID_WIHOUT;
     ssize_t index = 0;
 
     while (entry[cursor[1]] != '\0') {
-        printf("%s\n", entry + cursor[1]); // DEBUG
         index = is_special_id(entry, cursor);
+        if (index != -1 && prev_id == ID_IGNORE) {
+            prev_id = ID_WIHOUT;
+            cursor[1] += strlen(DELIMIT[index].start);
+            continue;
+        }
         if (index == -1) {
             cursor[1]++;
         } else {
             *ptr_last = get_last_token(start);
             if (create_token((*ptr_last), entry, cursor, index) == EXIT_ERROR)
                 return EXIT_ERROR;
+            prev_id = DELIMIT[index].id;
         }
     }
     return EXIT_SUCCESS;

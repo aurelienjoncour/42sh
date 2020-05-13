@@ -31,7 +31,7 @@ ssize_t is_special_id(char *str, size_t cursor[2])
 
     for (ssize_t i = 0; DELIMIT[i].start != 0; i++) {
         len_delimit = strlen(DELIMIT[i].start);
-        if (!strncmp(DELIMIT[i].start, str+cursor[1], len_delimit)) {
+        if (!strncmp(DELIMIT[i].start, str + cursor[1], len_delimit)) {
             return i;
         }
     }
