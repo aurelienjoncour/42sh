@@ -76,10 +76,30 @@ ssize_t index)
     add_node_at_the_end((*ptr_last), data);
 }
 
+static int goto_end_delim(char *argv, size_t *cursor, ssize_t index)
+{
+    size_t lenght = strlen(DELIMIT[index].end);
+    size_t nb_open = 0;
+    char *ptr_argv = argv + cursor[1];
+
+    while (strncmp(ptr_argv, DELIMIT[index].end, lenght) || nb_open > 0) {
+        if (!strncmp(ptr_argv, DELIMIT[index].end, lenght) && nb_open) {
+            nb_open--;
+        } else if (strncmp(ptr_argv, DELIMIT[index].start, lenght) == 0
+                && DELIMIT[index].id == ID_PARENTHESE) {
+            nb_open++;
+        }
+        cursor[1]++;
+        ptr_argv = argv + cursor[1];
+        if (argv[cursor[1]] == '\0')
+            return EXIT_ERROR;
+    }
+    return EXIT_SUCCESS;
+}
+
 int create_token(token_t *last, char *argv, size_t cursor[2], ssize_t index)
 {
     token_t *data = NULL;
-    size_t lenght;
 
     first_block(&data, &last, argv, cursor);
     if (DELIMIT[index].type == D_NORMAL) {
@@ -87,12 +107,8 @@ int create_token(token_t *last, char *argv, size_t cursor[2], ssize_t index)
         cursor[1] += strlen(DELIMIT[index].start);
     } else if (DELIMIT[index].type == D_DELIM) {
         cursor[1] += strlen(DELIMIT[index].start);
-        lenght = strlen(DELIMIT[index].end);
-        while (strncmp(argv+cursor[1], DELIMIT[index].end, lenght)) {
-            cursor[1]++;
-            if (argv[cursor[1]] == '\0')
-                return EXIT_ERROR;
-        }
+        if (goto_end_delim(argv, cursor, index) == EXIT_ERROR)
+            return EXIT_ERROR;
         middle_block(&last, argv, cursor, index);
     } else {
         last_block(&data, &last, cursor, index);
