@@ -92,7 +92,7 @@ static int goto_end_delim(char *argv, size_t *cursor, ssize_t index)
         cursor[1]++;
         ptr_argv = argv + cursor[1];
         if (argv[cursor[1]] == '\0')
-            return EXIT_ERROR;
+            return EXIT_SUCCESS;
     }
     return EXIT_SUCCESS;
 }
