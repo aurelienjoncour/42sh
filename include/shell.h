@@ -30,6 +30,7 @@
 #include "fd_t.h"
 #include "cmd_t.h"
 #include "parser.h"
+#include "script.h"
 
 //  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
@@ -54,6 +55,9 @@ int pipe_process_cmd_last(shell_t *shell, cmd_t *pipe_cmd);
 
 // ENTRY : BOOL OP
 int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd);
+
+// ENTRY : SCRIPT
+// see script.h
 
 // ENTRY : PROCESS
 int cmd_process(shell_t *shell, cmd_t *cmd);

@@ -40,8 +40,9 @@ int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd)
     token_t *ptr = pipe_cmd->begin;
 
     for (size_t i = 0; bool_cmd[i] != NULL; i++) {
-        // TO DO : call script layer
-        // <==
+        if (shell_exec_script(shell, bool_cmd[i]) != EXIT_SUCCESS) {
+            return EXIT_ERROR;
+        }
         ptr = get_next_separator(ptr);
         if (check_break_loop(ptr, shell)) {
             break;

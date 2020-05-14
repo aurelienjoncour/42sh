@@ -27,8 +27,10 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
     //--call : magic quotes exec
 
     //--call : exec cmd
-    // TODO : linked list to word array
-    //shell_exec_cmd(shell, cmd.cmd);
+    // <<<< TODO : linked list to word array
+    // if (shell_exec_cmd(shell, ...) != EXIT_SUCCESS) {
+    //     return EXIT_ERROR;
+    // }
 
     //--call : parenthesis exec
     return shell->exit_status;
