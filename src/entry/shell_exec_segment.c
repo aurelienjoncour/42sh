@@ -14,11 +14,10 @@ int shell_exec_segment(shell_t *shell, cmd_t *cmd)
     if (!segments) {
         return EXIT_ERROR;
     }
-    //  TODO : execute [shell_exec_piped] for all sub-lists
     for (size_t i = 0; segments[i] != NULL; i++) {
-        //    if (shell_exec_piped(shell, sub-list...) != EXIT_SUCCESS) {
-        //         return EXIT_ERROR;
-        //     }
+       if (shell_exec_pipe(shell, segments[i]) != EXIT_SUCCESS) {
+           return EXIT_ERROR;
+       }
     }
     cmd_array_destroy(segments);
     return EXIT_SUCCESS;

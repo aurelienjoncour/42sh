@@ -41,8 +41,8 @@ int shell_exec_pipe(shell_t *shell, cmd_t *seg_cmd)
 {
     cmd_t **pipe_cmd = split_cmd_list(seg_cmd, ID_PIPE);
 
-    if (pipe_cmd) {
-        return EXIT_ERROR;
+    if (pipe_cmd == NULL) {
+        return puterr("Exec pipe : split error\n", EXIT_ERROR);
     }
     if (process_all_pipe(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
