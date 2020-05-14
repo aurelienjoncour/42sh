@@ -38,6 +38,7 @@ char *terminal_read(history_t *hist)
     if (!line)
         return NULL;
     rd_val = my_strlen(line);
-    line[rd_val - 1] = (line[rd_val - 1] == '\n') ? '\0' : line[rd_val - 1];
+    if (rd_val != 0 && line[rd_val - 1] == '\n')
+        line[rd_val - 1] = '\0';
     return line;
 }
