@@ -72,7 +72,7 @@ char **history_manage(char **env, char *new_line)
         new_line[0] == '\0')
         return env;
     clean_string(new_line);
-    if (my_strcmp(env[size - 1], new_line) == 0)
+    if (size > 0 && my_strcmp(env[size - 1], new_line) == 0)
         return env;
     return add_to_hist(env, new_line);
 }
