@@ -36,7 +36,7 @@ static int child_process_work(shell_t *shell, cmd_t *pipe_cmd)
     if (child_create_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    if (cmd_process(shell, pipe_cmd) == EXIT_ERROR) {
+    if (shell_exec_boolop(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     if (child_close_pipe_redirection(&shell->fd) == EXIT_ERROR) {

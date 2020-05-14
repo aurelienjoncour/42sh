@@ -43,7 +43,7 @@ int pipe_process_cmd_last(shell_t *shell, cmd_t *pipe_cmd)
     if (create_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    if (cmd_process(shell, pipe_cmd) == EXIT_ERROR) {
+    if (shell_exec_boolop(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     if (close_pipe_redirection(&shell->fd) == EXIT_ERROR) {
