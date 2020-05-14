@@ -13,10 +13,10 @@ static const char *ERR_SEVERAL_REDIR_IN = "Ambiguous input redirect.\n";
 static bool check_error(size_t nb_redirect_in, size_t nb_redirect_out)
 {
     if (nb_redirect_out > 1) {
-        fprintf(stderr, "%s\n", ERR_SEVERAL_REDIR_OUT);
+        fprintf(stderr, "%s", ERR_SEVERAL_REDIR_OUT);
         return true;
     } else if (nb_redirect_in > 1) {
-        fprintf(stderr, "%s\n", ERR_SEVERAL_REDIR_IN);
+        fprintf(stderr, "%s", ERR_SEVERAL_REDIR_IN);
         return true;
     }
     return false;
