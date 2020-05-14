@@ -89,6 +89,7 @@ SRC	=	$(DSRC)main.c										\
 		$(DSRC)/input/input.c								\
 		$(DSRC)/input/supp.c								\
 		$(DSRC)/input/terminal_read.c						\
+		$(DSRC)/input/save_in_hist.c						\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
 
 

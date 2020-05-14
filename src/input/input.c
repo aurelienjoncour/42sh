@@ -92,7 +92,7 @@ char *term_input(history_t *hist)
                 return NULL;
         }
     }
-    hist->history = history_manage(hist->history, line);
     my_putchar('\n');
+    save_in_hist(&line, hist);
     return line;
 }

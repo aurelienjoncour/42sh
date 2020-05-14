@@ -35,8 +35,10 @@ char *terminal_read(history_t *hist)
         line = classic_input();
     else
         line = term_input(hist);
-    if (!line)
+    if (!line) {
+        printf("ici\n");
         return NULL;
+    }
     rd_val = my_strlen(line);
     if (rd_val != 0 && line[rd_val - 1] == '\n')
         line[rd_val - 1] = '\0';

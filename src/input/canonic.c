@@ -74,7 +74,6 @@ int my_getch(void)
 
     canonical_mode_select(true);
     read(0, buf, 4);
-    //printf("%d, %d, %d\n", buf[0], buf[1], buf[2]);
     canonical_mode_select(false);
     if (buf[1] == '\0')
         return (int) buf[0];

@@ -29,12 +29,13 @@ void destroy_history(history_t *hist);
 void write_history(history_t *hist);
 char **history_manage(char **env, char *new_line);
 void rm_char(char *line, size_t *pos, bool stat);
+void save_in_hist(char **line, history_t *hist);
 char *add_char(char *str, char c, size_t pos);
+char *terminal_read(history_t *hist);
 size_t get_history_size(char **hist);
 char *term_input(history_t *hist);
-int my_getch(void);
-char *terminal_read(history_t *hist);
 bool init_input(void);
+int my_getch(void);
 
 #endif
 
