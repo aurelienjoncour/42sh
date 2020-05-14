@@ -9,17 +9,17 @@
 
 int shell_exec_segment(shell_t *shell, cmd_t *cmd)
 {
-    // TODO : SPLIT LINKED LIST => ';'
+    cmd_t **segments = split_cmd_list(cmd, ID_SEP);
 
+    if (!segments) {
+        return EXIT_ERROR;
+    }
     //  TODO : execute [shell_exec_piped] for all sub-lists
-    //
-    // for (size_t i = 0; ...; i++) {
-    //     if (...) {
-    //         continue; // CHECK FOR EMPTY LIST
-    //     }
-    //     if (shell_exec_piped(shell, sub-list...) != EXIT_SUCCESS) {
-    //         return EXIT_ERROR;
-    //     }
-    // }
+    for (size_t i = 0; segments[i] != NULL; i++) {
+        //    if (shell_exec_piped(shell, sub-list...) != EXIT_SUCCESS) {
+        //         return EXIT_ERROR;
+        //     }
+    }
+    cmd_array_destroy(segments);
     return EXIT_SUCCESS;
 }
