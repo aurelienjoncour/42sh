@@ -7,13 +7,46 @@
 
 #include "shell.h"
 
-int shell_exec_boolop(shell_t *shell, cmd_t *cmd)
+static token_t *get_next_separator(token_t *ptr)
 {
-    // TODO : && and ||
+    if (ptr == NULL) {
+        return NULL;
+    }
+    for (; ptr != NULL; ptr = ptr->next) {
+        if (ptr->id == ID_OR || ptr->id == ID_AND) {
+            return ptr;
+        }
+    }
+    return NULL;
+}
 
-    // TODO : SPLIT LINKED LIST
+static bool check_break_loop(token_t *ptr, shell_t *shell)
+{
+    if (ptr != NULL && ptr->id == ID_OR) {
+        if (shell->exit_status != 0) {
+            return false;
+        }
+    } else if (ptr != NULL && ptr->id == ID_AND) {
+        if (shell->exit_status == 0) {
+            return false;
+        }
+    }
+    return true;
+}
 
-    // CALL FOR ALL => script layer function
+int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd)
+{
+    cmd_t **bool_cmd = split_cmd_list(pipe_cmd, ID_OR, ID_AND);
+    token_t *ptr = pipe_cmd->begin;
 
+    for (size_t i = 0; bool_cmd[i] != NULL; i++) {
+        // TO DO : call script layer
+        // <==
+        ptr = get_next_separator(ptr);
+        if (check_break_loop(ptr, shell)) {
+            break;
+        }
+    }
+    cmd_array_destroy(bool_cmd);
     return EXIT_SUCCESS;
 }
