@@ -9,12 +9,18 @@
 
 int shell_exec(shell_t *shell, char *entry)
 {
-    // TODO : fredou parser (+ cleaner)
+    cmd_t *cmd;
 
+    cmd = parse_entry(entry);
+    if (entry_checker(shell, cmd, entry) == EXIT_ERROR) {
+        return EXIT_SUCCESS;
+    }
     // TODO : substitute variables
-
-    // TODO : entry checker (error)
-
+    // <====
     free(entry);
+    if (shell_exec_segment(shell, cmd) != EXIT_SUCCESS) {
+        return EXIT_ERROR;
+    }
+    cmd_destroy(cmd);
     return EXIT_SUCCESS;
 }

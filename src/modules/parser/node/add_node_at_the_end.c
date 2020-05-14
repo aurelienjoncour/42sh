@@ -6,8 +6,8 @@
 */
 
 #include <stdlib.h>
+#include "parser_t.h"
 #include "parser.h"
-#include "node.h"
 
 token_t *get_last_token(token_t *token)
 {

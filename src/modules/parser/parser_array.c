@@ -6,9 +6,9 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
-const parser_t delimit[] =
+const parser_t DELIMIT[] =
 {
     {" ", "", D_NORMAL, ID_SPACE},
     {"\t", "", D_NORMAL, ID_TAB},
@@ -26,5 +26,6 @@ const parser_t delimit[] =
     {";", "", D_SEPARATOR, ID_SEP},
     {"|", "", D_GET, ID_PIPE},
     {"&", "", D_GET, ID_BACKGROUND},
-    {NULL, NULL, ID_WIHOUT, ID_WIHOUT},
+    {"\\", "", D_NORMAL, ID_IGNORE},
+    {NULL, NULL, ID_WITHOUT, ID_WITHOUT}
 };

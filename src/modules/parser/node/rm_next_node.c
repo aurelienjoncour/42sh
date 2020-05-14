@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
 int rm_next_nodes(token_t *node)
 {

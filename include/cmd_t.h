@@ -8,9 +8,11 @@
 #ifndef H_CMD_T
 #define H_CMD_T
 
+#include "parser_t.h"
+
 typedef struct cmd {
-    //token_t *begin;
-    //token_t *end;
+    token_t *begin;
+    token_t *end;
     size_t size;
 } cmd_t;
 

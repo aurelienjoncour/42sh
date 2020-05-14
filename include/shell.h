@@ -29,6 +29,7 @@
 #include "shell_t.h"
 #include "fd_t.h"
 #include "cmd_t.h"
+#include "parser.h"
 
 //  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
@@ -37,25 +38,11 @@ int shell_run(shell_t *shell);
 int shell_destroy(shell_t *shell);
 char *shell_prompt(shell_t *shell);
 
-//  TOOLS
-void display_path_without_homepath(env_t *env, char *path);
-char *merge_path_filename(const char *path, const char *filename);
-
-int word_array_search(char **array, const int size, const char *str);
-int word_array_search2(const char **array, const char *str);
-
-bool char_is_letter(const char c);
-bool str_is_alphanum(const char *str);
-bool have_slash(const char *str);
-bool str_have_only_chars(const char *str, const char *chars);
-bool word_array_have_empty_str(char **warray);
-int my_str_count_pattern(char *str, const char *pattern);
-void my_str_count_char_suite(const char *str, const char c,
-int *occur, int *serie);
-
 //-------------------------------------------------
-//  ENTRY
+//                  - ENTRY -
 int shell_exec(shell_t *shell, char *entry);
+
+int shell_exec_segment(shell_t *shell, cmd_t *cmd);
 
 // ENTRY : PIPE
 // int shell_exec_piped(shell_t *shell, char *sub_entry);
@@ -102,5 +89,31 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 // int do_redirection(cmd_t *cmd);
 // int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
+// MOD : CHECKER
+int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
+bool check_position_redirection_in_pipe(cmd_t *cmd);
+bool check_have_empty_pipe(cmd_t *cmd);
+bool have_missing_str_quote(const char *entry);
+bool check_parenthesis(cmd_t *cmd);
+bool have_missing_name_redirection(cmd_t *cmd);
+bool have_several_redirection(cmd_t *cmd);
+bool have_null_command(cmd_t *cmd);
+
+//-------------------------------------------------
+//                  - TOOLS -
+void display_path_without_homepath(env_t *env, char *path);
+char *merge_path_filename(const char *path, const char *filename);
+
+int word_array_search(char **array, const int size, const char *str);
+int word_array_search2(const char **array, const char *str);
+
+bool char_is_letter(const char c);
+bool str_is_alphanum(const char *str);
+bool have_slash(const char *str);
+bool str_have_only_chars(const char *str, const char *chars);
+bool word_array_have_empty_str(char **warray);
+int my_str_count_pattern(char *str, const char *pattern);
+void my_str_count_char_suite(const char *str, const char c,
+int *occur, int *serie);
 
 #endif

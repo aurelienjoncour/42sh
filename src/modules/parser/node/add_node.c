@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "parser.h"
+#include "parser_t.h"
 
 void add_node(token_t *node, token_t *node_add)
 {
