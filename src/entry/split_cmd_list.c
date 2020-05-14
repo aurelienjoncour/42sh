@@ -7,26 +7,28 @@
 
 #include "shell.h"
 
-static size_t count_token(cmd_t *cmd, ID token_id)
+static size_t count_token(cmd_t *cmd, ID token_id, ID token2_id)
 {
     size_t count = 1;
 
     for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
         if (ptr->id == token_id) {
             count++;
+        } else if (token2_id != 0 && ptr->id == token2_id) {
+            count++;
         }
     }
     return count;
 }
 
-static cmd_t **feed_array(cmd_t **dest, cmd_t *src, ID token_id)
+static cmd_t **feed_array(cmd_t **dest, cmd_t *src, ID token_id, ID token2_id)
 {
     size_t idx = 0;
     size_t size = 0;
     token_t *node;
 
     for (token_t *ptr = src->begin; ptr != NULL; ptr = ptr->next) {
-        if (ptr->id == token_id) {
+        if (ptr->id == token_id || (token2_id && ptr->id == token2_id)) {
             dest[idx]->size = size;
             idx++;
             size = 0;
@@ -40,9 +42,9 @@ static cmd_t **feed_array(cmd_t **dest, cmd_t *src, ID token_id)
     return dest;
 }
 
-cmd_t **split_cmd_list(cmd_t *cmd, ID token_id)
+cmd_t **split_cmd_list(cmd_t *cmd, ID token_id, ID token2_id)
 {
-    size_t size = count_token(cmd, token_id);
+    size_t size = count_token(cmd, token_id, token2_id);
     cmd_t **ret = NULL;
 
     if (size == 0)
@@ -59,6 +61,6 @@ cmd_t **split_cmd_list(cmd_t *cmd, ID token_id)
         ret[i]->end = NULL;
         ret[i]->size = 0;
     }
-    ret = feed_array(ret, cmd, token_id);
+    ret = feed_array(ret, cmd, token_id, token2_id);
     return ret;
 }

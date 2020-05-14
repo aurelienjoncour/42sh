@@ -9,7 +9,7 @@
 
 int shell_exec_segment(shell_t *shell, cmd_t *cmd)
 {
-    cmd_t **segments = split_cmd_list(cmd, ID_SEP);
+    cmd_t **segments = split_cmd_list(cmd, ID_SEP, 0);
 
     if (!segments) {
         return EXIT_ERROR;
