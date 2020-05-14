@@ -56,7 +56,7 @@ static void clean_string(char *new_line)
             new_line[i] = tab[y][x];
             i++;
         }
-        if (tab[y + 1] && tab[y][0] != '\0')
+        if (tab[y + 1] && tab[y + 1][0] != '\0')
             new_line[i++] = ' ';
         free(tab[y]);
     }
