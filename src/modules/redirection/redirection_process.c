@@ -15,7 +15,7 @@ bool is_redirect_type(redirect_t *redirect, REDIRECT_TYPE compare)
     return false;
 }
 
-static bool token_is_file_redirect(ID id)
+bool token_is_file_redirect(ID id)
 {
     if (id == ID_DOUBLE_RIGHT || id == ID_RIGHT || id == ID_LEFT
         || id == ID_DOUBLE_LEFT) {

@@ -7,21 +7,17 @@
 
 #include "shell.h"
 
-/*
-    TODO : REFACTO
-*/
 int cmd_process(shell_t *shell, cmd_t *cmd)
 {
     char **warray_cmd;
+    redirect_t redirect;
+
     // TODO : file redirection
-    // redirection_open_file(&cmd);
-    // if (cmd.err == true) {
-    //     return set_error(shell, &cmd);
-    // }
-    // if (do_redirection(&cmd) == EXIT_ERROR) {
-    //     shell->exit_status = ERROR_STATUS;
-    //     return EXIT_SUCCESS;
-    // }
+    if (redirection_process(cmd, &redirect) != EXIT_SUCCESS) {
+        clean_redirect(&redirect);
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_SUCCESS;
+    }
 
     // TODO : job control
     // <=====
@@ -37,6 +33,7 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
         return EXIT_ERROR;
     }
     word_array_destroy(warray_cmd);
+    clean_redirect(&redirect);
 
     //--call : parenthesis exec
     // <=====

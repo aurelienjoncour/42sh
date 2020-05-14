@@ -12,6 +12,7 @@
 
 // Tool function
 bool is_redirect_type(redirect_t *redirect, REDIRECT_TYPE compare);
+bool token_is_file_redirect(ID id);
 
 // Sub functions
 int redirection_open_file(redirect_t *redirect);
