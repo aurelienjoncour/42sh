@@ -21,6 +21,8 @@ int shell_create(shell_t *shell, char **env)
     shell->fd.stdin = dup(0);
     shell->fd.stdout = dup(1);
     shell->fd.prev_pipein = -1;
+    if (!init_history(&shell->history) || !init_input())
+        return EXIT_ERROR;
     if (shell->fd.stdin == -1 || shell->fd.stdout == -1) {
         return puterr("dup : fail\n", EXIT_ERROR);
     }
@@ -29,6 +31,7 @@ int shell_create(shell_t *shell, char **env)
 
 int shell_destroy(shell_t *shell)
 {
+    destroy_history(&shell->history);
     my_env_destroy(&shell->env);
     my_env_destroy(&shell->local);
     free(shell->prev_path);

@@ -7,13 +7,12 @@
 
 #include "shell.h"
 
-int main(int argc, char **argv, char **env)
+int main(__attribute((unused))int argc, __attribute((unused))char **argv,
+    char **env)
 {
     shell_t shell;
     int ret;
 
-    (void)argc;
-    (void)argv;
     if (shell_create(&shell, env)) {
         return EXIT_ERROR;
     } else {

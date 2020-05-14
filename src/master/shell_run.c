@@ -12,7 +12,8 @@ int shell_run(shell_t *shell)
     char *entry = NULL;
 
     while (!shell->exit) {
-        entry = shell_prompt(shell);
+        //entry = shell_prompt(shell);
+        entry = terminal_read(&shell->history);
         if (!entry || (entry != NULL && entry[0] == '\0')) {
             shell->exit = true;
             break;

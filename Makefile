@@ -81,6 +81,14 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
 
 SRC	=	$(DSRC)main.c										\
+		$(DSRC)/input/history/history_manage.c				\
+		$(DSRC)/input/history/read_file.c					\
+		$(DSRC)/input/history/write_history.c				\
+		$(DSRC)/input/add_ch.c								\
+		$(DSRC)/input/canonic.c								\
+		$(DSRC)/input/input.c								\
+		$(DSRC)/input/supp.c								\
+		$(DSRC)/input/terminal_read.c						\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
 
 
@@ -101,7 +109,7 @@ all:  lib $(NAME)
 
 $(NAME): $(OBJ)
 	make -C ./lib/my
-	@gcc -o $(NAME) $(OBJ) -L./lib/my -lmy && \
+	@gcc -o $(NAME) $(OBJ) -L./lib/my -lmy -lncurses && \
 		$(ECHO) $(BOLD_T)$(GREEN_C)"\n[✔] COMPILED:" $(DEFAULT)$(LIGHT_GREEN) "$(NAME)\n"$(DEFAULT) || \
 		$(ECHO) $(BOLD_T)$(RED_C)"[✘] "$(UNDLN_T)"BUILD FAILED:" $(LIGHT_RED) "$(NAME)\n"$(DEFAULT)
 
