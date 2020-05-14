@@ -31,3 +31,15 @@ int add_node_at_the_end(token_t *node_1, token_t *node_2)
     add_node(last_node, node_2);
     return EXIT_SUCCESS;
 }
+
+int list_push_node(token_t **list_dest, token_t *src)
+{
+    token_t *last_node = get_last_token(*list_dest);
+
+    if (last_node == NULL) {
+        *list_dest = src;
+        return EXIT_SUCCESS;
+    }
+    add_node(last_node, src);
+    return EXIT_SUCCESS;
+}

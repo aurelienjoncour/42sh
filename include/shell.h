@@ -44,6 +44,7 @@ int shell_exec(shell_t *shell, char *entry);
 
 int shell_exec_segment(shell_t *shell, cmd_t *cmd);
 
+cmd_t **split_cmd_list(cmd_t *cmd, ID token_id);
 // ENTRY : PIPE
 // int shell_exec_piped(shell_t *shell, char *sub_entry);
 // int pipe_process_cmd(shell_t *shell, char *command);

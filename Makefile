@@ -61,6 +61,7 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/where/show_path.c	\
 
 ENTRY 	=	$(DSRC)entry/shell_exec.c						\
+			$(DSRC)entry/split_cmd_list.c					\
 			$(DSRC)entry/shell_exec_segment.c				\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
