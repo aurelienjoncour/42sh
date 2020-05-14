@@ -66,7 +66,8 @@ void cmd_destroy(cmd_t *cmd)
 void cmd_array_destroy(cmd_t **cmd_array)
 {
     for (size_t i = 0; cmd_array[i] != NULL; i++) {
-        destroy_list(cmd_array[i]->begin);
+        if (cmd_array[i]->begin != NULL)
+            destroy_list(cmd_array[i]->begin);
         free(cmd_array[i]);
     }
     free(cmd_array);
