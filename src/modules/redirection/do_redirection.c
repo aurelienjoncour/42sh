@@ -7,20 +7,21 @@
 
 #include "shell.h"
 
-int do_redirection(cmd_t *cmd)
+int do_redirection(redirect_t *redirect)
 {
-    // if (cmd->red_mode_in == FROM_IN) {
-    //     if (dup2(cmd->file_fd_in, 0) == -1)
-    //         return puterr("dup2 (fd in) : fail\n", EXIT_ERROR);
-    // }
-    // if (cmd->red_mode_out == TO_OUT || cmd->red_mode_out == TO_OUT_ADD) {
-    //     if (dup2(cmd->file_fd_out, 1) == -1)
-    //         return puterr("dup2 (fd out) : fail\n", EXIT_ERROR);
-    // }
-    // if (cmd->red_mode_in == FROM_STDIN) {
-    //     if (redirect_stdin_to_command(cmd->redirect_in[1], cmd) != 0) {
-    //         return EXIT_ERROR;
-    //     }
-    // }
+    if (is_redirect_type(redirect, R_LEFT)) {
+        if (dup2(redirect->fd_left, 0) == -1)
+            return puterr("dup2 (fd left) : fail\n", EXIT_ERROR);
+    }
+    if (is_redirect_type(redirect, R_RIGHT)
+            || is_redirect_type(redirect, R_DRIGHT)) {
+        if (dup2(redirect->fd_right, 1) == -1)
+            return puterr("dup2 (fd right) : fail\n", EXIT_ERROR);
+    }
+    if (is_redirect_type(redirect, R_DLEFT)) {
+        if (redirect_stdin_to_command(redirect) != EXIT_SUCCESS) {
+            return EXIT_ERROR;
+        }
+    }
     return EXIT_SUCCESS;
 }

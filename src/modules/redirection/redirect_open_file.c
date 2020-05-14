@@ -18,15 +18,18 @@ void show_error(const char *param)
     my_putstr_error(msg);
     my_putstr_error(".\n");
 }
-/*
-static int open_file_write(char *filepath, redirect_mode_out_t redirect_mode)
+
+static int open_file_write(const char *filepath, redirect_t *redirect)
 {
     int flags = O_CREAT | O_WRONLY;
     int fd;
 
-    if (redirect_mode == TO_OUT) {
+    if (!filepath) {
+        return -1;
+    }
+    if (is_redirect_type(redirect, R_RIGHT)) {
         flags = flags | O_TRUNC;
-    } else if (redirect_mode == TO_OUT_ADD) {
+    } else if (is_redirect_type(redirect, R_DRIGHT)) {
         flags = flags | O_APPEND;
     }
     fd = open(filepath, flags, FILE_RIGHT);
@@ -42,6 +45,9 @@ static int open_file_read(char *filepath)
     int flags = O_RDONLY;
     int fd;
 
+    if (!filepath) {
+        return -1;
+    }
     fd = open(filepath, flags);
     if (fd == -1) {
         show_error(filepath);
@@ -49,21 +55,22 @@ static int open_file_read(char *filepath)
     }
     return fd;
 }
-*/
-void redirection_open_file(cmd_t *cmd)
+
+int redirection_open_file(redirect_t *redirect)
 {
-    // if (cmd->red_mode_out == TO_OUT || cmd->red_mode_out == TO_OUT_ADD) {
-    //     cmd->file_fd_out = open_file_write(cmd->redirect_out[1],
-    //                                         cmd->red_mode_out);
-    //     if (cmd->file_fd_out == -1) {
-    //         cmd->err = true;
-    //         return;
-    //     }
-    // }
-    // if (cmd->red_mode_in == FROM_IN) {
-    //     cmd->file_fd_in = open_file_read(cmd->redirect_in[1]);
-    //     if (cmd->file_fd_in == -1) {
-    //         cmd->err = true;
-    //     }
-    // }
+    if (is_redirect_type(redirect, R_RIGHT)
+            || is_redirect_type(redirect, R_DRIGHT)) {
+        redirect->fd_right = open_file_write(redirect->filename_right,
+                                            redirect);
+        if (redirect->fd_right == -1) {
+            return EXIT_ERROR;
+        }
+    }
+    if (is_redirect_type(redirect, R_LEFT)) {
+        redirect->fd_left = open_file_read(redirect->string_left);
+        if (redirect->fd_left == -1) {
+            return EXIT_ERROR;
+        }
+    }
+    return EXIT_SUCCESS;
 }

@@ -18,6 +18,8 @@ MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
 MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/redirection/redirect_open_file.c			\
 			$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
+			$(DSRC)modules/redirection/redirection_process.c		\
+			$(DSRC)modules/redirection/clean_redirect.c				\
 			$(DSRC)modules/parser/node/add_node.c					\
 			$(DSRC)modules/parser/node/connect_node.c				\
 			$(DSRC)modules/parser/node/create_node.c				\

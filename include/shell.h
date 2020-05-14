@@ -31,6 +31,7 @@
 #include "cmd_t.h"
 #include "parser.h"
 #include "script.h"
+#include "redirection.h"
 
 //  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
