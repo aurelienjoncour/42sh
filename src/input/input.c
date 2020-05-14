@@ -66,26 +66,26 @@ static bool move_in_line(size_t *pos, int ch, char **line, history_t *hist)
     return false;
 }
 
-static void display_line(char *line)
+static void display_line(shell_t *shell, char *line)
 {
+    fprintf(stdout, "\33[2K\r");
+    show_main_prompt(shell);
     if (line)
-        fprintf(stdout, "\33[2K\r$> %s", line);
-    else
-        fprintf(stdout, "\33[2K\r$> ");
+        fprintf(stdout, "%s", line);
     fflush(stdout);
 }
 
-char *term_input(history_t *hist)
+char *term_input(shell_t *shell)
 {
     size_t pos = 0;
     int ch = 0;
     char *line = NULL;
 
-    hist->pos = get_history_size(hist->history);
+    shell->history.pos = get_history_size(shell->history.history);
     while (ch != '\n') {
-        display_line(line);
+        display_line(shell, line);
         ch = my_getch();
-        if (!move_in_line(&pos, ch, &line, hist) && is_correct_char(ch)) {
+        if (!move_in_line(&pos, ch, &line, &shell->history) && is_correct_char(ch)) {
             line = add_char(line, ch, pos);
             pos++;
             if (!line)
@@ -93,6 +93,6 @@ char *term_input(history_t *hist)
         }
     }
     my_putchar('\n');
-    save_in_hist(&line, hist);
+    save_in_hist(&line, &shell->history);
     return line;
 }

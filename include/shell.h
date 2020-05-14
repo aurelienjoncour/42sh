@@ -126,4 +126,10 @@ int my_str_count_pattern(char *str, const char *pattern);
 void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
 
+//-------------------------------------------------
+//                  - HISTORY -
+char *terminal_read(shell_t *shell);
+char *term_input(shell_t *shell);
+void show_main_prompt(shell_t *shell);
+
 #endif

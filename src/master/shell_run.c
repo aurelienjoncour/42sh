@@ -13,7 +13,7 @@ int shell_run(shell_t *shell)
 
     while (!shell->exit) {
         //entry = shell_prompt(shell);
-        entry = terminal_read(&shell->history);
+        entry = terminal_read(shell);
         if (!entry) {
             shell->exit = true;
             break;

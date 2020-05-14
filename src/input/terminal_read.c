@@ -26,7 +26,7 @@ static char *classic_input(void)
     return line;
 }
 
-char *terminal_read(history_t *hist)
+char *terminal_read(shell_t *shell)
 {
     char *line = NULL;
     int rd_val;
@@ -34,9 +34,8 @@ char *terminal_read(history_t *hist)
     if (isatty(0) != 1)
         line = classic_input();
     else
-        line = term_input(hist);
+        line = term_input(shell);
     if (!line) {
-        printf("ici\n");
         return NULL;
     }
     rd_val = my_strlen(line);
