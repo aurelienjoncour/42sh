@@ -32,8 +32,8 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
     //--call : exec cmd
     warray_cmd = linked_list_to_warray(cmd);
     if (!warray_cmd)
-        return EXIT_ERROR;
-    if (shell_exec_cmd(shell, warray_cmd) != EXIT_SUCCESS) {
+        return puterr("warray cmd : error\n", EXIT_ERROR);
+    if (shell_exec_cmd(shell, warray_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     word_array_destroy(warray_cmd);

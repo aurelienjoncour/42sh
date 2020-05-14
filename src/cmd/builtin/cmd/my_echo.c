@@ -26,7 +26,6 @@ int my_echo(char **cmd, shell_t *shell)
 {
     bool display_new_line = true;
 
-    (void)shell;
     for (size_t i = 1; cmd[i] != NULL; i++) {
         if (is_option(cmd[i]) == true) {
             display_new_line = false;
@@ -41,5 +40,6 @@ int my_echo(char **cmd, shell_t *shell)
     if (display_new_line == true) {
         printf("\n");
     }
+    shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;
 }

@@ -18,7 +18,7 @@ int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd)
     // TODO : while + foreach eval
 
     // call :: cmd_process function
-    if (cmd_process(shell, boolop_cmd) != EXIT_SUCCESS) {
+    if (cmd_process(shell, boolop_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     return EXIT_SUCCESS;

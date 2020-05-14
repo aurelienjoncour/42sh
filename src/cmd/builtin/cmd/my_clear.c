@@ -10,7 +10,6 @@
 int my_clear(char **cmd, shell_t *shell)
 {
     (void)cmd;
-    (void)shell;
     my_putstr("\e[1;1H\e[2J");
     shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;
