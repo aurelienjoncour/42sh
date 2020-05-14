@@ -69,6 +69,7 @@ ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
 			$(DSRC)entry/bool_op/shell_exec_boolop.c		\
 			$(DSRC)entry/cmd_process.c						\
+			$(DSRC)entry/linked_list_to_warray.c			\
 
 TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/merge_path_filename.c			\

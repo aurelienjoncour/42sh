@@ -12,6 +12,7 @@
 */
 int cmd_process(shell_t *shell, cmd_t *cmd)
 {
+    char **warray_cmd;
     // TODO : file redirection
     // redirection_open_file(&cmd);
     // if (cmd.err == true) {
@@ -23,15 +24,21 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
     // }
 
     // TODO : job control
+    // <=====
 
     //--call : magic quotes exec
+    // <=====
 
     //--call : exec cmd
-    // <<<< TODO : linked list to word array
-    // if (shell_exec_cmd(shell, ...) != EXIT_SUCCESS) {
-    //     return EXIT_ERROR;
-    // }
+    warray_cmd = linked_list_to_warray(cmd);
+    if (!warray_cmd)
+        return EXIT_ERROR;
+    if (shell_exec_cmd(shell, warray_cmd) != EXIT_SUCCESS) {
+        return EXIT_ERROR;
+    }
+    word_array_destroy(warray_cmd);
 
     //--call : parenthesis exec
+    // <=====
     return shell->exit_status;
 }

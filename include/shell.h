@@ -61,6 +61,7 @@ int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd);
 
 // ENTRY : PROCESS
 int cmd_process(shell_t *shell, cmd_t *cmd);
+char **linked_list_to_warray(cmd_t *cmd);
 
 // ENTRY : CMD EXEC
 int shell_exec_cmd(shell_t *shell, char **cmd);
