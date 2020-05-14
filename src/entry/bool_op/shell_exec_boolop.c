@@ -40,6 +40,8 @@ int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd)
     token_t *ptr = pipe_cmd->begin;
 
     for (size_t i = 0; bool_cmd[i] != NULL; i++) {
+        if (bool_cmd[i]->begin == NULL)
+            continue;
         if (shell_exec_script(shell, bool_cmd[i]) == EXIT_ERROR) {
             return EXIT_ERROR;
         }
