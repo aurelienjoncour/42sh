@@ -46,9 +46,9 @@ int shell_exec_segment(shell_t *shell, cmd_t *cmd);
 
 cmd_t **split_cmd_list(cmd_t *cmd, ID token_id);
 // ENTRY : PIPE
-// int shell_exec_piped(shell_t *shell, char *sub_entry);
-// int pipe_process_cmd(shell_t *shell, char *command);
-// int pipe_process_cmd_last(shell_t *shell, char *command);
+int shell_exec_pipe(shell_t *shell, cmd_t *seg_cmd);
+int pipe_process_cmd(shell_t *shell, cmd_t *pipe_cmd);
+int pipe_process_cmd_last(shell_t *shell, cmd_t *pipe_cmd);
 
 // ENTRY : PROCESS
 int cmd_process(shell_t *shell, cmd_t *cmd);
