@@ -14,5 +14,5 @@ void save_in_hist(char **line, history_t *hist)
         (*line)[0] = '\0';
     }
     else
-        hist->history = history_manage(hist->history, *line);
+        hist->history = history_manage(hist, *line);
 }
