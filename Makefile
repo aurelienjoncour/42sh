@@ -70,6 +70,8 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
 			$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
 			$(DSRC)$(DCMD)/builtin/cmd/my_echo.c			\
+			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_unalias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_set.c				\
 			$(DSRC)$(DCMD)/builtin/cmd/my_which.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/where/my_where.c		\

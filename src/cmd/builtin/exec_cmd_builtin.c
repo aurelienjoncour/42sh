@@ -39,8 +39,8 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_pwd,
     &show_exit_status,
     &my_echo,
-    NULL, // alias
-    NULL, // unalias
+    &my_alias,
+    &my_unalias,
     &my_set,
     &my_which,
     &my_where,

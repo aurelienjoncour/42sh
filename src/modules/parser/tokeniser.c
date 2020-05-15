@@ -13,6 +13,17 @@
 
 extern const parser_t DELIMIT[];
 
+void remove_quote_token(size_t *size, size_t *cursor, ID token_id)
+{
+    if (token_id == ID_PARENTHESE) {
+        return;
+    }
+    if ((cursor[1] - cursor[0] + 1) >= 2) {
+        *size -= 2;
+        cursor[0] += 1;
+    }
+}
+
 static int tokeniser_build(char *entry, size_t *cursor, token_t *start,
 token_t **ptr_last)
 {

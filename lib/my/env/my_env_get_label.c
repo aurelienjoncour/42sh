@@ -26,7 +26,6 @@ char *my_env_get_var_label(char *entry)
 {
     int len = 0;
     int idx_symbol = -1;
-    char *label = NULL;
 
     if (!entry)
         return NULL;
@@ -34,12 +33,5 @@ char *my_env_get_var_label(char *entry)
     if (len == 0) {
         return NULL;
     }
-    label = malloc(sizeof(char) * len);
-    if (!label) {
-        my_putstr_error("Error: malloc (get_env_var_label)\n");
-        return NULL;
-    }
-    my_strncpy(label, entry, idx_symbol + 1);
-    label[idx_symbol + 1] = '\0';
-    return label;
+    return my_strndup(entry, idx_symbol);
 }

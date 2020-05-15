@@ -96,7 +96,6 @@ bool have_null_command(cmd_t *cmd)
         }
     }
     if (count_second_token != 0 && count_text == 0) {
-        fprintf(stderr, "AAA\n");
         my_putstr_error(ERR_NULL_CMD);
         return true;
     }
