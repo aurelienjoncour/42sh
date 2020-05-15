@@ -7,13 +7,18 @@
 
 #include "shell.h"
 
-static void wait_end_all_child_process(void)
+static void wait_end_all_child_process(shell_t *shell)
 {
-    int wstatus;
+    int exit_stat;
+    int wstatus = 0;
     pid_t pid;
 
     do {
         pid = wait(&wstatus);
+        exit_stat = child_exit_status(wstatus);
+        if (pid != -1 && exit_stat) {
+            shell->exit_status = exit_stat;
+        }
     } while (pid != -1);
 }
 
@@ -33,7 +38,7 @@ static int process_all_pipe(shell_t *shell, cmd_t **pipe_cmd)
             return EXIT_ERROR;
         }
     }
-    wait_end_all_child_process();
+    wait_end_all_child_process(shell);
     return EXIT_SUCCESS;
 }
 
