@@ -28,7 +28,7 @@ static int  flag_manage(shell_t *shell, char **cmd)
     return 1;
 }
 
-int built_in_history(shell_t *shell, char **cmd)
+int built_in_history(char **cmd, shell_t *shell)
 {
     int arg = word_array_len(cmd);
     size_t size = word_array_len(shell->history.history);
