@@ -42,7 +42,8 @@ static int child_process_work(shell_t *shell, cmd_t *pipe_cmd)
     if (child_close_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    exit(shell->exit_status);
+    shell_exit(shell, shell->exit_status);
+    return EXIT_SUCCESS;
 }
 
 static int parent_process_redirect_manage(fd_t *fd)

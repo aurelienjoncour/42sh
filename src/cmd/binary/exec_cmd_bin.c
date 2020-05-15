@@ -32,15 +32,16 @@ static void sub_process(char **cmd, shell_t *shell)
 
 int child_exit_status(int wstatus)
 {
-    if (!wstatus) {
+    int status = SUCCESS_STATUS;
+
+    if (!wstatus)
         return SUCCESS_STATUS;
-    }
     if (WIFSIGNALED(wstatus) && wstatus == 8) {
         my_putstr_error("Floating exception");
-        return DIVZERO_STATUS;
+        status = DIVZERO_STATUS;
     } else if (WIFSIGNALED(wstatus)) {
         my_putstr_error("Segmentation fault");
-        return SEGFAULT_STATUS;
+        status = SEGFAULT_STATUS;
     }
     if (WIFSIGNALED(wstatus) && WCOREDUMP(wstatus)) {
         my_putstr_error(" (core dumped)");
@@ -50,7 +51,7 @@ int child_exit_status(int wstatus)
     } else if (WIFEXITED(wstatus)) {
         return WEXITSTATUS(wstatus);
     }
-    return SUCCESS_STATUS;
+    return status;
 }
 
 int fork_process(char **cmd, shell_t *shell)
