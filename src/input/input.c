@@ -18,6 +18,8 @@ static bool is_correct_char(int ch)
         return false;
     if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START)
         return false;
+    if (ch == 0)
+        return false;
     return true;
 }
 

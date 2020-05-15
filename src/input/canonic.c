@@ -70,10 +70,13 @@ static int special_key(char *in)
 
 int my_getch(void)
 {
+    int ret;
     char buf[4] = {0};
 
     canonical_mode_select(true);
-    read(0, buf, 4);
+    ret = read(0, buf, 4);
+    if (ret <= 0)
+        return 0;
     canonical_mode_select(false);
     if (buf[1] == '\0')
         return (int) buf[0];
