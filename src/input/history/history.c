@@ -32,7 +32,7 @@ static bool load_flag(char **cmd, hist_build_t *load)
         if (cmd[i][0] != '-') {
             if (my_str_isnum(cmd[i]) != 1) {
                 fprintf(stderr, "%s\n", BADLY_FORMED);
-                return 1;
+                return false;
             }
             else {
                 load->input = my_getnbr(cmd[i]);
@@ -65,7 +65,7 @@ static void execute_flag(hist_build_t *ld, history_t *hist)
                 i + 1, hist->date[i].hours, hist->date[i].minutes);
         fprintf(stdout, "%s\n", hist->history[i]);
     }
-}
+}//history ra
 
 int built_in_history(char **cmd, shell_t *shell)
 {
