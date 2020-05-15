@@ -30,15 +30,14 @@ int my_echo(char **cmd, shell_t *shell)
         if (is_option(cmd[i]) == true) {
             display_new_line = false;
         } else {
-            printf("%s", cmd[i]);
+            my_putstr(cmd[i]);
         }
         if (cmd[i + 1] != NULL && !is_option(cmd[i])) {
-            printf(" ");
+            my_putstr(" ");
         }
     }
-    fflush(stdout);
     if (display_new_line == true) {
-        printf("\n");
+        my_putstr("\n");
     }
     shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;
