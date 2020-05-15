@@ -39,18 +39,18 @@ int child_exit_status(int wstatus)
     if (WIFSIGNALED(wstatus) && wstatus == 8) {
         my_putstr_error("Floating exception");
         status = DIVZERO_STATUS;
-    } else if (WIFSIGNALED(wstatus)) {
+    } else if (WIFSIGNALED(wstatus) && WTERMSIG(status) == SIGSEGV) {
         my_putstr_error("Segmentation fault");
         status = SEGFAULT_STATUS;
     }
     if (WIFSIGNALED(wstatus) && WCOREDUMP(wstatus)) {
         my_putstr_error(" (core dumped)");
     }
-    if (WIFSIGNALED(wstatus)) {
+    if (WIFSIGNALED(wstatus)
+            && (WTERMSIG(status) == SIGSEGV || wstatus == 8)) {
         my_putstr_error("\n");
-    } else if (WIFEXITED(wstatus)) {
+    } else if (WIFEXITED(wstatus))
         return WEXITSTATUS(wstatus);
-    }
     return status;
 }
 
