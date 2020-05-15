@@ -65,10 +65,7 @@ ssize_t index)
         add_node_at_the_end((*ptr_last), data);
     }
     (*ptr_last) = get_last_token((*ptr_last));
-    if ((cursor[1] - cursor[0] + 1) >= 2) {
-        size -= 2;
-        cursor[0] += 1;
-    }
+    remove_quote_token(&size, cursor, DELIMIT[index].id);
     (*ptr_last)->token = my_strncat_realloc((*ptr_last)->token,
                                             (argv + cursor[0]), size);
     (*ptr_last)->id = DELIMIT[index].id;

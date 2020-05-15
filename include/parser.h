@@ -35,6 +35,7 @@ ssize_t is_special_id(char *str, size_t cursor[2]);
 void destroy_list(token_t *ptr);
 void display_list(token_t *start);
 token_t *tokeniser(char *entry);
+void remove_quote_token(size_t *size, size_t *cursor, ID token_id);
 
 ////////////////////////////
 // Main Functions
