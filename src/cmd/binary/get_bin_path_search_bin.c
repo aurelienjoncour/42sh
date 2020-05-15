@@ -7,6 +7,18 @@
 
 #include "shell.h"
 
+static int path_restore(shell_t *shell)
+{
+    char buffer[1024] = {0};
+
+    if (my_env_exist(&shell->env, "PATH") == true) {
+        return EXIT_SUCCESS;
+    }
+    if (confstr(_CS_PATH, buffer, 1024) == 0)
+        return EXIT_ERROR;
+    return my_env_add(&shell->env, "PATH", buffer);
+}
+
 static int manage_access_status(char **bin_path, char **eacces_bin_path)
 {
     int ret = check_access_right_file(*bin_path);
@@ -51,6 +63,9 @@ char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell)
     char *path_list = NULL;
     char *bin_path = NULL;
 
+    if (path_restore(shell) == EXIT_ERROR) {
+        return NULL;
+    }
     path_list = my_env_get_value(&shell->env, "PATH");
     if (!path_list) {
         return NULL;
