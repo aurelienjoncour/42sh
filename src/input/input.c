@@ -25,8 +25,9 @@ static bool is_correct_char(int ch)
 
 static void select_hist(char **line, int ch, history_t *hist, size_t *pos)
 {
-    /*if (*line)
-        free(*line);*/
+    if (*line && ((hist->pos > 0 && ch == UP) ||
+    (ch == DOWN && hist->history[hist->pos] && hist->history[hist->pos + 1])))
+        free(*line);
     if (ch == UP) {
         if (hist->pos > 0) {
             hist->pos--;
