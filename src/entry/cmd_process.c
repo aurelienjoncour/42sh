@@ -37,5 +37,5 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
 
     //--call : parenthesis exec
     // <=====
-    return shell->exit_status;
+    return EXIT_SUCCESS;
 }

@@ -10,7 +10,7 @@
 int shell_exec(shell_t *shell, char *entry)
 {
     cmd_t *cmd;
-
+    
     cmd = parse_entry(entry);
     if (entry_checker(shell, cmd, entry) == EXIT_ERROR) {
         return EXIT_SUCCESS;

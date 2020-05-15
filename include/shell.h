@@ -72,6 +72,7 @@ int shell_exec_bin_cmd(char **cmd, shell_t *shell);
 int get_bin_path(const char *cmd_name, char **ptr_path, shell_t *shell);
 int check_access_right_file(const char *bin_path);
 char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell);
+int child_exit_status(int wstatus);
 
 // BUILTINS
 int my_exit(char **cmd, shell_t *shell);
