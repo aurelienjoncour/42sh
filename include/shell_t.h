@@ -10,6 +10,7 @@
 
 #include "fd_t.h"
 #include "history_t.h"
+#include "history_builtin.h"
 
 typedef struct minishell {
     env_t env;

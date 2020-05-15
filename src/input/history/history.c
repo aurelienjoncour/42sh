@@ -7,48 +7,79 @@
 
 #include "shell.h"
 
-#define BADLY_FORMED "history: Badly formed number."
-#define USAGE_HISTORY "Usage: history [-chrSLMT] [# number of events]."
-#define FEW_ARG "history: Too many arguments."
-
-static void display_history(size_t start, history_t *hist)
+static bool is_flag(char c, hist_build_t *load)
 {
-    for (size_t i = start; hist->history[i]; i++)
-        fprintf(stdout, "%5li %02i:%02i %s\n", i + 1, hist->date[i].hours,
-            hist->date[i].minutes, hist->history[i]);
+    char flag[] = "crh";
+
+    for (size_t i = 0; flag[i]; i++)
+        if (flag[i] == c) {
+            load->flag[i] = true;
+            return true;
+        }
+    fprintf(stderr, "%s\n", USAGE_HISTORY);
+    return false;
 }
 
-static int  flag_manage(shell_t *shell, char **cmd)
+static bool load_flag(char **cmd, hist_build_t *load)
 {
-    if (my_strcmp("-c", cmd[1]) == 0) {
-        shell->history.history[0] = NULL;
-        return 0;
+    load->input = -1;
+    for (size_t u = 0; u < 3; load->flag[u] = false, u++);
+    for (size_t i = 1; cmd[i]; i++) {
+        for (size_t u = 1; cmd[i][0] == '-' && cmd[i][u]; u++) {
+            if (!is_flag(cmd[i][u], load))
+                return false;
+        }
+        if (cmd[i][0] != '-') {
+            if (my_str_isnum(cmd[i]) != 1) {
+                fprintf(stderr, "%s\n", BADLY_FORMED);
+                return 1;
+            }
+            else {
+                load->input = my_getnbr(cmd[i]);
+                return true;
+            }
+        }
     }
-    fprintf(stderr, "%s\n", USAGE_HISTORY);
-    return 1;
+    return true;
+}
+
+static void execute_flag(hist_build_t *ld, history_t *hist)
+{
+    int move = (ld->flag[FLAG_R]) ? -1 : 1;
+    int start = 0;
+    int end = 0;
+
+    if (ld->input == -1) {
+        start = (ld->flag[FLAG_R]) ? word_array_len(hist->history) - 1 : start;
+    }
+    else {
+        start = word_array_len(hist->history) - ld->input;
+        if (ld->flag[FLAG_R]) {
+            start = word_array_len(hist->history) - 1;
+            end = start - ld->input + 1;
+        }
+    }
+    for (int i = start; hist->history[i] && i >= end; i += move) {
+        if (!ld->flag[FLAG_H])
+            fprintf(stdout, "%5i %02i:%02i ",
+                i + 1, hist->date[i].hours, hist->date[i].minutes);
+        fprintf(stdout, "%s\n", hist->history[i]);
+    }
 }
 
 int built_in_history(char **cmd, shell_t *shell)
 {
     int arg = word_array_len(cmd);
-    size_t size = word_array_len(shell->history.history);
+    hist_build_t load = {0};
 
-    if (arg >= 3) {
+    if (arg > 3) {
         fprintf(stderr, "%s\n", FEW_ARG);
         return 1;
     }
-    if (arg > 1 && cmd[1][0] == '-')
-        return flag_manage(shell, cmd);
-    else if (arg > 1)
-        if (my_str_isnum(cmd[1]) == 1) {
-            if ((int) size - my_getnbr(cmd[1]) >= 0)
-                display_history(size - my_getnbr(cmd[1]), &shell->history);
-            else display_history(0, &shell->history);
-        }
-        else {
-            fprintf(stderr, "%s\n", BADLY_FORMED);
-            return 1;
-        }
-    else display_history(0, &shell->history);
+    if (!load_flag(cmd, &load))
+        return 1;
+    if (!load.flag[FLAG_C])
+        execute_flag(&load, &shell->history);
+    else shell->history.history[0] = NULL;
     return 0;
 }

@@ -44,4 +44,3 @@ bool init_input(void);
 int my_getch(void);
 
 #endif
-
