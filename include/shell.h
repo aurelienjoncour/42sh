@@ -101,6 +101,7 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 // int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
 // MOD : CHECKER
+bool is_redirection(ID token_id);
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
 bool check_position_redirection_in_pipe(cmd_t *cmd);
 bool check_have_empty_pipe(cmd_t *cmd);

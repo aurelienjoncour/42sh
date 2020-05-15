@@ -39,6 +39,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_have_empty_pipe.c			\
 			$(DSRC)modules/checker/check_entry.c					\
 			$(DSRC)modules/checker/check_parenthesis.c				\
+			$(DSRC)modules/checker/have_null_command.c				\
 			$(DSRC)modules/scripting/shell_exec_script.c			\
 			$(DSRC)input/history/history_manage.c					\
 			$(DSRC)input/history/read_file.c						\
