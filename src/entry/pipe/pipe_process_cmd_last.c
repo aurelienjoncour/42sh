@@ -35,7 +35,7 @@ static int create_pipe_redirection(fd_t *fd)
     return EXIT_SUCCESS;
 }
 
-int pipe_process_cmd_last(shell_t *shell, char *command)
+int pipe_process_cmd_last(shell_t *shell, cmd_t *pipe_cmd)
 {
     if (pipe(shell->fd.pipe_fd) == -1) {
         return puterr("pipe : fail\n", EXIT_ERROR);
@@ -43,7 +43,7 @@ int pipe_process_cmd_last(shell_t *shell, char *command)
     if (create_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    if (cmd_process(shell, command) == EXIT_ERROR) {
+    if (shell_exec_boolop(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     if (close_pipe_redirection(&shell->fd) == EXIT_ERROR) {

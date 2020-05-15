@@ -30,6 +30,8 @@
 #include "fd_t.h"
 #include "cmd_t.h"
 #include "parser.h"
+#include "script.h"
+#include "redirection.h"
 
 //  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
@@ -42,15 +44,25 @@ char *shell_prompt(shell_t *shell);
 //                  - ENTRY -
 int shell_exec(shell_t *shell, char *entry);
 
+cmd_t **split_cmd_list(cmd_t *cmd, ID token_id, ID token2_id);
+
+// ENTRY : segment
 int shell_exec_segment(shell_t *shell, cmd_t *cmd);
 
 // ENTRY : PIPE
-// int shell_exec_piped(shell_t *shell, char *sub_entry);
-// int pipe_process_cmd(shell_t *shell, char *command);
-// int pipe_process_cmd_last(shell_t *shell, char *command);
+int shell_exec_pipe(shell_t *shell, cmd_t *seg_cmd);
+int pipe_process_cmd(shell_t *shell, cmd_t *pipe_cmd);
+int pipe_process_cmd_last(shell_t *shell, cmd_t *pipe_cmd);
+
+// ENTRY : BOOL OP
+int shell_exec_boolop(shell_t *shell, cmd_t *pipe_cmd);
+
+// ENTRY : SCRIPT
+// see script.h
 
 // ENTRY : PROCESS
 int cmd_process(shell_t *shell, cmd_t *cmd);
+char **linked_list_to_warray(cmd_t *cmd);
 
 // ENTRY : CMD EXEC
 int shell_exec_cmd(shell_t *shell, char **cmd);
@@ -60,6 +72,7 @@ int shell_exec_bin_cmd(char **cmd, shell_t *shell);
 int get_bin_path(const char *cmd_name, char **ptr_path, shell_t *shell);
 int check_access_right_file(const char *bin_path);
 char *get_bin_path_search_bin(const char *cmd_name, shell_t *shell);
+int child_exit_status(int wstatus);
 
 // BUILTINS
 int my_exit(char **cmd, shell_t *shell);
@@ -90,6 +103,7 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 // int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
 // MOD : CHECKER
+bool is_redirection(ID token_id);
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
 bool check_position_redirection_in_pipe(cmd_t *cmd);
 bool check_have_empty_pipe(cmd_t *cmd);
@@ -115,5 +129,12 @@ bool word_array_have_empty_str(char **warray);
 int my_str_count_pattern(char *str, const char *pattern);
 void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
+
+//-------------------------------------------------
+//                  - HISTORY -
+char *terminal_read(shell_t *shell);
+char *term_input(shell_t *shell);
+void show_main_prompt(shell_t *shell);
+int built_in_history(char **line, shell_t *shell);
 
 #endif

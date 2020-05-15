@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-int shell_exec_script(shell_t *shell, cmd_t *cmd)
+int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd)
 {
     // TODO : CHECK => have script ?
     // TODO : CHECK => script struct not finish ?
@@ -18,6 +18,8 @@ int shell_exec_script(shell_t *shell, cmd_t *cmd)
     // TODO : while + foreach eval
 
     // call :: cmd_process function
-
+    if (cmd_process(shell, boolop_cmd) == EXIT_ERROR) {
+        return EXIT_ERROR;
+    }
     return EXIT_SUCCESS;
 }

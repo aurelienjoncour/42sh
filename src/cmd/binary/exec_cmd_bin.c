@@ -30,27 +30,28 @@ static void sub_process(char **cmd, shell_t *shell)
     }
 }
 
-static void child_exit_status(int wstatus, shell_t *shell)
+int child_exit_status(int wstatus)
 {
-    if (!wstatus) {
-        shell->exit_status = SUCCESS_STATUS;
-        return;
-    }
+    int status = SUCCESS_STATUS;
+
+    if (!wstatus)
+        return SUCCESS_STATUS;
     if (WIFSIGNALED(wstatus) && wstatus == 8) {
         my_putstr_error("Floating exception");
-        shell->exit_status = DIVZERO_STATUS;
-    } else if (WIFSIGNALED(wstatus)) {
+        status = DIVZERO_STATUS;
+    } else if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV) {
         my_putstr_error("Segmentation fault");
-        shell->exit_status = SEGFAULT_STATUS;
+        status = SEGFAULT_STATUS;
     }
     if (WIFSIGNALED(wstatus) && WCOREDUMP(wstatus)) {
         my_putstr_error(" (core dumped)");
     }
-    if (WIFSIGNALED(wstatus)) {
+    if (WIFSIGNALED(wstatus)
+            && (WTERMSIG(wstatus) == SIGSEGV || wstatus == 8)) {
         my_putstr_error("\n");
-    } else if (WIFEXITED(wstatus)) {
-        shell->exit_status = WEXITSTATUS(wstatus);
-    }
+    } else if (WIFEXITED(wstatus))
+        return WEXITSTATUS(wstatus);
+    return status;
 }
 
 int fork_process(char **cmd, shell_t *shell)
@@ -71,7 +72,7 @@ int fork_process(char **cmd, shell_t *shell)
         if (ret == -1) {
             my_putstr_error("waitpid: Fail.\n");
         }
-        child_exit_status(wstatus, shell);
+        shell->exit_status = child_exit_status(wstatus);
     }
     return EXIT_SUCCESS;
 }

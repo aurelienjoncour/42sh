@@ -23,6 +23,7 @@ void connect_node(token_t *node_1, token_t *node_2);
 token_t *create_node(char *token, ID id, TYPE type);
 int rm_next_nodes(token_t *node);
 int add_node_at_the_end(token_t *node_1, token_t *node_2);
+int list_push_node(token_t **list_dest, token_t *src);
 token_t *get_last_token(token_t *token);
 token_t **realloc_node_array(token_t **array_src, size_t size);
 void free_node_array(token_t **array);
@@ -38,6 +39,7 @@ token_t *tokeniser(char *entry);
 ////////////////////////////
 // Main Functions
 void cmd_destroy(cmd_t *cmd);
+void cmd_array_destroy(cmd_t **cmd_array);
 cmd_t *parse_entry(char *entry);
 
 #define EXIT_ERROR 84

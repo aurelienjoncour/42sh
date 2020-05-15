@@ -18,6 +18,8 @@ MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
 MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/redirection/redirect_open_file.c			\
 			$(DSRC)modules/redirection/redirect_stdin_to_command.c	\
+			$(DSRC)modules/redirection/redirection_process.c		\
+			$(DSRC)modules/redirection/clean_redirect.c				\
 			$(DSRC)modules/parser/node/add_node.c					\
 			$(DSRC)modules/parser/node/connect_node.c				\
 			$(DSRC)modules/parser/node/create_node.c				\
@@ -37,6 +39,19 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_have_empty_pipe.c			\
 			$(DSRC)modules/checker/check_entry.c					\
 			$(DSRC)modules/checker/check_parenthesis.c				\
+			$(DSRC)modules/checker/have_null_command.c				\
+			$(DSRC)modules/scripting/shell_exec_script.c			\
+			$(DSRC)input/history/history_manage.c					\
+			$(DSRC)input/history/read_file.c						\
+			$(DSRC)input/history/write_history.c					\
+			$(DSRC)input/history/built_hist.c						\
+			$(DSRC)input/history/history.c							\
+			$(DSRC)input/add_ch.c									\
+			$(DSRC)input/canonic.c									\
+			$(DSRC)input/input.c									\
+			$(DSRC)input/supp.c										\
+			$(DSRC)input/terminal_read.c							\
+			$(DSRC)input/save_in_hist.c								\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
@@ -63,12 +78,14 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/where/show_path.c	\
 
 ENTRY 	=	$(DSRC)entry/shell_exec.c						\
+			$(DSRC)entry/split_cmd_list.c					\
 			$(DSRC)entry/shell_exec_segment.c				\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
 			$(DSRC)entry/bool_op/shell_exec_boolop.c		\
 			$(DSRC)entry/cmd_process.c						\
+			$(DSRC)entry/linked_list_to_warray.c			\
 
 TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/merge_path_filename.c			\
@@ -98,7 +115,7 @@ all:  lib $(NAME)
 
 $(NAME): $(OBJ)
 	make -C ./lib/my
-	@gcc -o $(NAME) $(OBJ) -L./lib/my -lmy && \
+	@gcc -o $(NAME) $(OBJ) -L./lib/my -lmy -lncurses && \
 		$(ECHO) $(BOLD_T)$(GREEN_C)"\n[✔] COMPILED:" $(DEFAULT)$(LIGHT_GREEN) "$(NAME)\n"$(DEFAULT) || \
 		$(ECHO) $(BOLD_T)$(RED_C)"[✘] "$(UNDLN_T)"BUILD FAILED:" $(LIGHT_RED) "$(NAME)\n"$(DEFAULT)
 

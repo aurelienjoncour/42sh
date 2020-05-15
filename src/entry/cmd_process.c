@@ -7,29 +7,35 @@
 
 #include "shell.h"
 
-/*
-    TODO : REFACTO
-*/
 int cmd_process(shell_t *shell, cmd_t *cmd)
 {
+    char **warray_cmd;
+    redirect_t redirect;
+
     // TODO : file redirection
-    // redirection_open_file(&cmd);
-    // if (cmd.err == true) {
-    //     return set_error(shell, &cmd);
-    // }
-    // if (do_redirection(&cmd) == EXIT_ERROR) {
-    //     shell->exit_status = ERROR_STATUS;
-    //     return EXIT_SUCCESS;
-    // }
+    if (redirection_process(cmd, &redirect) != EXIT_SUCCESS) {
+        clean_redirect(&redirect);
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_SUCCESS;
+    }
 
     // TODO : job control
+    // <=====
 
     //--call : magic quotes exec
+    // <=====
 
     //--call : exec cmd
-    // TODO : linked list to word array
-    //shell_exec_cmd(shell, cmd.cmd);
+    warray_cmd = linked_list_to_warray(cmd);
+    if (!warray_cmd)
+        return puterr("warray cmd : error\n", EXIT_ERROR);
+    if (shell_exec_cmd(shell, warray_cmd) == EXIT_ERROR) {
+        return EXIT_ERROR;
+    }
+    word_array_destroy(warray_cmd);
+    clean_redirect(&redirect);
 
     //--call : parenthesis exec
-    return shell->exit_status;
+    // <=====
+    return EXIT_SUCCESS;
 }

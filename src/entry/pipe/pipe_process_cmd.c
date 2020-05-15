@@ -31,18 +31,19 @@ static int child_create_pipe_redirection(fd_t *fd)
     return EXIT_SUCCESS;
 }
 
-static int child_process_work(shell_t *shell, char *command)
+static int child_process_work(shell_t *shell, cmd_t *pipe_cmd)
 {
     if (child_create_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    if (cmd_process(shell, command) == EXIT_ERROR) {
+    if (shell_exec_boolop(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     if (child_close_pipe_redirection(&shell->fd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    exit(shell->exit_status);
+    shell_exit(shell, shell->exit_status);
+    return EXIT_SUCCESS;
 }
 
 static int parent_process_redirect_manage(fd_t *fd)
@@ -57,7 +58,7 @@ static int parent_process_redirect_manage(fd_t *fd)
     return EXIT_SUCCESS;
 }
 
-int pipe_process_cmd(shell_t *shell, char *command)
+int pipe_process_cmd(shell_t *shell, cmd_t *pipe_cmd)
 {
     pid_t cpid;
 
@@ -72,7 +73,7 @@ int pipe_process_cmd(shell_t *shell, char *command)
             return EXIT_ERROR;
         }
     } else {
-        if (child_process_work(shell, command) != EXIT_SUCCESS) {
+        if (child_process_work(shell, pipe_cmd) != EXIT_SUCCESS) {
             return EXIT_ERROR;
         }
     }

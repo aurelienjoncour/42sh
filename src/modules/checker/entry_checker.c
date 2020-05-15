@@ -11,7 +11,7 @@ static int call_check_function(cmd_t *cmd, const char *entry)
 {
     if (have_missing_str_quote(entry) == true) {
         return EXIT_ERROR;
-    } else if (check_parenthesis(cmd) || !cmd) {
+    } else if (check_parenthesis(cmd)) {
         return EXIT_ERROR;
     }
     if (have_missing_name_redirection(cmd) == true) {
@@ -33,6 +33,9 @@ static int call_check_function(cmd_t *cmd, const char *entry)
 
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry)
 {
+    if (!cmd || !cmd->begin) {
+        return puterr("Entry checker: null cmd.\n", EXIT_ERROR);
+    }
     if (call_check_function(cmd, entry) == EXIT_ERROR) {
         shell->exit_status = ERROR_STATUS;
         return EXIT_ERROR;

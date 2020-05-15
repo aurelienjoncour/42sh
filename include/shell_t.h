@@ -9,6 +9,7 @@
 #define H_SHELL_T
 
 #include "fd_t.h"
+#include "history_t.h"
 
 typedef struct minishell {
     env_t env;
@@ -19,6 +20,7 @@ typedef struct minishell {
     char *prev_path;
     int exit_status;
     bool exit;
+    history_t history;
 } shell_t;
 
 #endif
