@@ -66,12 +66,17 @@ static bool move_in_line(size_t *pos, int ch, char **line, history_t *hist)
     return false;
 }
 
-static void display_line(shell_t *shell, char *line)
+static void display_line(shell_t *shell, char *line, size_t pos)
 {
     fprintf(stdout, "\33[2K\r");
     show_main_prompt(shell);
-    if (line)
-        fprintf(stdout, "%s", line);
+    if (line) {
+        for (size_t i = 0; line[i]; i++) {
+            if (i != pos)
+                fprintf(stdout, "%c", line[i]);
+            else fprintf(stdout, "\e[7m%c\e[27m", line[i]);
+        }
+    }
     fflush(stdout);
 }
 
@@ -83,7 +88,7 @@ char *term_input(shell_t *shell)
 
     shell->history.pos = get_history_size(shell->history.history);
     while (ch != '\n') {
-        display_line(shell, line);
+        display_line(shell, line, pos);
         ch = my_getch();
         if (!move_in_line(&pos, ch, &line, &shell->history) && is_correct_char(ch)) {
             line = add_char(line, ch, pos);
