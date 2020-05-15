@@ -40,6 +40,15 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_entry.c					\
 			$(DSRC)modules/checker/check_parenthesis.c				\
 			$(DSRC)modules/scripting/shell_exec_script.c			\
+			$(DSRC)input/history/history_manage.c					\
+			$(DSRC)input/history/read_file.c						\
+			$(DSRC)input/history/write_history.c					\
+			$(DSRC)input/add_ch.c									\
+			$(DSRC)input/canonic.c									\
+			$(DSRC)input/input.c									\
+			$(DSRC)input/supp.c										\
+			$(DSRC)input/terminal_read.c							\
+			$(DSRC)input/save_in_hist.c								\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
@@ -81,15 +90,6 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
 
 SRC	=	$(DSRC)main.c										\
-		$(DSRC)/input/history/history_manage.c				\
-		$(DSRC)/input/history/read_file.c					\
-		$(DSRC)/input/history/write_history.c				\
-		$(DSRC)/input/add_ch.c								\
-		$(DSRC)/input/canonic.c								\
-		$(DSRC)/input/input.c								\
-		$(DSRC)/input/supp.c								\
-		$(DSRC)/input/terminal_read.c						\
-		$(DSRC)/input/save_in_hist.c						\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
 
 
