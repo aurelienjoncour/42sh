@@ -42,8 +42,7 @@ static void select_hist(char **line, int ch, history_t *hist, size_t *pos)
         else
             *line = NULL;
     }
-    if (*line)
-        *pos = my_strlen(*line);
+    *pos = (*line) ? my_strlen(*line) : 0;
 }
 
 static bool move_in_line(size_t *pos, int ch, char **line, history_t *hist)
