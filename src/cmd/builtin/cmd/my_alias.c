@@ -27,7 +27,7 @@ static int print_alias(char *label, env_t *alias, bool print_label)
     return EXIT_SUCCESS;
 }
 
-static char *my_array_to_str(char **tab)
+static char *my_array_to_str(char **tab, bool parent)
 {
     int size = 0;
     char *str;
@@ -38,15 +38,15 @@ static char *my_array_to_str(char **tab)
     str = malloc(sizeof(char) * size + 1 + (i_tab > 1 ? 2 : 0));
     if (str == NULL)
         return NULL;
-    if (i_tab > 1)
+    if (i_tab > 1 && parent)
         str[1] = '\0';
-    str[0] = i_tab > 1 ? '(' : '\0';
+    str[0] = i_tab > 1 && parent ? '(' : '\0';
     for (int i = 0; tab[i] != NULL; i++) {
         my_strcat(str, tab[i]);
         my_strcat(str, " ");
     }
     str[my_strlen(str) - 1] = '\0';
-    if (i_tab > 1)
+    if (i_tab > 1 && parent)
         my_strcat(str, ")");
     return str;
 }
@@ -70,27 +70,19 @@ static int set_alias(env_t *alias, const char *label, char *target_cmd,
     return exit_value;
 }
 
-static bool get_alias_opt(int argc, char * const *argv)
+static bool get_alias_opt(char **argv)
 {
     static char *print = NULL;
-    int opt;
-    char *arg = "NULL";
 
-    do {
-        opt = getopt(argc, argv, "p::");
-        if (opt == '?')
-            return true;
-        if (opt == 'p')
-            arg = my_strdup(optarg);
-    } while (opt != -1);
-    if (arg != NULL && !my_strcmp(arg, "NULL"))
+    if (argv[1][0] != '-')
         return false;
-    if (arg == NULL && print != NULL)
+    for (int i = 1; argv[1][i] != '\0'; i++)
+        if (argv[1][i] != 'p')
+            return true;
+    if (argv[2] == NULL && print != NULL)
         printf("%s\n", print);
-    else if (arg) {
-        free(print);
-        print = arg;
-    }
+    else if (argv[2] != NULL)
+        print = my_array_to_str(argv + 2, false);
     return true;
 }
 
@@ -99,7 +91,7 @@ int my_alias(char **cmd, shell_t *shell)
     int argc = word_array_len(cmd);
     char *target_cmd;
 
-    if (get_alias_opt(argc, cmd))
+    if (argc > 1 && get_alias_opt(cmd))
         return EXIT_SUCCESS;
     if (argc == 1) {
         for (int i = 0; i < shell->alias.size; i++)
@@ -109,7 +101,7 @@ int my_alias(char **cmd, shell_t *shell)
     }
     if (argc == 2)
         return print_alias(cmd[1], &shell->alias, false);
-    target_cmd = my_array_to_str(cmd + 2);
+    target_cmd = my_array_to_str(cmd + 2, true);
     if (target_cmd == NULL)
         return EXIT_ERROR;
     if (my_env_exist(&shell->alias, cmd[1]))
