@@ -43,6 +43,8 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)input/history/history_manage.c					\
 			$(DSRC)input/history/read_file.c						\
 			$(DSRC)input/history/write_history.c					\
+			$(DSRC)input/history/built_hist.c						\
+			$(DSRC)input/history/history.c							\
 			$(DSRC)input/add_ch.c									\
 			$(DSRC)input/canonic.c									\
 			$(DSRC)input/input.c									\

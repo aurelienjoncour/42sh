@@ -40,12 +40,20 @@ bool init_history(history_t *hist)
     if (!hist->history)
         return false;
     hist->size = get_history_size(hist->history);
+    if (hist->size % 2 != 0)
+        return false;
     hist->pos = (hist->size) ? hist->size - 1 : 0;
+    hist->date = malloc(sizeof(date_t) * (hist->size / 2));
+    hist->size /= 2;
+    if (!hist->date)
+        return false;
+    history_build(hist);
     return true;
 }
 
 void destroy_history(history_t *hist)
 {
+    free(hist->date);
     close(hist->fd);
     destroy_file(hist->history);
 }

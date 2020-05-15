@@ -132,5 +132,6 @@ int *occur, int *serie);
 char *terminal_read(shell_t *shell);
 char *term_input(shell_t *shell);
 void show_main_prompt(shell_t *shell);
+int built_in_history(shell_t *shell, char **line);
 
 #endif
