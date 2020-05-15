@@ -32,25 +32,26 @@ static void sub_process(char **cmd, shell_t *shell)
 
 int child_exit_status(int wstatus)
 {
-    if (!wstatus) {
+    int status = SUCCESS_STATUS;
+
+    if (!wstatus)
         return SUCCESS_STATUS;
-    }
     if (WIFSIGNALED(wstatus) && wstatus == 8) {
         my_putstr_error("Floating exception");
-        return DIVZERO_STATUS;
-    } else if (WIFSIGNALED(wstatus)) {
+        status = DIVZERO_STATUS;
+    } else if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV) {
         my_putstr_error("Segmentation fault");
-        return SEGFAULT_STATUS;
+        status = SEGFAULT_STATUS;
     }
     if (WIFSIGNALED(wstatus) && WCOREDUMP(wstatus)) {
         my_putstr_error(" (core dumped)");
     }
-    if (WIFSIGNALED(wstatus)) {
+    if (WIFSIGNALED(wstatus)
+            && (WTERMSIG(wstatus) == SIGSEGV || wstatus == 8)) {
         my_putstr_error("\n");
-    } else if (WIFEXITED(wstatus)) {
+    } else if (WIFEXITED(wstatus))
         return WEXITSTATUS(wstatus);
-    }
-    return SUCCESS_STATUS;
+    return status;
 }
 
 int fork_process(char **cmd, shell_t *shell)

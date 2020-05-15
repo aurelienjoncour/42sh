@@ -37,6 +37,9 @@ int shell_exec_segment(shell_t *shell, cmd_t *cmd)
         } else if (shell_exec_pipe(shell, segments[i]) != EXIT_SUCCESS) {
             return EXIT_ERROR;
         }
+        if (shell->exit) {
+            break;
+        }
     }
     cmd_array_destroy(segments);
     return EXIT_SUCCESS;

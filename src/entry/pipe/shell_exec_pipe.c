@@ -15,8 +15,11 @@ static void wait_end_all_child_process(shell_t *shell)
 
     do {
         pid = wait(&wstatus);
+        if (pid == -1) {
+            break;
+        }
         exit_stat = child_exit_status(wstatus);
-        if (pid != -1 && exit_stat) {
+        if (exit_stat) {
             shell->exit_status = exit_stat;
         }
     } while (pid != -1);
@@ -34,8 +37,11 @@ static int process_all_pipe(shell_t *shell, cmd_t **pipe_cmd)
         if (is_last && pipe_process_cmd_last(shell, pipe_cmd[i]) != 0) {
             return EXIT_ERROR;
         }
-        if (!is_last && pipe_process_cmd(shell, pipe_cmd[i]) != 0) {
+        if (!is_last && pipe_process_cmd(shell, pipe_cmd[i]) == EXIT_ERROR) {
             return EXIT_ERROR;
+        }
+        if (shell->exit) {
+            return EXIT_SUCCESS;
         }
     }
     wait_end_all_child_process(shell);
@@ -52,6 +58,6 @@ int shell_exec_pipe(shell_t *shell, cmd_t *seg_cmd)
     if (process_all_pipe(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    cmd_array_destroy(pipe_cmd);
+    cmd_array_destroy(pipe_cmd);    
     return EXIT_SUCCESS;
 }
