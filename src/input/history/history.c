@@ -59,7 +59,7 @@ static void execute_flag(hist_build_t *ld, history_t *hist)
             end = start - ld->input + 1;
         }
     }
-    for (int i = start; hist->history[i] && i >= end; i += move) {
+    for (int i = start; i >= 0 && hist->history[i] && i >= end; i += move) {
         if (!ld->flag[FLAG_H])
             fprintf(stdout, "%5i %02i:%02i ",
                 i + 1, hist->date[i].hours, hist->date[i].minutes);
