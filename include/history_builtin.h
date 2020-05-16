@@ -14,14 +14,17 @@
 
 typedef struct hist_build_s
 {
-    bool flag[3];
+    bool flag[5];
     ssize_t input;
+    char *file;
 } hist_build_t;
 
 enum flag {
     FLAG_C = 0,
     FLAG_R,
-    FLAG_H
+    FLAG_H,
+    FLAG_S,
+    FLAG_L
 };
 
 #endif

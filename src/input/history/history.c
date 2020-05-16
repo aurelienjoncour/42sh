@@ -7,42 +7,6 @@
 
 #include "shell.h"
 
-static bool is_flag(char c, hist_build_t *load)
-{
-    char flag[] = "crh";
-
-    for (size_t i = 0; flag[i]; i++)
-        if (flag[i] == c) {
-            load->flag[i] = true;
-            return true;
-        }
-    fprintf(stderr, "%s\n", USAGE_HISTORY);
-    return false;
-}
-
-static bool load_flag(char **cmd, hist_build_t *load)
-{
-    load->input = -1;
-    for (size_t u = 0; u < 3; load->flag[u] = false, u++);
-    for (size_t i = 1; cmd[i]; i++) {
-        for (size_t u = 1; cmd[i][0] == '-' && cmd[i][u]; u++) {
-            if (!is_flag(cmd[i][u], load))
-                return false;
-        }
-        if (cmd[i][0] != '-') {
-            if (my_str_isnum(cmd[i]) != 1) {
-                fprintf(stderr, "%s\n", BADLY_FORMED);
-                return false;
-            }
-            else {
-                load->input = my_getnbr(cmd[i]);
-                return true;
-            }
-        }
-    }
-    return true;
-}
-
 static void execute_flag(hist_build_t *ld, history_t *hist)
 {
     int move = (ld->flag[FLAG_R]) ? -1 : 1;
@@ -65,7 +29,7 @@ static void execute_flag(hist_build_t *ld, history_t *hist)
                 i + 1, hist->date[i].hours, hist->date[i].minutes);
         fprintf(stdout, "%s\n", hist->history[i]);
     }
-}//history ra
+}
 
 int built_in_history(char **cmd, shell_t *shell)
 {
@@ -78,6 +42,13 @@ int built_in_history(char **cmd, shell_t *shell)
     }
     if (!load_flag(cmd, &load))
         return 1;
+    if (load.flag[FLAG_L] || load.flag[FLAG_S]) {
+        if (load.flag[FLAG_L])
+            flag_load(&load, shell);
+        if (load.flag[FLAG_S])
+            flag_save(&load, &shell->history);
+        return 0;
+    }
     if (!load.flag[FLAG_C])
         execute_flag(&load, &shell->history);
     else shell->history.history[0] = NULL;

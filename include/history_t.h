@@ -7,6 +7,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include "history_builtin.h"
 #include "my_key.h"
 
 #ifndef HIST_H
@@ -42,5 +43,6 @@ size_t get_history_size(char **hist);
 void history_build(history_t *hist);
 bool init_input(void);
 int my_getch(void);
+bool load_flag(char **cmd, hist_build_t *load);
 
 #endif
