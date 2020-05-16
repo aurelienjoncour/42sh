@@ -70,7 +70,7 @@ int where_show_all_path(const char *cmd_name, shell_t *shell)
     int ret;
 
     if (is_bin_path(cmd_name)) {
-        printf("%s\n", ERR_NO_SENSE);
+        my_putstr_error(ERR_NO_SENSE);
         return EXIT_ERROR;
     } else {
         ret = show_all_path(cmd_name, shell);
