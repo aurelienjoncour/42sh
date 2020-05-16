@@ -31,6 +31,12 @@ static void execute_flag(hist_build_t *ld, history_t *hist)
     }
 }
 
+static void c_flag(shell_t *shell)
+{
+    shell->history.history[0] = NULL;
+    shell->history.size = 0;
+}
+
 int built_in_history(char **cmd, shell_t *shell)
 {
     int arg = word_array_len(cmd);
@@ -51,6 +57,6 @@ int built_in_history(char **cmd, shell_t *shell)
     }
     if (!load.flag[FLAG_C])
         execute_flag(&load, &shell->history);
-    else shell->history.history[0] = NULL;
+    else c_flag(shell);
     return 0;
 }
