@@ -5,6 +5,10 @@
 ** 42sh
 */
 
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "shell.h"
 
 bool flag_save(hist_build_t *ld, history_t *hist)
@@ -26,30 +30,45 @@ bool flag_save(hist_build_t *ld, history_t *hist)
     return true;
 }
 
-static bool fd_load(hist_build_t *load, history_t *ld)
+static int get_file_size(char const *filepath)
 {
-    if (access(load->file, F_OK) == 0)
-        ld->fd = open(load->file, O_RDONLY);
-    else {
-        return false;
-    }
-    if (ld->fd < 0)
-        return false;
-    return true;
+    struct stat test;
+
+    if (stat(filepath, &test) == -1)
+        return -1;
+    return test.st_size;
+}
+
+static char *files_read(char const *filepath, int *fd)
+{
+    char *temp;
+    int file_size;
+
+    *fd = open(filepath, O_RDONLY);
+    if (*fd == -1)
+        return NULL;
+    file_size = get_file_size(filepath);
+    if (file_size == -1 || file_size == 0)
+        return NULL;
+    temp = malloc(sizeof(char) * (file_size + 1));
+    if (temp == NULL)
+        return NULL;
+    temp[file_size] = '\0';
+    if (read(*fd, temp, file_size) < 0)
+        return NULL;
+    return temp;
 }
 
 bool flag_load(hist_build_t *load, shell_t *shell)
 {
     history_t ld;
 
-    if (!fd_load(load, &ld))
-        return false;
     ld.size = 0;
     ld.pos = 0;
-    ld.history = read_file(ld.fd);
+    ld.history = my_str_to_word_array(files_read(load->file, &ld.fd), "\n");
     if (!ld.history)
         return false;
-    ld.size = get_history_size(ld.history);
+    ld.size = get_history_size(ld.history) - 1;
     if (ld.size % 2 != 0)
         return false;
     ld.pos = (ld.size) ? ld.size - 1 : 0;
@@ -57,7 +76,7 @@ bool flag_load(hist_build_t *load, shell_t *shell)
     ld.size /= 2;
     if (!ld.date)
         return false;
-    history_build(&shell->history);
+    history_build(&ld);
     shell->history = ld;
     return true;
 }

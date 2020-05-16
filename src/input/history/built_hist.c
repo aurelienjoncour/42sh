@@ -29,8 +29,13 @@ void history_build(history_t *hist)
     size_t move = 0;
 
     for (size_t i = 0; hist->history[i]; i++) {
-        struct_filler(&hist->date[move], hist->history[i]);
-        rm_line(hist->history, i);
-        move++;
+        if (hist->history[i][0] != '\0') {
+            struct_filler(&hist->date[move], hist->history[i]);
+            rm_line(hist->history, i);
+            move++;
+        }
+        else {
+            rm_line(hist->history, i);
+        }
     }
 }
