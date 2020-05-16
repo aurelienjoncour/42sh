@@ -28,10 +28,9 @@ bool flag_save(hist_build_t *ld, history_t *hist)
 
 static bool fd_load(hist_build_t *load, history_t *ld)
 {
-    if (access(load->file, F_OK) == -1)
-        ld->fd = open(load->file, O_RDWR | O_CREAT, 0664);
+    if (access(load->file, F_OK) == 0)
+        ld->fd = open(load->file, O_RDONLY);
     else {
-        printf("ici\n");
         return false;
     }
     if (ld->fd < 0)
@@ -41,7 +40,6 @@ static bool fd_load(hist_build_t *load, history_t *ld)
 
 bool flag_load(hist_build_t *load, shell_t *shell)
 {
-    printf("start\n");
     history_t ld;
 
     if (!fd_load(load, &ld))
@@ -59,8 +57,7 @@ bool flag_load(hist_build_t *load, shell_t *shell)
     ld.size /= 2;
     if (!ld.date)
         return false;
-    history_build(&ld);
+    history_build(&shell->history);
     shell->history = ld;
-    printf("end\n");
     return true;
 }
