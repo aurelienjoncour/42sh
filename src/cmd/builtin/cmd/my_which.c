@@ -49,7 +49,7 @@ bool *not_found)
     }
     ret = check_for_binary_cmd(cmd_name, shell);
     if (ret == EXIT_ERROR) {
-        printf("%s%s\n", cmd_name, ERR_NOT_FOUND);
+        my_putstr_error(ERR_NOT_FOUND);
         *not_found = true;
     }
     return EXIT_SUCCESS;
@@ -61,7 +61,7 @@ int my_which(char **cmd, shell_t *shell)
 
     if (word_array_len(cmd) == 1) {
         shell->exit_status = ERROR_STATUS;
-        printf("%s\n", ERR_FEW_ARG);
+        my_putstr_error(ERR_FEW_ARG);
         return EXIT_SUCCESS;
     }
     for (size_t i = 1; cmd[i] != NULL; i++) {
