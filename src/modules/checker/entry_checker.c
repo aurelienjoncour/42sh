@@ -7,6 +7,17 @@
 
 #include "shell.h"
 
+static bool is_null_cmd(cmd_t *cmd)
+{
+    if (!cmd || !cmd->begin) {
+        return true;
+    }
+    if (cmd->begin->token == NULL) {
+        return true;
+    }
+    return true;
+}
+
 static int call_check_function(cmd_t *cmd, const char *entry)
 {
     if (have_missing_str_quote(entry) == true) {
@@ -35,6 +46,9 @@ int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry)
 {
     if (!cmd || !cmd->begin) {
         return puterr("Entry checker: null cmd.\n", EXIT_ERROR);
+    }
+    if (is_null_cmd(cmd) == true) {
+        return EXIT_ERROR;
     }
     if (call_check_function(cmd, entry) == EXIT_ERROR) {
         shell->exit_status = ERROR_STATUS;
