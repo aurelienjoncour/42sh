@@ -62,10 +62,13 @@ static char *files_read(char const *filepath, int *fd)
 bool flag_load(hist_build_t *load, shell_t *shell)
 {
     history_t ld;
+    char *file = files_read(load->file, &ld.fd);
 
     ld.size = 0;
     ld.pos = 0;
-    ld.history = my_str_to_word_array(files_read(load->file, &ld.fd), "\n");
+    if (!file)
+        return false;
+    ld.history = my_str_to_word_array(file, "\n");
     if (!ld.history)
         return false;
     ld.size = get_history_size(ld.history) - 1;
