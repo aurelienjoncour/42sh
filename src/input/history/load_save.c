@@ -15,6 +15,7 @@ bool flag_save(hist_build_t *ld, history_t *hist)
 {
     int fd;
     int tmp;
+    size_t save;
 
     if (access(ld->file, F_OK) == -1)
         fd = open(ld->file, O_RDWR | O_CREAT, 0664);
@@ -23,9 +24,12 @@ bool flag_save(hist_build_t *ld, history_t *hist)
     if (fd < 0)
         return false;
     tmp = hist->fd;
+    save = hist->size;
+    hist->size = 0;
     hist->fd = fd;
     write_history(hist);
     hist->fd = tmp;
+    hist->size = save;
     close(fd);
     return true;
 }
