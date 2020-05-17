@@ -10,7 +10,7 @@
 
 static bool is_flag(char c, hist_build_t *load)
 {
-    char flag[] = "crhSL";
+    char flag[] = "crhsL";
 
     for (size_t i = 0; flag[i]; i++)
         if (flag[i] == c) {

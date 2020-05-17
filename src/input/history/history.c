@@ -49,9 +49,9 @@ int built_in_history(char **cmd, shell_t *shell)
     if (!load_flag(cmd, &load))
         return 1;
     if (load.flag[FLAG_L] || load.flag[FLAG_S]) {
-        if (load.flag[FLAG_L])
+        if (load.flag[FLAG_L] && cmd[2])
             flag_load(&load, shell);
-        if (load.flag[FLAG_S])
+        if (load.flag[FLAG_S] && cmd[2])
             flag_save(&load, &shell->history);
         return 0;
     }
