@@ -47,11 +47,19 @@ static char *read_quote(int *pipefd)
 {
     char buf[BUF_SIZE];
     char *ret = NULL;
+    int a = 1;
 
     close(pipefd[1]);
-    while (read(pipefd[0], buf, BUF_SIZE) > 0)
+    while (a > 0) {
+        a = read(pipefd[0], buf, BUF_SIZE);
+        if (a < 0)
+            return NULL;
+        buf[a] = '\0';
         ret = space_cat(ret, buf);
+    }
     close(pipefd[0]);
+    if (ret[strlen(ret) - 1] == ' ')
+        ret[strlen(ret) - 1] = '\0';
     return ret;
 }
 
