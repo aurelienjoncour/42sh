@@ -207,7 +207,7 @@ NAME="BASE redirect"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    cat < Makefile > log
+    cat < tests > log
     rm log
 [924-END]
 
@@ -261,7 +261,7 @@ NAME="EXE"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    ./exe/divzero.out
+    ../exe/divzero.out
 [001-END]
 
 [002]
@@ -269,7 +269,7 @@ NAME="EXE"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    ./exe/right.out
+    ../exe/right.out
 [002-END]
 
 [003]
@@ -277,7 +277,7 @@ NAME="EXE"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    ./exe/segfault.out
+    ../exe/segfault.out
 [003-END]
 
 [004]

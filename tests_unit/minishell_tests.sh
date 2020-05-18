@@ -9,7 +9,7 @@ SUCCESS_TESTS=0
 
 compare ()
 {
-    if [ "$1" = "$2" ] && [ "$3" = "$4" ]; then
+    if [ "$1" == "$2" ] && [ "$3" == "$4" ]; then
         printf "\033[1;32mSuccess test %d (%s)\n\033[0m" $TOTAL_TESTS "$5"
         SUCCESS_TESTS=$((SUCCESS_TESTS+1))
     else
@@ -26,11 +26,12 @@ compare ()
         printf "\033[1;29mTcsh return value %s \n\n\033[0m" "$4"
     fi
     TOTAL_TESTS=$((TOTAL_TESTS+1))
+    exit
 }
 
 execute ()
 {
-    MYSH=$(echo -e "$1"| ./mysh 2>&1)
+    MYSH=$(echo -e "$1"| ./42sh 2>&1)
     RET_MYSH=$(echo $?)
     if [ "$2" = "1" ]; then
         TCSH=$(echo -e "$1" | env -i tcsh 2>&1)
@@ -137,7 +138,7 @@ execute "ls /|cat -e|cat -e" "0"
 
 printf "\n\033[1;33m=== MINISHELL PERMISSIONS AND EXECUTION TESTS ===\033[0m\n\n"
 
-execute "mysh" "0"
+execute "42sh" "0"
 execute "../bin/ls" "0"
 execute "./bin/ls" "0"
 execute "/bin/ls" "0"

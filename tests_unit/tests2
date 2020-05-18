@@ -1,0 +1,48 @@
+[001]
+NAME="LINE FORMATING"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  ls     -l     |    cat
+[001-END]
+
+[002]
+NAME="LINE FORMATING"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls || echo && e || ls
+[002-END]
+
+[003]
+NAME="LINE FORMATING"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    e && ls
+    e || ls
+[003-END]
+
+[004]
+NAME="LINE FORMATING"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    \ls
+[004-END]
+
+[005]
+NAME="L"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo `ls && echo || ls && ls || ls || echo`
+[005-END]
+
+[006]
+NAME="L"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo \" hello world \'
+[006-END]

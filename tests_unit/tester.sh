@@ -2,6 +2,7 @@
 
 MYSHELL="$PWD/42sh"
 REFER="/bin/tcsh -f"
+TESTS_FILE="tests2"
 TRAPSIG=0
 
 CAT=`which cat`
@@ -17,6 +18,16 @@ EXPR=`which expr`
 MKDIR=`which mkdir`
 CP=`which cp`
 
+if [ ! -f "$TESTS_FILE" ]; then
+    TESTS_FILE="tests"
+fi
+echo "Test file: $TESTS_FILE"
+
+####
+make -C ../
+cp ../42sh .
+###
+
 for i in `env | grep BASH_FUNC_ | cut -d= -f1`; do
     f=`echo $i | sed s/BASH_FUNC_//g | sed s/%%//g`
     unset -f $f
@@ -25,7 +36,7 @@ done
 disp_test()
 {
   id=$1
-  $CAT tests | $GREP -A1000 "\[$id\]" | $GREP -B1000 "^\[$id-END\]" | $GREP -v "^\[.*\]"
+  $CAT $TESTS_FILE | $GREP -A1000 "\[$id\]" | $GREP -B1000 "^\[$id-END\]" | $GREP -v "^\[.*\]"
 }
 
 run_script()
@@ -113,6 +124,10 @@ load_test()
       $MKDIR -p /tmp/test.$$/$id 2>/dev/null
       $CP /tmp/.shell.$$ /tmp/test.$$/$id/mysh.out
       $CP /tmp/.refer.$$ /tmp/test.$$/$id/tcsh.out
+      echo "42sh / Tcsh DIFF:"
+      echo -e "\e[31m"
+      git diff /tmp/test.$$/$id/mysh.out /tmp/test.$$/$id/tcsh.out
+      echo -e "\e[0m"
     else
       echo "KO"
     fi
@@ -131,7 +146,7 @@ then
   done
 fi
 
-if [ ! -f tests ]
+if [ ! -f $TESTS_FILE ]
 then
   echo "No tests file. Please read README.ME" >&2
   exit 1
@@ -153,7 +168,7 @@ fi
 
 if [ $# -eq 0 ]
 then
-  for lst in `cat tests | grep "^\[.*\]$" | grep -vi end | sed s/'\['// | sed s/'\]'//`
+  for lst in `cat $TESTS_FILE | grep "^\[.*\]$" | grep -vi end | sed s/'\['// | sed s/'\]'//`
   do
     path_backup=$PATH
     load_test $lst 1

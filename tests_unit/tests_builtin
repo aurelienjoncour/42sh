@@ -1,0 +1,39 @@
+[001]
+NAME="WHERE-01"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  where
+[001-END]
+
+[002]
+NAME="WHERE"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  where wc
+[002-END]
+
+[003]
+NAME="WHERE"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  where ls cd wc echo
+[003-END]
+
+[004]
+NAME="WHERE"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  where cd
+[004-END]
+
+[005]
+NAME="WHERE"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  where /bin/ls
+[005-END]
