@@ -10,16 +10,16 @@
 static char *fill_token(char *value, size_t idx, char *token,
 char *label)
 {
-    size_t size = (idx - 1) + strlen(&token[idx + strlen(label)])
+    size_t first_bloc_size = (idx > 1) ? (idx - 1) : 0;
+    size_t size = first_bloc_size + strlen(&token[idx + strlen(label)])
         + strlen(value);
-    size_t first_bloc_size = (idx - 1);
     char *ret = malloc(sizeof(char) * (size + 1));
 
     if (ret == NULL) {
         return NULL;
     }
     ret[size] = '\0';
-    if ((idx - 1) > 0) {
+    if (idx > 1) {
         strncpy(ret, token, (idx - 1));
     } else {
         first_bloc_size = 0;
