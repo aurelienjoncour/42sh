@@ -57,6 +57,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/substitute_var/subst_alias.c				\
 			$(DSRC)modules/substitute_var/subst_var.c				\
 			$(DSRC)modules/substitute_var/main_subst.c				\
+			$(DSRC)modules/substitute_var/process_subst.c			\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
