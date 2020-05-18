@@ -92,6 +92,7 @@ ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
+			$(DSRC)entry/parenthesis/parenthesis_exec.c		\
 			$(DSRC)entry/bool_op/shell_exec_boolop.c		\
 			$(DSRC)entry/cmd_process.c						\
 			$(DSRC)entry/linked_list_to_warray.c			\
