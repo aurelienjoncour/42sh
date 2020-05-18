@@ -54,10 +54,14 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/supp.c								\
 			$(DSRC)modules/input/terminal_read.c					\
 			$(DSRC)modules/input/save_in_hist.c						\
+<<<<<<< HEAD
 			$(DSRC)modules/substitute_var/subst_alias.c				\
 			$(DSRC)modules/substitute_var/subst_var.c				\
 			$(DSRC)modules/substitute_var/main_subst.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
+=======
+			$(DSRC)modules/magic_quote/magical_read.c				\
+>>>>>>> cc7200d94abe4648efd76e16601c81252df0928f
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\

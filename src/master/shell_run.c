@@ -12,7 +12,6 @@ int shell_run(shell_t *shell)
     char *entry = NULL;
 
     while (!shell->exit) {
-        //entry = shell_prompt(shell);
         entry = terminal_read(shell);
         if (!entry) {
             shell->exit = true;
