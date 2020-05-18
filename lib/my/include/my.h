@@ -95,6 +95,7 @@ int my_advanced_sort_word_array(char **tab,
 int (*cmp)(char const *, char const *));
 bool my_str_replace_char(char *str, const char *from, const char *to);
 int my_str_have_char(const char *str, char c);
+char *my_strdupcat(int argc, ...);
 
 // NUMBER
 char *my_putnbr_base_str(int nbr, char const *base);
