@@ -90,6 +90,7 @@ int my_unalias(char **cmd, shell_t *shell);
 int my_set(char **cmd, shell_t *shell);
 int my_which(char **cmd, shell_t *shell);
 int my_where(char **cmd, shell_t *shell);
+int my_repeat(char **cmd, shell_t *shell);
 
 // Builtins : sub-function
 int where_show_all_path(const char *cmd_name, shell_t *shell);
@@ -129,6 +130,7 @@ bool word_array_have_empty_str(char **warray);
 int my_str_count_pattern(char *str, const char *pattern);
 void my_str_count_char_suite(const char *str, const char c,
 int *occur, int *serie);
+char *my_array_to_str(char **tab, bool parent);
 
 //-------------------------------------------------
 //                  - HISTORY -

@@ -72,12 +72,13 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
 			$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
 			$(DSRC)$(DCMD)/builtin/cmd/my_echo.c			\
-			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_unalias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_set.c				\
 			$(DSRC)$(DCMD)/builtin/cmd/my_which.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/where/my_where.c		\
 			$(DSRC)$(DCMD)/builtin/cmd/where/show_path.c	\
+			$(DSRC)$(DCMD)/builtin/cmd/my_repeat.c			\
 
 ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/split_cmd_list.c					\
@@ -95,6 +96,7 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/tool.c							\
 			$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
 			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
+			$(DSRC)$(DTOOL)/my_array_to_str.c				\
 
 SRC	=	$(DSRC)main.c										\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
