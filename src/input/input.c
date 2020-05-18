@@ -39,8 +39,10 @@ static void select_hist(char **line, int ch, history_t *hist, size_t *pos)
             hist->pos++;
             *line = my_strdup(hist->history[hist->pos]);
         }
-        else
+        else {
             *line = NULL;
+            hist->pos = get_history_size(hist->history);
+        }
     }
     *pos = (*line) ? my_strlen(*line) : 0;
 }
