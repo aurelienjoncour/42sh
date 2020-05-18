@@ -11,9 +11,10 @@ int substr_variables(shell_t *shell, cmd_t *cmd)
 {
     for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
         if (is_command_name(ptr) == true
-            && try_subst_alias(ptr, shell) == EXIT_SUCCESS) {
-            return EXIT_SUCCESS;
-        } else if (try_subst_variable(ptr, shell) == EXIT_ERROR) {
+            && try_subst_alias(ptr, shell) == EXIT_ERROR) {
+            return EXIT_ERROR;
+        }
+        if (try_subst_variable(ptr, shell) == EXIT_ERROR) {
             return EXIT_ERROR;
         }
     }

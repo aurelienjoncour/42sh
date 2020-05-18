@@ -14,7 +14,7 @@ static int check_variable_name(char *str)
     if (str == NULL || str[0] == '\0') {
         return EXIT_SUCCESS;
     }
-    if (char_is_letter(str[0]) || (str[0] >= '0' || str[0] <= '9')) {
+    if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
         return EXIT_SUCCESS;
     }
     if (str[0] == ' ' || str[0] == '\t' || str[0] == '_') {
@@ -49,7 +49,9 @@ static int process_subst(token_t *tok, size_t idx, shell_t *shell)
     }
     //////////////
     // TODO
+    fprintf(stderr, "=> (%s)\n", varname); // DEBUG
     ////////////////////
+    free(varname);
     return EXIT_SUCCESS;
 }
 
@@ -60,11 +62,11 @@ static int try_resolve_var(token_t *tok, size_t i, shell_t *shell)
     if (ret == EXIT_ERROR) {
         return EXIT_ERROR;
     } else if (ret == EXIT_SUCCESS) {
-        if (process_subst(tok, i, shell) == EXIT_ERROR) {
+        if (process_subst(tok, (i + 1), shell) == EXIT_ERROR) {
             return EXIT_ERROR;
         }
     }
-    return EXIT_SUCCESS;
+    return ret;
 }
 
 int try_subst_variable(token_t *tok, shell_t *shell)
