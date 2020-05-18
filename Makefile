@@ -55,6 +55,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/terminal_read.c					\
 			$(DSRC)modules/input/save_in_hist.c						\
 			$(DSRC)modules/magic_quote/magical_read.c				\
+			$(DSRC)modules/magic_quote/exec_quote.c					\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\

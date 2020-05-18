@@ -19,6 +19,9 @@ static char *space_cat(char *str, char *src)
         free(str);
     }
     for (size_t i = 0; src[i]; i++)
+        if (src[i] == '\n')
+            src[i] = ' ';
+    for (size_t i = 0; src[i]; i++)
         new[move++] = src[i];
     new[move] = '\0';
     return new;

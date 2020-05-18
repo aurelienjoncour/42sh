@@ -144,5 +144,6 @@ bool flag_load(hist_build_t *load, shell_t *shell);
 #define BUF_SIZE 2048
 
 char *get_magic_quote(shell_t *shell, char *entry);
+bool load_magic_quote(shell_t *shell, cmd_t *cmd);
 
 #endif
