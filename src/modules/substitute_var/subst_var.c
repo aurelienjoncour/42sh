@@ -8,6 +8,7 @@
 #include "shell.h"
 
 static const char *ERR_VAR_NAME = "Illegal variable name.\n";
+static const char *ERR_VAR_UNDEFINED = "%s: Undefined variable.\n";
 
 static int check_variable_name(char *str)
 {
@@ -17,7 +18,7 @@ static int check_variable_name(char *str)
     if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
         return EXIT_SUCCESS;
     }
-    if (str[0] == ' ' || str[0] == '\t' || str[0] == '_') {
+    if (str[0] == ' ' || str[0] == '\t') {
         return EXIT_FAIL;
     }
     my_putstr_error(ERR_VAR_NAME);
@@ -32,7 +33,8 @@ static char *get_varname(token_t *tok, size_t idx)
     for (; tok->token[size + idx] != '\0'; size++) {
         if (!char_is_letter(tok->token[idx + size])
             && !(tok->token[idx + size] >= '0'
-            || tok->token[idx + size] <= '9')) {
+            && tok->token[idx + size] <= '9')
+            && tok->token[idx + size] != '_') {
             break;
         }
     }
@@ -43,14 +45,20 @@ static char *get_varname(token_t *tok, size_t idx)
 static int process_subst(token_t *tok, size_t idx, shell_t *shell)
 {
     char *varname = get_varname(tok, idx);
+    int ret[2];
 
     if (!varname) {
         return puterr("strndup : fail", EXIT_ERROR);
     }
-    //////////////
-    // TODO
-    fprintf(stderr, "=> (%s)\n", varname); // DEBUG
-    ////////////////////
+    ret[0] = process_subst_value(varname, tok, &shell->env, idx);
+    ret[1] = process_subst_value(varname, tok, &shell->local, idx);
+    if (ret[0] == EXIT_ERROR || ret[1] == EXIT_ERROR) {
+        return EXIT_ERROR;
+    } else if (ret[0] == EXIT_FAIL && ret[1] == EXIT_FAIL) {
+        fprintf(stderr, ERR_VAR_UNDEFINED, varname);
+        free(varname);
+        return EXIT_ERROR;
+    }
     free(varname);
     return EXIT_SUCCESS;
 }
