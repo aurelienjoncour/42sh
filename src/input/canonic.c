@@ -10,6 +10,7 @@
 #include <termios.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <string.h>
 #include "my_key.h"
@@ -20,12 +21,14 @@ bool init_input(void)
     int i;
     char *s;
 
-    i = setupterm("xterm", 1, &ret);
-    if (i == -1)
-        return false;
-    s = tigetstr("smkx");
-    if (s)
-        write(1, s, strlen(s));
+    if (isatty(0) == 1) {
+        i = setupterm("xterm", 1, &ret);
+        if (i == -1)
+            return false;
+        s = tigetstr("smkx");
+        if (s)
+            write(2, s, strlen(s));
+    }
     return true;
 }
 
