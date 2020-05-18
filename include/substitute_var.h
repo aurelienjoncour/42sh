@@ -9,7 +9,7 @@
 #define SUBST_VAR_H
 
 bool is_command_name(token_t *token);
-int try_subst_alias(token_t *tok, shell_t *shell);
+int try_subst_alias(cmd_t *cmd, token_t *tok, shell_t *shell);
 
 int try_subst_variable(token_t *tok, shell_t *shell);
 
