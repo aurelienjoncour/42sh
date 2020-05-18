@@ -41,7 +41,7 @@ static int repeat_command(char **cmd, shell_t *shell)
         entry = my_array_to_str(&cmd[2], false);
         return_value = shell_exec(&sub_shell, entry);
     }
-    shell->exit_status = sub_shell->exit_status;
+    shell->exit_status = sub_shell.exit_status;
     shell_destroy(&sub_shell);
     return return_value;
 }
