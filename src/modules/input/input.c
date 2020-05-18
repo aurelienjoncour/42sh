@@ -94,7 +94,8 @@ char *term_input(shell_t *shell)
     while (ch != '\n') {
         display_line(shell, line, pos);
         ch = my_getch();
-        if (!move_in_line(&pos, ch, &line, &shell->history) && is_correct_char(ch)) {
+        if (!move_in_line(&pos, ch, &line, &shell->history)
+        && is_correct_char(ch)) {
             line = add_char(line, ch, pos);
             pos++;
             if (!line)
