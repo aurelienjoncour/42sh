@@ -28,6 +28,8 @@ bool have_missing_str_quote(const char *entry)
     for (size_t i = 0; entry[i] != '\0'; i++) {
         if (my_str_have_char(QUOTES, entry[i]) == -1) {
             continue;
+        } else if (i > 0 && entry[i - 1] == '\\') {
+            continue;
         }
         if (quote == 0) {
             quote = entry[i];
