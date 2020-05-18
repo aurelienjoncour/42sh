@@ -32,6 +32,7 @@
 #include "parser.h"
 #include "script.h"
 #include "redirection.h"
+#include "substitute_var.h"
 
 //  MASTER FUNCTIONS
 int shell_create(shell_t *shell, char **env);
@@ -140,5 +141,12 @@ void show_main_prompt(shell_t *shell);
 int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);
 bool flag_load(hist_build_t *load, shell_t *shell);
+
+//-------------------------------------------------
+//                - MAGIC QUOTE -
+#define BUF_SIZE 2048
+
+char *get_magic_quote(shell_t *shell, char *entry);
+bool load_magic_quote(shell_t *shell, cmd_t *cmd);
 
 #endif

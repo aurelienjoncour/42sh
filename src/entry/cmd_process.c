@@ -21,10 +21,8 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
 
     // TODO : job control
     // <=====
-
-    //--call : magic quotes exec
-    // <=====
-
+    if (!load_magic_quote(shell, cmd))
+        return EXIT_ERROR;
     //--call : exec cmd
     warray_cmd = linked_list_to_warray(cmd);
     if (!warray_cmd)
