@@ -40,9 +40,65 @@ TESTS=
 [005-END]
 
 [006]
-NAME="L"
+NAME="Inhibitor"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo \" hello world \'
 [006-END]
+
+[007]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo \| hello world\ \ \*
+[007-END]
+
+[008]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo \\
+[008-END]
+
+[009]
+NAME="&& ||"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo e && echo e && echo e
+[009-END]
+
+[010]
+NAME="&& ||"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo e || echo e && echo e
+[010-END]
+
+[011]
+NAME="&& ||"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    xxx && echo e && echo e
+[011-END]
+
+[012]
+NAME="&& ||"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo e && echo e && xxx
+[012-END]
+
+[013]
+NAME="&& ||"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo e && xxx && echo e
+[013-END]
