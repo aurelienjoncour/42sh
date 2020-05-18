@@ -41,19 +41,19 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_parenthesis.c				\
 			$(DSRC)modules/checker/have_null_command.c				\
 			$(DSRC)modules/scripting/shell_exec_script.c			\
-			$(DSRC)input/history/history_manage.c					\
-			$(DSRC)input/history/read_file.c						\
-			$(DSRC)input/history/write_history.c					\
-			$(DSRC)input/history/built_hist.c						\
-			$(DSRC)input/history/history.c							\
-			$(DSRC)input/history/load_flag.c						\
-			$(DSRC)input/history/load_save.c						\
-			$(DSRC)input/add_ch.c									\
-			$(DSRC)input/canonic.c									\
-			$(DSRC)input/input.c									\
-			$(DSRC)input/supp.c										\
-			$(DSRC)input/terminal_read.c							\
-			$(DSRC)input/save_in_hist.c								\
+			$(DSRC)modules/input/history/history_manage.c			\
+			$(DSRC)modules/input/history/read_file.c				\
+			$(DSRC)modules/input/history/write_history.c			\
+			$(DSRC)modules/input/history/built_hist.c				\
+			$(DSRC)modules/input/history/history.c					\
+			$(DSRC)modules/input/history/load_flag.c				\
+			$(DSRC)modules/input/history/load_save.c				\
+			$(DSRC)modules/input/add_ch.c							\
+			$(DSRC)modules/input/canonic.c							\
+			$(DSRC)modules/input/input.c							\
+			$(DSRC)modules/input/supp.c								\
+			$(DSRC)modules/input/terminal_read.c					\
+			$(DSRC)modules/input/save_in_hist.c						\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
