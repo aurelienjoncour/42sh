@@ -16,9 +16,7 @@ static bool check_null_parenthesis_token(token_t *ptr, size_t *count)
             return true;
         }
         *count = 0;
-    } else if ((ptr->id == ID_WITHOUT
-            && (!ptr->prev || !is_redirection(ptr->prev->id)))
-            || (ptr->type == D_DELIM)) {
+    } else if (is_text_token(ptr, true) == true) {
         (*count)++;
     }
     return false;
@@ -73,9 +71,7 @@ size_t *count_second_token)
             return true;
         }
         *count_text = 0;
-    } else if ((ptr->id == ID_WITHOUT
-            && (!ptr->prev || !is_redirection(ptr->prev->id)))
-            || (ptr->type == D_DELIM)) {
+    } else if (is_text_token(ptr, true) == true) {
         (*count_text)++;
     } else if (ptr->type != D_SEPARATOR && ptr->id != ID_PARENTHESE &&
             ptr->id != ID_BACKGROUND) {
