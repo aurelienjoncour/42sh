@@ -134,3 +134,19 @@ CLEAN=""
 TESTS=
     (echo A | cat -e && ls && (ls -l; echo A); echo $PWD)
 [017-END]
+
+[018]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ( ls ) )
+[018-END]
+
+[019]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ) ( ls )
+[019-END]

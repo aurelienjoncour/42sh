@@ -7,6 +7,26 @@
 
 #include "shell.h"
 
+bool is_separator(token_t *ptr)
+{
+    if (ptr->type == D_SEPARATOR || ptr->id == ID_PIPE) {
+        return true;
+    }
+    return false;
+}
+
+bool is_text_token(token_t *ptr, bool include_parenthesis)
+{
+    if ((ptr->id == ID_WITHOUT
+            && (!ptr->prev || !is_redirection(ptr->prev->id)))
+            || (ptr->type == D_DELIM && ptr->id != ID_PARENTHESE)) {
+        return true;
+    } else if (include_parenthesis == true && ptr->id == ID_PARENTHESE) {
+        return true;
+    }
+    return false;
+}
+
 static bool is_null_cmd(cmd_t *cmd)
 {
     if (!cmd || !cmd->begin) {

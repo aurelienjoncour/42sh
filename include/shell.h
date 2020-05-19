@@ -109,8 +109,10 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 // int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
 
 // MOD : CHECKER
-bool is_redirection(ID token_id);
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
+bool is_redirection(ID token_id);
+bool is_text_token(token_t *ptr, bool include_parenthesis);
+bool is_separator(token_t *ptr);
 bool check_position_redirection_in_pipe(cmd_t *cmd);
 bool check_have_empty_pipe(cmd_t *cmd);
 bool have_missing_str_quote(const char *entry);
@@ -145,6 +147,8 @@ void show_main_prompt(shell_t *shell);
 int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);
 bool flag_load(hist_build_t *load, shell_t *shell);
+void display_line(shell_t *shell, char *line, size_t pos);
+bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos);
 
 //-------------------------------------------------
 //                - MAGIC QUOTE -

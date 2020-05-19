@@ -2,7 +2,7 @@
 
 MYSHELL="$PWD/42sh"
 REFER="/bin/tcsh -f"
-TESTS_FILE="tests2"
+TESTS_FILE="tests"
 TRAPSIG=0
 
 CAT=`which cat`
@@ -17,11 +17,6 @@ CHMOD=`which chmod`
 EXPR=`which expr`
 MKDIR=`which mkdir`
 CP=`which cp`
-
-if [ ! -f "$TESTS_FILE" ]; then
-    TESTS_FILE="tests"
-fi
-echo "Test file: $TESTS_FILE"
 
 ####
 make -C ../
@@ -166,8 +161,20 @@ then
   echo ""
 fi
 
-if [ $# -eq 0 ]
-then
+if [ ! $# -eq 0 ]; then
+    TESTS_FILE=$1
+fi
+if [ $# == 0 ] || [ ! -f $TESTS_FILE ]; then
+    if [ ! -f $TESTS_FILE ]; then
+        echo -e "\n$TESTS_FILE: Test file not found."
+    fi
+    echo -e "\nUsage: [Test Filename] <-d> <id Test>\n"
+    exit 1
+fi
+echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+echo -e "\tTEST FILE: $TESTS_FILE\n"
+
+if [ $# -eq 1 ]; then
   for lst in `cat $TESTS_FILE | grep "^\[.*\]$" | grep -vi end | sed s/'\['// | sed s/'\]'//`
   do
     path_backup=$PATH
@@ -175,16 +182,15 @@ then
     export PATH=$path_backup
   done
 else
-  if [ $# -eq 1 ]
-  then
-    load_test $1 0
-  else
-    if [ "X$1" = "X-d" ]
-    then
-      load_test $2 2
+    if [ $# -eq 2 ]; then
+        load_test $2 0
     else
-      load_test $1 2
+        if [ "X$2" = "X-d" ]; then
+            load_test $3 2
+        else
+            load_test $2 2
+        fi
     fi
-  fi
 fi
+
 rm -f log

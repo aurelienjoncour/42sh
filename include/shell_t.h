@@ -15,7 +15,6 @@
 typedef struct minishell {
     env_t env;
     env_t local;
-    //history_t *history;
     env_t alias;
     fd_t fd;
     char *prev_path;
