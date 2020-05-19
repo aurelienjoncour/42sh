@@ -18,7 +18,7 @@ static bool is_correct_char(int ch)
         return false;
     if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START)
         return false;
-    if (ch == 0)
+    if (ch == 0 || ch == 4)
         return false;
     return true;
 }
@@ -70,7 +70,7 @@ static bool move_in_line(size_t *pos, int ch, char **line, history_t *hist)
     return false;
 }
 
-static void display_line(shell_t *shell, char *line, size_t pos)
+void display_line(shell_t *shell, char *line, size_t pos)
 {
     fprintf(stdout, "\33[2K\r");
     show_main_prompt(shell);
@@ -96,11 +96,12 @@ char *term_input(shell_t *shell)
         ch = my_getch();
         if (!move_in_line(&pos, ch, &line, &shell->history)
         && is_correct_char(ch)) {
-            line = add_char(line, ch, pos);
-            pos++;
+            line = add_char(line, ch, pos++);
             if (!line)
                 return NULL;
         }
+        if (ctrl_d_manage(ch, shell, line, &pos))
+            return NULL;
     }
     my_putchar('\n');
     save_in_hist(&line, &shell->history);
