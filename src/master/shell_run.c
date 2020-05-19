@@ -11,6 +11,9 @@ int shell_run(shell_t *shell)
 {
     char *entry = NULL;
 
+    if (shell->shell_script != NULL) {
+        return shell_scripting_run(shell);
+    }
     while (!shell->exit) {
         entry = terminal_read(shell);
         if (!entry) {

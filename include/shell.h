@@ -36,7 +36,7 @@
 #include "substitute_var.h"
 
 //  MASTER FUNCTIONS
-int shell_create(shell_t *shell, char **env);
+int shell_create(shell_t *shell, char **env, char *shell_script);
 void shell_exit(shell_t *shell, int status);
 int shell_run(shell_t *shell);
 int shell_destroy(shell_t *shell);
@@ -69,7 +69,6 @@ char **linked_list_to_warray(cmd_t *cmd);
 
 // ENTRY : Parenthesis Exec
 int parenthesis_exec(shell_t *shell, cmd_t *cmd);
-
 
 // ENTRY : CMD EXEC
 int shell_exec_cmd(shell_t *shell, char **cmd);

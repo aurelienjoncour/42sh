@@ -34,7 +34,7 @@ static int repeat_command(char **cmd, shell_t *shell)
     int return_value = 0;
     shell_t sub_shell;
 
-    if (shell_create(&sub_shell, shell->env.var) == EXIT_ERROR) {
+    if (shell_create(&sub_shell, shell->env.var, NULL) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
     for (int i = 0; i < number; i++) {

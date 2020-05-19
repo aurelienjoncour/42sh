@@ -10,4 +10,6 @@
 
 int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd);
 
+int shell_scripting_run(shell_t *shell);
+
 #endif

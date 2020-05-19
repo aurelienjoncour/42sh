@@ -18,6 +18,7 @@ typedef struct minishell {
     env_t alias;
     fd_t fd;
     char *prev_path;
+    char *shell_script;
     int exit_status;
     bool exit;
     history_t history;
