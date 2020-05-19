@@ -54,6 +54,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/supp.c								\
 			$(DSRC)modules/input/terminal_read.c					\
 			$(DSRC)modules/input/save_in_hist.c						\
+			$(DSRC)modules/input/ctrl_d.c							\
 			$(DSRC)modules/magic_quote/magical_read.c				\
 			$(DSRC)modules/magic_quote/exec_quote.c					\
 			$(DSRC)modules/substitute_var/subst_alias.c				\
