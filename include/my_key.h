@@ -16,5 +16,6 @@
 #define SUPPR_DC -20
 #define GO_START -21
 #define GO_END -22
+#define STAB  -524
 
 #endif

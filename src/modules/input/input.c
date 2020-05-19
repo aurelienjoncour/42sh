@@ -16,7 +16,8 @@ static bool is_correct_char(int ch)
         return false;
     if (ch == LEFT || ch == RIGHT)
         return false;
-    if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START)
+    if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START
+    || ch == STAB)
         return false;
     if (ch == 0)
         return false;
@@ -94,9 +95,11 @@ char *term_input(shell_t *shell)
     while (ch != '\n') {
         display_line(shell, line, pos);
         ch = my_getch();
-        if (!move_in_line(&pos, ch, &line, &shell->history) && is_correct_char(ch)) {
-            line = add_char(line, ch, pos);
-            pos++;
+        if (check_tab(&line, &pos, ch, &shell->env) == EXIT_ERROR)
+            return NULL;
+        if (!move_in_line(&pos, ch, &line, &shell->history)
+        && is_correct_char(ch)) {
+            line = add_char(line, ch, pos++);
             if (!line)
                 return NULL;
         }
