@@ -58,6 +58,6 @@ int shell_exec_pipe(shell_t *shell, cmd_t *seg_cmd)
     if (process_all_pipe(shell, pipe_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
-    cmd_array_destroy(pipe_cmd);    
+    cmd_array_destroy(pipe_cmd);
     return EXIT_SUCCESS;
 }
