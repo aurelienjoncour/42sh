@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-static char *space_cat(char *str, char *src)
+char *space_cat(char *str, char *src)
 {
     size_t size = (str) ? strlen(str) + strlen(src) : strlen(src);
     char *new = malloc(sizeof(char) * (size + 1));

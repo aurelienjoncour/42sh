@@ -17,4 +17,6 @@
 #define GO_START -21
 #define GO_END -22
 
+char *space_cat(char *str, char *src);
+
 #endif

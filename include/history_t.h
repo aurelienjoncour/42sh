@@ -42,7 +42,7 @@ char *add_char(char *str, char c, size_t pos);
 size_t get_history_size(char **hist);
 void history_build(history_t *hist);
 bool init_input(void);
-int my_getch(void);
+int my_getch(char **line);
 bool load_flag(char **cmd, hist_build_t *load);
 
 #endif
