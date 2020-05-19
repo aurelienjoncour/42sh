@@ -15,9 +15,13 @@
 
 void write_history(history_t *hist)
 {
-    size_t i = (hist->size) ? hist->size : 0;
+    size_t i;
     char tmp[3];
 
+    if (!hist->history) {
+        return;
+    }
+    i = (hist->size) ? hist->size : 0;
     for (; hist->history[i]; i++) {
         write(hist->fd, "#+", 2);
         sprintf(tmp, "%i", hist->date[i].hours);

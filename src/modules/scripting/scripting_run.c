@@ -7,14 +7,44 @@
 
 #include "shell.h"
 
+static void remove_comment(char *str)
+{
+    for (size_t i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '#') {
+            str[i] = '\0';
+            break;
+        }
+    }
+}
+
+static bool is_empty(char *str)
+{
+    for (size_t i = 0; str[i] != '\0'; i++) {
+        if (str[i] != ' ' && str[i] != '\t') {
+            return false;
+        }
+    }
+    return true;
+}
+
 int shell_scripting_run(shell_t *shell)
 {
     char **content = my_read_file(shell->shell_script);
+    bool str_is_empty;
 
     if (!content) {
         return ERROR_STATUS;
     }
-    my_show_word_array(content);
-    word_array_destroy(content);
+    for (size_t i = 0; content[i] != NULL; i++) {
+        remove_comment(content[i]);
+        str_is_empty = is_empty(content[i]);
+        if (str_is_empty == false
+            && shell_exec(shell, content[i]) == EXIT_ERROR) {
+            break;
+        } else if (str_is_empty == true) {
+            free(content[i]);
+        }
+    }
+    free(content);
     return shell->exit_status;
 }

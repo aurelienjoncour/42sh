@@ -9,10 +9,6 @@
 
 int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd)
 {
-    // TODO : CHECK => have script ?
-    // TODO : CHECK => script struct not finish ?
-    //         |> call getline to read file stdin content.
-    fprintf(stderr, "=> %s\n", shell->shell_script);
     // TODO : if/else eval
 
     // TODO : while + foreach eval
