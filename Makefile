@@ -43,6 +43,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/have_null_command.c				\
 			$(DSRC)modules/scripting/shell_exec_script.c			\
 			$(DSRC)modules/scripting/scripting_run.c				\
+			$(DSRC)modules/scripting/script_if.c					\
 			$(DSRC)modules/input/history/history_manage.c			\
 			$(DSRC)modules/input/history/read_file.c				\
 			$(DSRC)modules/input/history/write_history.c			\

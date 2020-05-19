@@ -10,6 +10,10 @@
 
 int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd);
 
+// Shell script file
 int shell_scripting_run(shell_t *shell);
+
+// If condition:
+int eval_if_condition(cmd_t *cmd);
 
 #endif
