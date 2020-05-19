@@ -47,7 +47,7 @@ bool *is_script)
     } else if (ptr->id == ID_PARENTHESE) {
         *have_parenth = true;
     }
-    if (ptr->id == ID_PARENTHESE && is_script == true) {
+    if (ptr->id == ID_PARENTHESE && *is_script == true) {
         while (ptr != NULL && is_separator(ptr) == false) {
             ptr = ptr->next;
         }
