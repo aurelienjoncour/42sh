@@ -105,8 +105,6 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/merge_path_filename.c			\
 			$(DSRC)$(DTOOL)/word_array_search.c				\
 			$(DSRC)$(DTOOL)/tool.c							\
-			$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
-			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
 			$(DSRC)$(DTOOL)/my_array_to_str.c				\
 
 SRC	=	$(DSRC)main.c										\

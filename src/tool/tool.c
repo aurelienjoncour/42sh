@@ -47,13 +47,3 @@ bool str_have_only_chars(const char *str, const char *chars)
     }
     return true;
 }
-
-bool word_array_have_empty_str(char **warray)
-{
-    for (size_t i = 0; warray[i] != NULL; i++) {
-        if (str_have_only_chars(warray[i], " \t") == true) {
-            return true;
-        }
-    }
-    return false;
-}
