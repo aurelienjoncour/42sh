@@ -1,5 +1,11 @@
 #!./42sh
 echo HELLO
 echo WORLD
-echo $PWD
+ls -l
+
+history
+
 exit 8
+
+cd ..
+echo $PWD

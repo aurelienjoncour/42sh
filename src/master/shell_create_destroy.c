@@ -27,10 +27,8 @@ int shell_create(shell_t *shell, char **env, char *shell_script)
     if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
         return EXIT_ERROR;
     init_struct(shell, shell_script);
-    if (!shell_script && (!init_history(&shell->history) || !init_input())) {
+    if ((!init_history(&shell->history) || !init_input())) {
         return EXIT_ERROR;
-    } else if (shell_script) {
-        shell->history.history = NULL;
     }
     if (shell->fd.stdin == -1 || shell->fd.stdout == -1)
         return puterr("dup : fail\n", EXIT_ERROR);
@@ -40,9 +38,7 @@ int shell_create(shell_t *shell, char **env, char *shell_script)
 
 int shell_destroy(shell_t *shell)
 {
-    if (shell->shell_script == NULL) {
-        destroy_history(&shell->history);
-    }
+    destroy_history(&shell->history);
     my_env_destroy(&shell->env);
     my_env_destroy(&shell->local);
     my_env_destroy(&shell->alias);

@@ -35,7 +35,7 @@ int shell_scripting_run(shell_t *shell)
     if (!content) {
         return ERROR_STATUS;
     }
-    for (size_t i = 0; content[i] != NULL; i++) {
+    for (size_t i = 0; content[i] != NULL && !shell->exit; i++) {
         remove_comment(content[i]);
         str_is_empty = is_empty(content[i]);
         if (str_is_empty == false
