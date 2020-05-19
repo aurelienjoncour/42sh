@@ -25,6 +25,7 @@ int shell_create(shell_t *shell, char **env)
         return EXIT_ERROR;
     if (shell->fd.stdin == -1 || shell->fd.stdout == -1)
         return puterr("dup : fail\n", EXIT_ERROR);
+    signal(SIGINT, handler);
     return EXIT_SUCCESS;
 }
 

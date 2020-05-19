@@ -16,6 +16,7 @@
 #include <dirent.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <signal.h>
 
 #include "my.h"
 
@@ -40,6 +41,7 @@ void shell_exit(shell_t *shell, int status);
 int shell_run(shell_t *shell);
 int shell_destroy(shell_t *shell);
 char *shell_prompt(shell_t *shell);
+void handler(__attribute((unused))int signum);
 
 //-------------------------------------------------
 //                  - ENTRY -
@@ -103,10 +105,7 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 //-------------------------------------------------
 //                 - MODULES -
 // MOD : REDIRECT
-// void redirection_open_file(cmd_t *cmd);
-// void show_error(const char *param);
-// int do_redirection(cmd_t *cmd);
-// int redirect_stdin_to_command(const char *end_pattern, cmd_t *cmd);
+// CF redirection.h
 
 // MOD : CHECKER
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
