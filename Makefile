@@ -14,6 +14,7 @@ MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
 			$(DSRC)$(DMASTER)/shell_exit.c					\
 			$(DSRC)$(DMASTER)/shell_run.c					\
 			$(DSRC)$(DMASTER)/prompt.c						\
+			$(DSRC)$(DMASTER)/sig_handler.c					\
 
 MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/redirection/redirect_open_file.c			\
