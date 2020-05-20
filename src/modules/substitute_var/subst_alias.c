@@ -80,7 +80,7 @@ int try_subst_alias(cmd_t *cmd, token_t *tok, shell_t *shell)
 
     value = format_value(value);
     if (!value) {
-        return EXIT_SUCCESS;
+        return EXIT_FAIL;
     }
     sub_cmd = parse_entry(value);
     if (!sub_cmd || !sub_cmd->begin) {
