@@ -43,6 +43,7 @@ static int process_alias(shell_t *shell, cmd_t *cmd, size_t idx)
     }
     if (idx > 6) {
         my_putstr_error(ERR_ALIAS_LOOP);
+        shell->exit_status = ERROR_STATUS;
         return EXIT_ERROR;
     }
     if (have_alias == true) {
@@ -55,6 +56,7 @@ int substr_variables(shell_t *shell, cmd_t *cmd)
 {
     for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
         if (try_subst_variable(ptr, shell) == EXIT_ERROR) {
+            shell->exit_status = ERROR_STATUS;
             return EXIT_FAIL;
         }
     }
