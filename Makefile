@@ -51,6 +51,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/history/history.c					\
 			$(DSRC)modules/input/history/load_flag.c				\
 			$(DSRC)modules/input/history/load_save.c				\
+			$(DSRC)modules/input/history/add_to_hist.c				\
 			$(DSRC)modules/input/add_ch.c							\
 			$(DSRC)modules/input/canonic.c							\
 			$(DSRC)modules/input/input.c							\

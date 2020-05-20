@@ -138,6 +138,7 @@ char *my_array_to_str(char **tab, bool parent);
 char *terminal_read(shell_t *shell);
 char *term_input(shell_t *shell);
 void show_main_prompt(shell_t *shell);
+char **add_to_hist(char **env, char *new_line);
 int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);
 bool flag_load(hist_build_t *load, shell_t *shell);
