@@ -180,5 +180,6 @@ NAME="X"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    ls || &&
+    alias ls cd
+    which ls
 [023-END]

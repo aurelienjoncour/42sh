@@ -18,6 +18,10 @@ static int check_variable_name(char *str)
     if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
         return EXIT_SUCCESS;
     }
+    if (str[0] == '{' && (char_is_letter(str[1])
+        || (str[1] >= '0' && str[1] <= '9'))) {
+        return EXIT_SUCCESS;
+    }
     if (str[0] == ' ' || str[0] == '\t') {
         return EXIT_FAIL;
     }
@@ -30,6 +34,9 @@ static char *get_varname(token_t *tok, size_t idx)
     size_t size = 0;
     char *ret = NULL;
 
+    if (tok->token[idx] == '{') {
+        idx++;
+    }
     for (; tok->token[size + idx] != '\0'; size++) {
         if (!char_is_letter(tok->token[idx + size])
             && !(tok->token[idx + size] >= '0'
@@ -88,6 +95,9 @@ int try_subst_variable(token_t *tok, shell_t *shell)
         if (tok->token[i] == '$'
             && try_resolve_var(tok, i, shell) == EXIT_ERROR) {
             return EXIT_ERROR;
+        }
+        if (tok->token[i] == '\0') {
+            break;
         }
     }
     return EXIT_SUCCESS;
