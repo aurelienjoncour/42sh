@@ -183,3 +183,20 @@ TESTS=
     alias ls cd
     which ls
 [023-END]
+
+[024]
+NAME="boolop"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls -l /dev && echo displayOK || echo err_disp4
+    ls -l /azerty && echo not_display || echo err_disp5
+[024-END]
+
+[025]
+NAME="VAR"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    set hello=world; echo x$helloY; echo x${hello}Y
+[025-END]
