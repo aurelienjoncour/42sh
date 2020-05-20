@@ -72,8 +72,6 @@ int fork_process(char **cmd, shell_t *shell)
         if (ret == -1)
             my_putstr_error("waitpid: Fail.\n");
         shell->exit_status = child_exit_status(wstatus);
-        if (shell->exit_status == FATAL_ERROR_STATUS)
-            shell->exit_status = ERROR_STATUS;
     }
     return EXIT_SUCCESS;
 }
