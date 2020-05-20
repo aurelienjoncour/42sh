@@ -35,7 +35,8 @@ int complete_line(char **line, file_t *files, size_t *pos, bool multi)
     for (; i >= 0 && (*line)[i] != ' ' && (*line)[i] != '/'; i--);
     (*line)[i + 1] = '\0';
     temp = *line;
-    *pos = my_strlen(*line) + my_strlen(file_name);
+    *pos = my_strlen(*line) + my_strlen(file_name)
+        + !(multi || file_name[my_strlen(file_name) - 1] == '/');
     result = my_strdupcat(4, *line, file_name,
         multi || file_name[my_strlen(file_name) - 1] == '/' ? "" : " ", rest);
     free(temp);
