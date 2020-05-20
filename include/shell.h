@@ -133,7 +133,7 @@ int *occur, int *serie);
 //-------------------------------------------------
 //                  - HISTORY -
 char *terminal_read(shell_t *shell);
-char *term_input(shell_t *shell);
+char *term_input(shell_t *shell, char *line, size_t pos);
 void show_main_prompt(shell_t *shell);
 int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);

@@ -34,7 +34,7 @@ char *terminal_read(shell_t *shell)
     if (isatty(0) != 1)
         line = classic_input();
     else
-        line = term_input(shell);
+        line = term_input(shell, NULL, 0);
     if (!line) {
         return NULL;
     }

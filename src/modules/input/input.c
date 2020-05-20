@@ -9,6 +9,7 @@
 #include <curses.h>
 #include "shell.h"
 #include "my.h"
+#include "autocompletion.h"
 
 static bool is_correct_char(int ch)
 {
@@ -85,17 +86,17 @@ static void display_line(shell_t *shell, char *line, size_t pos)
     fflush(stdout);
 }
 
-char *term_input(shell_t *shell)
+char *term_input(shell_t *shell, char *line, size_t pos)
 {
-    size_t pos = 0;
     int ch = 0;
-    char *line = NULL;
+    int auto_comp;
 
     shell->history.pos = get_history_size(shell->history.history);
     while (ch != '\n') {
         display_line(shell, line, pos);
         ch = my_getch();
-        if (check_tab(&line, &pos, ch, &shell->env) == EXIT_ERROR)
+        auto_comp = check_tab(&line, &pos, ch, &shell->env);
+        if (auto_comp == EXIT_ERROR)
             return NULL;
         if (!move_in_line(&pos, ch, &line, &shell->history)
         && is_correct_char(ch)) {
@@ -103,6 +104,8 @@ char *term_input(shell_t *shell)
             if (!line)
                 return NULL;
         }
+        if (ch == STAB && auto_comp == EXIT_SUCCESS)
+            return term_input(shell, line, pos);
     }
     my_putchar('\n');
     save_in_hist(&line, &shell->history);

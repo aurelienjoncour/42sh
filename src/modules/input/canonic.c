@@ -52,8 +52,6 @@ static void canonical_mode_select(bool enable)
 
 static int special_key(char *in)
 {
-    if (in[0] == '\t')
-        return STAB;
     if (in[0] == 27 && in[1] == 91 && in[2] == 51)
         return SUPPR_DC;
     if (!(in[0] == 27 && in[1] == 'O'))
@@ -83,6 +81,8 @@ int my_getch(void)
     if (ret <= 0)
         return 0;
     canonical_mode_select(false);
+    if (buf[0] == '\t')
+        return STAB;
     if (buf[1] == '\0')
         return (int) buf[0];
     return special_key(buf);
