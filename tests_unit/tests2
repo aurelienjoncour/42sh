@@ -7,20 +7,22 @@ TESTS=
 [001-END]
 
 [002]
-NAME="LINE FORMATING"
+NAME="&& ||"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ls || echo && e || ls
+    xx &&echo X && echo A || echo E
+    xx || echo V && echo O || echo P
 [002-END]
 
 [003]
-NAME="LINE FORMATING"
+NAME="&& ||"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    e && ls
-    e || ls
+    e && echo X && echo J
+    e || ls && echo E
 [003-END]
 
 [004]
@@ -198,5 +200,29 @@ NAME="VAR"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    set hello=world; echo x$helloY; echo x${hello}Y
+        set hello=world; echo x$helloY; echo x${hello}Y
 [025-END]
+
+[026]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    touch "a "b/plip
+[026-END]
+
+[027]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo "$HOME"/coucou
+[027-END]
+
+[028]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo \"$HOME\"/coucou
+[028-END]
