@@ -6,15 +6,19 @@
 */
 
 #include <dirent.h>
+#include <string.h>
 #include "my.h"
-#include "env_t.h"
 #include "autocompletion.h"
 
 static char *get_line_path(char **path, int i)
 {
     char *cmd;
 
-    for (; i > 0 && (*path)[i] != ' ' && (*path)[i] != '/'; i--);
+    if (*path == NULL) {
+        *path = "./";
+        return my_strdup("");
+    }
+    for (; i >= 0 && (*path)[i] != ' ' && (*path)[i] != '/'; i--);
     cmd = my_strdup(*path + i + 1);
     if ((*path)[i] == ' ' || i <= 0) {
         *path = "./";
@@ -32,7 +36,8 @@ static file_t *add_file(char *name, file_t *next,
     struct stat st;
     file_t *file;
 
-    if (name != NULL && !my_strncmp(cmd, name, my_strlen(cmd))) {
+    if (name != NULL && name[0] != '.'
+    && !my_strncmp(cmd, name, my_strlen(cmd))) {
         file = malloc(sizeof(file_t));
         path = my_strdupcat(3, path, "/", name);
         if (file == NULL || path == NULL || stat(path, &st) == -1)
@@ -80,16 +85,18 @@ file_t *get_files(char *path, size_t pos, env_t *env)
 {
     char *cmd;
     file_t *files;
+    char *line = path;
 
     cmd = get_line_path(&path, pos);
     if (cmd == NULL)
         return NULL;
     files = get_dir_files(NULL, path, cmd);
-    if (my_strcmp(path, "./")) {
-        free(cmd);
-        return files;
+    if (line != NULL) {
+        for (; line[0] == ' '; line++);
+        if (line[0] != '\0'
+        && (line == strstr(line, path) || line == strstr(line, cmd)))
+            files = get_path_dir_files(files, env, cmd);
     }
-    files = get_path_dir_files(files, env, cmd);
     free(cmd);
     return files;
 }

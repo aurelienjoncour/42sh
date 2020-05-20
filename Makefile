@@ -60,6 +60,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/save_in_hist.c						\
 			$(DSRC)modules/input/autocompletion/auto_completion.c	\
 			$(DSRC)modules/input/autocompletion/get_files.c			\
+			$(DSRC)modules/input/autocompletion/complete_line.c		\
 			$(DSRC)modules/input/ctrl_d.c							\
 			$(DSRC)modules/magic_quote/magical_read.c				\
 			$(DSRC)modules/magic_quote/exec_quote.c					\

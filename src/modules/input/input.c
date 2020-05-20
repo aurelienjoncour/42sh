@@ -104,10 +104,10 @@ char *term_input(shell_t *shell, char *line, size_t pos)
             if (!line)
                 return NULL;
         }
-        if (ch == STAB && auto_comp == EXIT_SUCCESS)
-            return term_input(shell, line, pos);
         if (ctrl_d_manage(ch, shell, line, &pos))
             return NULL;
+        if (ch == STAB && auto_comp == EXIT_SUCCESS)
+            return term_input(shell, line, pos);
     }
     my_putchar('\n');
     save_in_hist(&line, &shell->history);
