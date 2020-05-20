@@ -147,6 +147,7 @@ int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);
 bool flag_load(hist_build_t *load, shell_t *shell);
 void display_line(shell_t *shell, char *line, size_t pos);
+char *input_result(int ch, shell_t *shell, char *line, size_t *pos);
 bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos);
 
 //-------------------------------------------------

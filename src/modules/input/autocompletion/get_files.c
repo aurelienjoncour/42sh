@@ -93,7 +93,6 @@ file_t *get_files(char *path, size_t pos, env_t *env)
     cmd = get_line_path(&path, pos);
     if (cmd == NULL)
         return NULL;
-    printf("%s, %s\n", cmd, path);
     files = get_dir_files(NULL, path, cmd);
     if (line != NULL) {
         for (; line[0] == ' '; line++);
