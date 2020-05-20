@@ -69,19 +69,17 @@ static bool move_in_line(size_t *pos, int ch, char **line, history_t *hist)
     return false;
 }
 
-char *input_result(int ch, shell_t *shell, char *line, size_t *pos)
+int input_result(int ch, shell_t *shell, char **line, size_t *pos)
 {
-    int auto_comp = check_tab(&line, pos, ch, &shell->env);
+    int auto_comp = check_tab(line, pos, ch, &shell->env);
 
-    if (auto_comp == EXIT_ERROR || ctrl_d_manage(ch, shell, line, pos))
-        return NULL;
-    if (!move_in_line(pos, ch, &line, &shell->history)
+    if (auto_comp == EXIT_ERROR || ctrl_d_manage(ch, shell, *line, pos))
+        return EXIT_ERROR;
+    if (!move_in_line(pos, ch, line, &shell->history)
     && is_correct_char(ch)) {
-        line = add_char(line, ch, (*pos)++);
-        if (line == NULL)
-            return NULL;
+        *line = add_char(*line, ch, (*pos)++);
+        if (*line == NULL)
+            return EXIT_ERROR;
     }
-    if (ch == STAB && auto_comp == EXIT_SUCCESS)
-        return term_input(shell, line, *pos);
-    return line;
+    return EXIT_SUCCESS;
 }
