@@ -22,7 +22,7 @@ static char *get_file_name(file_t *files, char *file_name)
     return file_name;
 }
 
-int complete_line(char **line, file_t *files, size_t *pos)
+int complete_line(char **line, file_t *files, size_t *pos, bool multi)
 {
     char *file_name = get_file_name(files->next, files->name);
     char *result;
@@ -37,7 +37,7 @@ int complete_line(char **line, file_t *files, size_t *pos)
     temp = *line;
     *pos = my_strlen(*line) + my_strlen(file_name);
     result = my_strdupcat(4, *line, file_name,
-        file_name[my_strlen(file_name) - 1] == '/' ? "" : " ", rest);
+        multi || file_name[my_strlen(file_name) - 1] == '/' ? "" : " ", rest);
     free(temp);
     if (result == NULL)
         return EXIT_ERROR;

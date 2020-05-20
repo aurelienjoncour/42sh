@@ -54,7 +54,7 @@ int check_tab(char **line, size_t *pos, int ch, env_t *env)
         exit_value = EXIT_SUCCESS;
     }
     if (size >= 1)
-        exit_value = complete_line(line, files, pos);
+        exit_value = complete_line(line, files, pos, size > 1);
     free_list(files);
     return exit_value;
 }
