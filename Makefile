@@ -107,6 +107,7 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/word_array_search.c				\
 			$(DSRC)$(DTOOL)/tool.c							\
 			$(DSRC)$(DTOOL)/my_array_to_str.c				\
+			$(DSRC)$(DTOOL)/get_home_path.c					\
 
 SRC	=	$(DSRC)main.c										\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)

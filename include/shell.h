@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <signal.h>
+#include <pwd.h>
 
 #include "my.h"
 
@@ -132,6 +133,8 @@ bool str_is_alphanum(const char *str);
 bool have_slash(const char *str);
 bool str_have_only_chars(const char *str, const char *chars);
 char *my_array_to_str(char **tab, bool parent);
+
+char *get_home_path(void);
 
 //-------------------------------------------------
 //                  - HISTORY -
