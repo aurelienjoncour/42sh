@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <signal.h>
+#include <pwd.h>
 
 #include "my.h"
 
@@ -133,11 +134,14 @@ bool have_slash(const char *str);
 bool str_have_only_chars(const char *str, const char *chars);
 char *my_array_to_str(char **tab, bool parent);
 
+char *get_home_path(void);
+
 //-------------------------------------------------
 //                  - HISTORY -
 char *terminal_read(shell_t *shell);
 char *term_input(shell_t *shell);
 void show_main_prompt(shell_t *shell);
+char **add_to_hist(char **env, char *new_line);
 int built_in_history(char **line, shell_t *shell);
 bool flag_save(hist_build_t *ld, history_t *hist);
 bool flag_load(hist_build_t *load, shell_t *shell);

@@ -11,7 +11,6 @@ bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos)
 {
     if (ch == 4) {
         if (!line) {
-            fprintf(stdout, "srx\n");
             return true;
         }
         else if (*pos == strlen(line)) {

@@ -33,9 +33,6 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
         shell->exit_status = ERROR_STATUS;
         return EXIT_SUCCESS;
     }
-    // TODO : job control
-    // <=====
-    //
     ret = parenthesis_exec(shell, cmd);
     if (ret == EXIT_ERROR) {
         return EXIT_ERROR;

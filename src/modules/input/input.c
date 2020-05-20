@@ -93,7 +93,7 @@ char *term_input(shell_t *shell)
     shell->history.pos = get_history_size(shell->history.history);
     while (ch != '\n') {
         display_line(shell, line, pos);
-        ch = my_getch();
+        ch = my_getch(&line);
         if (!move_in_line(&pos, ch, &line, &shell->history)
         && is_correct_char(ch)) {
             line = add_char(line, ch, pos++);
