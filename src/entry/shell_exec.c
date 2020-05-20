@@ -15,8 +15,11 @@ int shell_exec(shell_t *shell, char *entry)
     if (entry_checker(shell, cmd, entry) == EXIT_ERROR) {
         return EXIT_SUCCESS;
     }
-    // TODO : substitute variables
-    // <====
+    if (substr_variables(shell, cmd) == EXIT_FAIL) {
+        free(entry);
+        cmd_destroy(cmd);
+        return EXIT_SUCCESS;
+    }
     free(entry);
     if (shell_exec_segment(shell, cmd) != EXIT_SUCCESS) {
         return EXIT_ERROR;

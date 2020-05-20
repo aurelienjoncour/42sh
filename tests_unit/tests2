@@ -102,3 +102,83 @@ CLEAN=""
 TESTS=
     echo e && xxx && echo e
 [013-END]
+
+[014]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls (ls) > log
+[014-END]
+
+[015]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (ls) > log ; cat -e log
+[015-END]
+
+[016]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (echo A | cat -e ; (ls) > log; echo e) > log
+[016-END]
+
+[017]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (echo A | cat -e && ls && (ls -l; echo A); echo $PWD)
+[017-END]
+
+[018]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ( ls ) )
+[018-END]
+
+[019]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ) ( ls )
+[019-END]
+
+[020]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+                            x
+[020-END]
+
+[021]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (ls) && echo e
+[021-END]
+
+[022]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls && echo e && echo a && ls && xx
+[022-END]
+
+[023]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls || &&
+[023-END]

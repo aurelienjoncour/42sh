@@ -25,6 +25,7 @@ const char *BUILTIN_NAME[] =
     "where",
     "history",
     "fg",
+    "repeat",
     NULL
 };
 
@@ -44,8 +45,9 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_set,
     &my_which,
     &my_where,
-    &built_in_history, // history
-    NULL  // fg
+    &built_in_history,
+    NULL,
+    &my_repeat
 };
 
 int shell_exec_shell_cmd(char **cmd, shell_t *shell)

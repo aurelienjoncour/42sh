@@ -18,4 +18,6 @@
 #define GO_END -22
 #define STAB  -9
 
+char *space_cat(char *str, char *src);
+
 #endif

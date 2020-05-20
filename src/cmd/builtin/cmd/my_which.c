@@ -12,6 +12,19 @@ extern const char *BUILTIN_NAME[];
 static const char *ERR_FEW_ARG = "which: Too few arguments.";
 static const char *ERR_NOT_FOUND = ": Command not found.";
 static const char *INFO_BUILTIN = ": shell built-in command.";
+static const char *INFO_ALIAS = "%s: \t aliased to %s\n";
+
+static bool check_for_alias(const char *cmd_name, shell_t *shell)
+{
+    char *alias = my_env_get_value(&shell->alias, cmd_name);
+
+    if (!alias) {
+        return false;
+    }
+    printf(INFO_ALIAS, cmd_name, alias);
+    free(alias);
+    return true;
+}
 
 static bool is_builtin_cmd(const char *cmd_name)
 {
@@ -43,6 +56,9 @@ bool *not_found)
 {
     int ret;
 
+    if (check_for_alias(cmd_name, shell) == true) {
+        return EXIT_SUCCESS;
+    }
     if (is_builtin_cmd(cmd_name) == true) {
         printf("%s%s\n", cmd_name, INFO_BUILTIN);
         return EXIT_SUCCESS;

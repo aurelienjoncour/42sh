@@ -6,6 +6,8 @@
 */
 
 #include "my.h"
+#include <errno.h>
+#include <string.h>
 
 static const int BUFFER_BLOCK = 42;
 static const int BUFFER_MAX_LEN = 1000000;
@@ -15,7 +17,7 @@ static int realloc_buffer(char **buffer, int *buffer_len, int str_len)
     char *new_buffer = malloc(sizeof(char) * (*buffer_len + BUFFER_BLOCK));
 
     if (!new_buffer)
-        return EXIT_FAILURE;
+        return puterr("Malloc fail\n", EXIT_FAILURE);
     *buffer_len += BUFFER_BLOCK;
     my_strncpy(new_buffer, *buffer, str_len);
     free(*buffer);
@@ -30,8 +32,9 @@ static int read_content(char **content, int *len, int fd)
 
     while (true) {
         ret = read(fd, *content + (*len), BUFFER_BLOCK - 1);
-        if (ret == -1)
+        if (ret == -1) {
             return EXIT_FAILURE;
+        }
         (*len) += ret;
         if (ret < (BUFFER_BLOCK - 1) || (*len) > BUFFER_MAX_LEN)
             return EXIT_SUCCESS;
@@ -62,13 +65,13 @@ char **my_read_file(const char *filepath)
 
     fd = open(filepath, O_RDONLY);
     if (fd == -1) {
-        my_putstr_error("read_file : error fail to open file.\n");
+        fprintf(stderr, "%s: %s.\n", filepath, strerror(errno));
         return NULL;
     }
     if (!(content = malloc(sizeof(char) * BUFFER_BLOCK)))
         return NULL;
     if (read_content(&content, &len, fd) == EXIT_FAILURE) {
-        my_putstr_error("read_content : error\n");
+        perror(filepath);
         return NULL;
     }
     return build_word_array(content, len);

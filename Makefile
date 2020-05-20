@@ -14,6 +14,7 @@ MASTER = 	$(DSRC)$(DMASTER)/shell_create_destroy.c		\
 			$(DSRC)$(DMASTER)/shell_exit.c					\
 			$(DSRC)$(DMASTER)/shell_run.c					\
 			$(DSRC)$(DMASTER)/prompt.c						\
+			$(DSRC)$(DMASTER)/sig_handler.c					\
 
 MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/redirection/redirect_open_file.c			\
@@ -41,6 +42,8 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/checker/check_parenthesis.c				\
 			$(DSRC)modules/checker/have_null_command.c				\
 			$(DSRC)modules/scripting/shell_exec_script.c			\
+			$(DSRC)modules/scripting/scripting_run.c				\
+			$(DSRC)modules/scripting/script_if.c					\
 			$(DSRC)modules/input/history/history_manage.c			\
 			$(DSRC)modules/input/history/read_file.c				\
 			$(DSRC)modules/input/history/write_history.c			\
@@ -48,6 +51,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/history/history.c					\
 			$(DSRC)modules/input/history/load_flag.c				\
 			$(DSRC)modules/input/history/load_save.c				\
+			$(DSRC)modules/input/history/add_to_hist.c				\
 			$(DSRC)modules/input/add_ch.c							\
 			$(DSRC)modules/input/canonic.c							\
 			$(DSRC)modules/input/input.c							\
@@ -56,6 +60,13 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/save_in_hist.c						\
 			$(DSRC)modules/input/autocompletion/auto_completion.c	\
 			$(DSRC)modules/input/autocompletion/get_files.c			\
+			$(DSRC)modules/input/ctrl_d.c							\
+			$(DSRC)modules/magic_quote/magical_read.c				\
+			$(DSRC)modules/magic_quote/exec_quote.c					\
+			$(DSRC)modules/substitute_var/subst_alias.c				\
+			$(DSRC)modules/substitute_var/subst_var.c				\
+			$(DSRC)modules/substitute_var/main_subst.c				\
+			$(DSRC)modules/substitute_var/process_subst.c			\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
@@ -74,12 +85,13 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/my_cd/get_path.c 	\
 			$(DSRC)$(DCMD)/builtin/cmd/show_exit_status.c	\
 			$(DSRC)$(DCMD)/builtin/cmd/my_echo.c			\
-			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_unalias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_set.c				\
 			$(DSRC)$(DCMD)/builtin/cmd/my_which.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/where/my_where.c		\
 			$(DSRC)$(DCMD)/builtin/cmd/where/show_path.c	\
+			$(DSRC)$(DCMD)/builtin/cmd/my_repeat.c			\
 
 ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/split_cmd_list.c					\
@@ -87,6 +99,7 @@ ENTRY 	=	$(DSRC)entry/shell_exec.c						\
 			$(DSRC)entry/pipe/shell_exec_pipe.c				\
 			$(DSRC)entry/pipe/pipe_process_cmd.c			\
 			$(DSRC)entry/pipe/pipe_process_cmd_last.c		\
+			$(DSRC)entry/parenthesis/parenthesis_exec.c		\
 			$(DSRC)entry/bool_op/shell_exec_boolop.c		\
 			$(DSRC)entry/cmd_process.c						\
 			$(DSRC)entry/linked_list_to_warray.c			\
@@ -95,8 +108,8 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/merge_path_filename.c			\
 			$(DSRC)$(DTOOL)/word_array_search.c				\
 			$(DSRC)$(DTOOL)/tool.c							\
-			$(DSRC)$(DTOOL)/my_str_count_pattern.c			\
-			$(DSRC)$(DTOOL)/my_str_count_char_suite.c		\
+			$(DSRC)$(DTOOL)/my_array_to_str.c				\
+			$(DSRC)$(DTOOL)/get_home_path.c					\
 
 SRC	=	$(DSRC)main.c										\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
