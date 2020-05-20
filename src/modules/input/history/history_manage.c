@@ -13,10 +13,10 @@
 
 static int open_history(int *fd)
 {
-    if (access("./src/.history", F_OK) == -1)
-        *fd = open("./src/.history", O_RDWR | O_CREAT, 0664);
+    if (access(".42history", F_OK) == -1)
+        *fd = open(".42history", O_RDWR | O_CREAT, 0664);
     else
-        *fd = open("./src/.history", O_RDWR | O_APPEND);
+        *fd = open(".42history", O_RDWR | O_APPEND);
     if (*fd < 0)
         return false;
     return true;
