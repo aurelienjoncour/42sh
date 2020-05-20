@@ -61,23 +61,23 @@ static bool process_check_parenthesis(token_t *ptr)
 static bool check_null_cmd_token(size_t *count_text, token_t *ptr,
 size_t *count_second_token)
 {
-    if (ptr->id == ID_PARENTHESE) {
-        if (process_check_parenthesis(ptr) == true) {
+    if (ptr->id == ID_PARENTHESE)
+        if (process_check_parenthesis(ptr) == true)
             return true;
-        }
-    }
     if (ptr->id == ID_PIPE || (ptr->type == D_SEPARATOR
         && ptr->id != ID_SEP)) {
-        if (*count_text == 0) {
+        if (*count_text == 0)
             return true;
-        }
         *count_text = 0;
-    } else if (is_text_token(ptr, true) == true) {
-        (*count_text)++;
-    } else if (ptr->type != D_SEPARATOR && ptr->id != ID_PARENTHESE &&
-            ptr->id != ID_BACKGROUND) {
-        (*count_second_token)++;
+        return false;
     }
+    if (is_text_token(ptr, true) == true) {
+        (*count_text)++;
+        return false;
+    }
+    if (ptr->type != D_SEPARATOR && ptr->id != ID_PARENTHESE &&
+            ptr->id != ID_BACKGROUND)
+        (*count_second_token)++;
     return false;
 }
 
