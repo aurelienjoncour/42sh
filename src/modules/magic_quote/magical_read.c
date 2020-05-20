@@ -13,6 +13,8 @@ char *space_cat(char *str, char *src)
     char *new = malloc(sizeof(char) * (size + 1));
     size_t move = 0;
 
+    if (!new)
+        return NULL;
     if (str) {
         for (size_t i = 0; str[i]; i++)
             new[move++] = str[i];
@@ -56,31 +58,35 @@ static char *read_quote(int *pipefd)
             return NULL;
         buf[a] = '\0';
         ret = space_cat(ret, buf);
+        if (!ret)
+            return NULL;
     }
     close(pipefd[0]);
-    if (ret[strlen(ret) - 1] == ' ')
-        ret[strlen(ret) - 1] = '\0';
+    if (my_strlen(ret) != 0 || ret[my_strlen(ret) - 1] == ' ')
+        ret[my_strlen(ret) - 1] = '\0';
     return ret;
 }
 
-char *get_magic_quote(shell_t *shell, char *entry)
+char *get_magic_quote(shell_t *par, char *entry)
 {
-    int pipefd[2];
+    int fd[2];
     pid_t pid;
     char *ret = NULL;
+    shell_t new;
 
-    if (pipe(pipefd) == -1)
+    if (shell_create(&new, par->env.var, NULL) == EXIT_ERROR || pipe(fd) == -1)
         return NULL;
     pid = fork();
     if (pid == -1)
         return NULL;
     if (pid == 0) {
-        if (!exec_quote(shell, entry, pipefd))
+        if (!exec_quote(&new, entry, fd))
             return NULL;
         exit(1);
-    } else {
-        ret = read_quote(pipefd);
-    }
+    } else
+        ret = read_quote(fd);
     wait(NULL);
+    par->exit_status = new.exit_status;
+    shell_destroy(&new);
     return ret;
 }
