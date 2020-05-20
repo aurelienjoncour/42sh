@@ -22,7 +22,7 @@ static void child_work(char *token, shell_t *parent_shell)
     char *entry = my_strndup(token + 1, strlen(token) - 2);
     shell_t shell;
 
-    if (shell_create(&shell, parent_shell->env.var) == EXIT_ERROR) {
+    if (shell_create(&shell, parent_shell->env.var, NULL) == EXIT_ERROR) {
         exit(EXIT_ERROR);
     } else if (!entry) {
         exit(EXIT_ERROR);

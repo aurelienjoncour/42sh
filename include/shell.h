@@ -36,7 +36,7 @@
 #include "substitute_var.h"
 
 //  MASTER FUNCTIONS
-int shell_create(shell_t *shell, char **env);
+int shell_create(shell_t *shell, char **env, char *shell_script);
 void shell_exit(shell_t *shell, int status);
 int shell_run(shell_t *shell);
 int shell_destroy(shell_t *shell);
@@ -69,7 +69,6 @@ char **linked_list_to_warray(cmd_t *cmd);
 
 // ENTRY : Parenthesis Exec
 int parenthesis_exec(shell_t *shell, cmd_t *cmd);
-
 
 // ENTRY : CMD EXEC
 int shell_exec_cmd(shell_t *shell, char **cmd);
@@ -132,10 +131,6 @@ bool char_is_letter(const char c);
 bool str_is_alphanum(const char *str);
 bool have_slash(const char *str);
 bool str_have_only_chars(const char *str, const char *chars);
-bool word_array_have_empty_str(char **warray);
-int my_str_count_pattern(char *str, const char *pattern);
-void my_str_count_char_suite(const char *str, const char c,
-int *occur, int *serie);
 char *my_array_to_str(char **tab, bool parent);
 
 //-------------------------------------------------

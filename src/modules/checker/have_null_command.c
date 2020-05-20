@@ -66,7 +66,8 @@ size_t *count_second_token)
             return true;
         }
     }
-    if (ptr->id == ID_OR || ptr->id == ID_PIPE) {
+    if (ptr->id == ID_PIPE || (ptr->type == D_SEPARATOR
+        && ptr->id != ID_SEP)) {
         if (*count_text == 0) {
             return true;
         }
@@ -86,7 +87,9 @@ bool have_null_command(cmd_t *cmd)
     size_t count_second_token = 0;
 
     for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
-        if (check_null_cmd_token(&count_text, ptr, &count_second_token)) {
+        if (check_null_cmd_token(&count_text, ptr, &count_second_token)
+            || (ptr->next == NULL && ptr->type == D_SEPARATOR
+                && ptr->id != ID_SEP) ) {
             my_putstr_error(ERR_NULL_CMD);
             return true;
         }

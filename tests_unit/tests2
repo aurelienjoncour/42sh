@@ -150,3 +150,35 @@ CLEAN=""
 TESTS=
     ( ls ) ( ls )
 [019-END]
+
+[020]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+                            x
+[020-END]
+
+[021]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (ls) && echo e
+[021-END]
+
+[022]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls && echo e && echo a && ls && xx
+[022-END]
+
+[023]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls || &&
+[023-END]

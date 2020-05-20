@@ -9,15 +9,12 @@
 
 int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd)
 {
-    // TODO : CHECK => have script ?
-    // TODO : CHECK => script struct not finish ?
-    //         |> call getline to read file stdin content.
-
-    // TODO : if/else eval
-
+    if (eval_if_condition(boolop_cmd) == EXIT_ERROR) {
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_SUCCESS;
+    }
     // TODO : while + foreach eval
 
-    // call :: cmd_process function
     if (cmd_process(shell, boolop_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
