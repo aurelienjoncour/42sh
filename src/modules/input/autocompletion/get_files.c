@@ -13,6 +13,7 @@
 static char *get_line_path(char **path, int i)
 {
     char *cmd;
+    int k = 0;
 
     if (*path == NULL) {
         *path = "./";
@@ -20,6 +21,8 @@ static char *get_line_path(char **path, int i)
     }
     for (; i >= 0 && (*path)[i] != ' ' && (*path)[i] != '/'; i--);
     cmd = my_strdup(*path + i + 1);
+    for (; cmd[k] != ' ' && cmd[k] != '\0'; k++);
+    cmd[k] = '\0';
     if (i <= 0 || (*path)[i] == ' ') {
         *path = "./";
         return cmd;
@@ -90,6 +93,7 @@ file_t *get_files(char *path, size_t pos, env_t *env)
     cmd = get_line_path(&path, pos);
     if (cmd == NULL)
         return NULL;
+    printf("%s, %s\n", cmd, path);
     files = get_dir_files(NULL, path, cmd);
     if (line != NULL) {
         for (; line[0] == ' '; line++);
