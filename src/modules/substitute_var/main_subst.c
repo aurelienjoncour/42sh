@@ -10,21 +10,21 @@
 static const char *ERR_ALIAS_LOOP = "Alias loop.\n";
 
 static int process_alias_check_token(shell_t *shell, cmd_t *cmd,
-bool *have_alias)
+bool *have_alias, token_t **ptr)
 {
     token_t *cpy_ptr;
     int ret;
-    bool is_cmd = is_command_name(ptr);
+    bool is_cmd = is_command_name(*ptr);
 
     if (is_cmd == true) {
-        cpy_ptr = ptr;
-        ptr = ptr->next;
+        cpy_ptr = *ptr;
+        *ptr = (*ptr)->next;
         ret = try_subst_alias(cmd, cpy_ptr, shell);
     }
     if (is_cmd == true && ret == EXIT_ERROR) {
         return EXIT_ERROR;
     } else if (is_cmd == false) {
-        ptr = ptr->next;
+        *ptr = (*ptr)->next;
     }
     if (is_cmd == true && ret == EXIT_SUCCESS) {
         *have_alias = true;
@@ -37,7 +37,7 @@ static int process_alias(shell_t *shell, cmd_t *cmd, size_t idx)
     bool have_alias = false;
 
     for (token_t *ptr = cmd->begin; ptr != NULL;) {
-        if (process_alias_check_token(shell, cmd, &have_alias) == EXIT_ERROR) {
+        if (process_alias_check_token(shell, cmd, &have_alias, &ptr) != 0) {
             return EXIT_ERROR;
         }
     }
