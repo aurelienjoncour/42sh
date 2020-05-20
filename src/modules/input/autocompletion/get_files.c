@@ -20,7 +20,7 @@ static char *get_line_path(char **path, int i)
     }
     for (; i >= 0 && (*path)[i] != ' ' && (*path)[i] != '/'; i--);
     cmd = my_strdup(*path + i + 1);
-    if ((*path)[i] == ' ' || i <= 0) {
+    if (i <= 0 || (*path)[i] == ' ') {
         *path = "./";
         return cmd;
     }
@@ -93,8 +93,7 @@ file_t *get_files(char *path, size_t pos, env_t *env)
     files = get_dir_files(NULL, path, cmd);
     if (line != NULL) {
         for (; line[0] == ' '; line++);
-        if (line[0] != '\0'
-        && (line == strstr(line, path) || line == strstr(line, cmd)))
+        if (!my_strcmp(line, cmd))
             files = get_path_dir_files(files, env, cmd);
     }
     free(cmd);

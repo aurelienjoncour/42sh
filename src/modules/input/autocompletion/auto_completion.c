@@ -52,7 +52,8 @@ int check_tab(char **line, size_t *pos, int ch, env_t *env)
         my_putchar('\n');
         print_list(files);
         exit_value = EXIT_SUCCESS;
-    } else if (size >= 1)
+    }
+    if (size >= 1)
         exit_value = complete_line(line, files, pos);
     free_list(files);
     return exit_value;

@@ -32,7 +32,7 @@ int complete_line(char **line, file_t *files, size_t *pos)
 
     if (*pos < strlen(*line))
         rest = *line + *pos;
-    for (; (*line)[i] != ' ' && (*line)[i] != '/'; i--);
+    for (; i >= 0 && (*line)[i] != ' ' && (*line)[i] != '/'; i--);
     (*line)[i + 1] = '\0';
     temp = *line;
     *pos = my_strlen(*line) + my_strlen(file_name);
