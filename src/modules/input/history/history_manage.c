@@ -11,13 +11,13 @@
 #include <unistd.h>
 #include "history_t.h"
 
-static int open_history(int *fd)
+static bool open_history(int *fd)
 {
     if (access(".42history", F_OK) == -1)
         *fd = open(".42history", O_RDWR | O_CREAT, 0664);
     else
         *fd = open(".42history", O_RDWR | O_APPEND);
-    if (*fd < 0)
+    if (*fd <= 0)
         return false;
     return true;
 }
