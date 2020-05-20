@@ -13,17 +13,19 @@
 static bool open_history(int *fd)
 {
     char *homedir = get_home_path();
+    char *filepath = NULL;
 
     if (homedir == NULL)
         return false;
-    homedir = my_str_concat(homedir, "/.42history");
-    if (homedir == NULL)
-        return false;
-    if (access(homedir, F_OK) == -1)
-        *fd = open(homedir, O_RDWR | O_CREAT, 0664);
-    else
-        *fd = open(homedir, O_RDWR | O_APPEND);
+    filepath = my_str_concat(homedir, "/.42history");
     free(homedir);
+    if (filepath == NULL)
+        return false;
+    if (access(filepath, F_OK) == -1)
+        *fd = open(filepath, O_RDWR | O_CREAT, 0664);
+    else
+        *fd = open(filepath, O_RDWR | O_APPEND);
+    free(filepath);
     if (*fd <= 0)
         return false;
     return true;
