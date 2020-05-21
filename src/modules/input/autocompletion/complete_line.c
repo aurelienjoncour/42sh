@@ -22,18 +22,26 @@ static char *get_file_name(file_t *files, char *file_name)
     return file_name;
 }
 
+static void line_edit(char **line, size_t *pos, char **rest)
+{
+    int i = *pos;
+
+    if (*pos < strlen(*line))
+        *rest = *line + *pos;
+    for (; i >= 0 && (*line)[i] != ' ' && (*line)[i] != '/'; i--);
+    (*line)[i + 1] = '\0';
+}
+
 int complete_line(char **line, file_t *files, size_t *pos, bool multi)
 {
     char *file_name = get_file_name(files->next, files->name);
     char *result;
     char *temp;
     char *rest = "";
-    int i = *pos;
 
-    if (*pos < strlen(*line))
-        rest = *line + *pos;
-    for (; i >= 0 && (*line)[i] != ' ' && (*line)[i] != '/'; i--);
-    (*line)[i + 1] = '\0';
+    if (!*line)
+        return EXIT_SUCCESS;
+    line_edit(line, pos, &rest);
     temp = *line;
     *pos = my_strlen(*line) + my_strlen(file_name)
         + !(multi || file_name[my_strlen(file_name) - 1] == '/');
