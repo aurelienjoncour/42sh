@@ -8,6 +8,8 @@
 #ifndef H_GLOBBING
 #define H_GLOBBING
 
+#include "shell.h"
 
+int process_globbing(const char *token);
 
 #endif

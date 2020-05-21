@@ -17,7 +17,7 @@ static bool is_correct_char(int ch)
     if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START
     || ch == STAB)
         return false;
-    if (ch == 0 || ch == 4)
+    if (ch == 0 || ch == 4 || ch == '\n')
         return false;
     return true;
 }

@@ -7,28 +7,6 @@
 
 #include "shell.h"
 
-char *space_cat(char *str, char *src)
-{
-    size_t size = (str) ? strlen(str) + strlen(src) : strlen(src);
-    char *new = malloc(sizeof(char) * (size + 1));
-    size_t move = 0;
-
-    if (!new)
-        return NULL;
-    if (str) {
-        for (size_t i = 0; str[i]; i++)
-            new[move++] = str[i];
-        free(str);
-    }
-    for (size_t i = 0; src[i]; i++)
-        if (src[i] == '\n')
-            src[i] = ' ';
-    for (size_t i = 0; src[i]; i++)
-        new[move++] = src[i];
-    new[move] = '\0';
-    return new;
-}
-
 static bool exec_quote(shell_t *shell, char *entry, int *pipefd)
 {
     int save = dup(1);
@@ -67,26 +45,57 @@ static char *read_quote(int *pipefd)
     return ret;
 }
 
-char *get_magic_quote(shell_t *par, char *entry)
+static int child_process_work(shell_t *par, char *entry, int *fd)
+{
+    shell_t new;
+    int status;
+
+    if (shell_create(&new, par->env.var, NULL) == EXIT_ERROR) {
+        exit(1);
+    } else if (!exec_quote(&new, entry, fd)) {
+        exit(1);
+    }
+    status = new.exit_status;
+    shell_destroy(&new);
+    exit(status);
+    return SUCCESS_STATUS;
+}
+
+static int parent_process_work(int *fd, char **ptr_ret)
+{
+    int exit_stat;
+    int wstatus;
+
+    *ptr_ret = read_quote(fd);
+    if (wait(&wstatus) == -1) {
+        return ERROR_STATUS;
+    }
+    exit_stat = child_exit_status(wstatus);
+    if (exit_stat != 0) {
+        return exit_stat;
+    }
+    return SUCCESS_STATUS;
+}
+
+int get_magic_quote(shell_t *par, char **ptr_token)
 {
     int fd[2];
     pid_t pid;
     char *ret = NULL;
-    shell_t new;
+    int exit;
 
-    if (shell_create(&new, par->env.var, NULL) == EXIT_ERROR || pipe(fd) == -1)
-        return NULL;
+    if (pipe(fd) == -1) {
+        return ERROR_STATUS;
+    }
     pid = fork();
     if (pid == -1)
-        return NULL;
+        return ERROR_STATUS;
     if (pid == 0) {
-        if (!exec_quote(&new, entry, fd))
-            return NULL;
-        exit(1);
-    } else
-        ret = read_quote(fd);
-    wait(NULL);
-    par->exit_status = new.exit_status;
-    shell_destroy(&new);
-    return ret;
+        return child_process_work(par, (*ptr_token), fd);
+    } else {
+        exit = parent_process_work(fd, &ret);
+        free(*ptr_token);
+        *ptr_token = ret;
+        return exit;
+    }
 }

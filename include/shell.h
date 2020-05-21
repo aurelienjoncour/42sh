@@ -110,9 +110,6 @@ int where_show_all_path(const char *cmd_name, shell_t *shell);
 
 // MOD : CHECKER
 int entry_checker(shell_t *shell, cmd_t *cmd, const char *entry);
-bool is_redirection(ID token_id);
-bool is_text_token(token_t *ptr, bool include_parenthesis);
-bool is_separator(token_t *ptr);
 bool check_position_redirection_in_pipe(cmd_t *cmd);
 bool check_have_empty_pipe(cmd_t *cmd);
 bool have_missing_str_quote(const char *entry);
@@ -120,6 +117,13 @@ bool check_parenthesis(cmd_t *cmd);
 bool have_missing_name_redirection(cmd_t *cmd);
 bool have_several_redirection(cmd_t *cmd);
 bool have_null_command(cmd_t *cmd);
+
+bool is_redirection(ID token_id);
+bool is_text_token(token_t *ptr, bool include_parenthesis);
+bool is_separator(token_t *ptr);
+
+// MOD : Globbing
+int globbing(cmd_t *cmd, shell_t *shell);
 
 //-------------------------------------------------
 //                  - TOOLS -
@@ -136,6 +140,7 @@ bool str_have_only_chars(const char *str, const char *chars);
 char *my_array_to_str(char **tab, bool parent);
 
 char *get_home_path(void);
+bool is_command_name(token_t *token);
 
 //-------------------------------------------------
 //                  - HISTORY -
@@ -156,8 +161,8 @@ bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos);
 #define HAVE_MQUOTE -1
 #define NO_MQUOTE -2
 
-char *get_magic_quote(shell_t *shell, char *entry);
-int load_magic_quote(shell_t *shell, cmd_t *cmd);
+int get_magic_quote(shell_t *par, char **ptr_token);
+int load_magic_quote(shell_t *shell, cmd_t *cmd, int *exit_status);
 
 
 char **get_default_local(char **env);
