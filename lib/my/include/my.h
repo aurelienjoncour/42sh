@@ -72,6 +72,7 @@ char *my_revstr(char *str);
 char *my_strstr(char *str, char const *to_find);
 int my_strcmp(char const *s1, char const *s2);
 int my_strncmp(char const *s1, char const *s2, int n);
+int my_strcmp_nocase(char const *s1, char const *s2);
 char *my_str_concat(const char *stra, const char *strb);
 char *my_strupcase(char *str);
 char *my_strlowcase(char *str);

@@ -141,6 +141,8 @@ bool have_slash(const char *str);
 bool str_have_only_chars(const char *str, const char *chars);
 char *my_array_to_str(char **tab, bool parent);
 
+bool sort_file_list(file_list_t **list);
+
 char *get_home_path(void);
 bool is_command_name(token_t *token);
 

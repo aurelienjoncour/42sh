@@ -52,7 +52,7 @@ bool sort_file_list(file_list_t **list)
         return false;
     tab_filler(*list, tab);
     for (ssize_t i = 0; tab[i + 1]; i++)
-        if (my_strcmp(tab[i]->name, tab[i + 1]->name) > 0) {
+        if (my_strcmp_nocase(tab[i]->name, tab[i + 1]->name) > 0) {
             tmp = tab[i];
             tab[i] = tab[i + 1];
             tab[i + 1] = tmp;

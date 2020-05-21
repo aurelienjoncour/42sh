@@ -39,7 +39,7 @@ int split_filepath(const char *str, char **ptr_path, char **ptr_filename)
         }
     }
     if (idx_slash == -1) {
-        *ptr_path = my_strdup("./");
+        *ptr_path = my_strdup(".");
     } else {
         *ptr_path = my_strndup(str, (idx_slash + 1));
     }

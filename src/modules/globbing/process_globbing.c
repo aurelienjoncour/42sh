@@ -17,16 +17,14 @@ static int replace_token(token_t *token_list, cmd_t *cmd, token_t *old_token)
     return EXIT_SUCCESS;
 }
 
-static int process_filelist(file_list_t **ptr_filenames, token_t *tok,
-cmd_t *cmd, char *path)
+static int process_filelist(file_list_t **ptr_filenames, char *regexp)
 {
     file_list_t *filenames = *ptr_filenames;
     file_list_t *prev_node = NULL;
     file_list_t *del_node = NULL;
-    token_t *token_list;
 
     for (file_list_t *ptr = filenames; ptr != NULL;) {
-        if (ptr->name[0] == '.'/* IF Don't Match */) {
+        if (!process_regexp(regexp, ptr->name)) {
             del_node = ptr;
             ptr = ptr->next;
             remove_invalid_node(del_node, prev_node, ptr_filenames);
@@ -35,7 +33,18 @@ cmd_t *cmd, char *path)
             ptr = ptr->next;
         }
     }
-    token_list = file_list_to_token_list(*ptr_filenames, path);
+    return EXIT_SUCCESS;
+}
+
+static int post_process(file_list_t *filenames, token_t *tok, cmd_t *cmd,
+char *path)
+{
+    token_t *token_list;
+
+    if (sort_file_list(&filenames) == false) {
+        return EXIT_ERROR;
+    }
+    token_list = file_list_to_token_list(filenames, path);
     if (!token_list) {
         return EXIT_ERROR;
     }
@@ -54,13 +63,13 @@ int process_globbing(token_t *tok, cmd_t *cmd)
 
     if (split_filepath(tok->token, &path, &regexp) == EXIT_ERROR) {
         return EXIT_FAIL;
-    }
-    if (my_read_dir(&filenames, path) <= 0) {
+    } else if (my_read_dir(&filenames, path) <= 0) {
         free(path);
         free(regexp);
         return EXIT_FAIL;
     }
-    if (process_filelist(&filenames, tok, cmd, path) == EXIT_ERROR) {
+    if (process_filelist(&filenames, regexp) == EXIT_ERROR
+            || post_process(filenames, tok, cmd, path) == EXIT_ERROR) {
         ret = EXIT_FAIL;
     }
     free(path);
