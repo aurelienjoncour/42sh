@@ -35,7 +35,7 @@ char *term_input(shell_t *shell, char *line, size_t pos)
         display_line(shell, line, pos);
         ch = my_getch(&line);
         auto_comp = input_result(ch, shell, &line, &pos);
-        if (line == NULL)
+        if (auto_comp == EXIT_ERROR)
             return NULL;
         if (ch == STAB && auto_comp == EXIT_SUCCESS)
             return term_input(shell, line, pos);
