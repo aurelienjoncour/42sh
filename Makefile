@@ -72,6 +72,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
 			$(DSRC)modules/globbing/globbing.c						\
 			$(DSRC)modules/globbing/process_globbing.c				\
+			$(DSRC)modules/get_default_local.c						\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\

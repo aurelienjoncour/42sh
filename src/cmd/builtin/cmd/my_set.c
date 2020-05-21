@@ -103,7 +103,7 @@ int my_set(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
     int ret;
-
+    
     if (len == 1) {
         my_env_display(&shell->local);
         shell->exit_status = SUCCESS_STATUS;

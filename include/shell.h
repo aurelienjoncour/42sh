@@ -164,4 +164,7 @@ bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos);
 char *get_magic_quote(shell_t *shell, char *entry);
 int load_magic_quote(shell_t *shell, cmd_t *cmd);
 
+
+char **get_default_local(char **env);
+
 #endif
