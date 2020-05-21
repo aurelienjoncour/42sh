@@ -26,6 +26,20 @@ static void update_variable(shell_t *shell)
     free(env_cmd[2]);
 }
 
+static int make_precmd(shell_t *shell)
+{
+    shell_t sub_shell;
+
+    if (shell_create(&sub_shell, shell->env.var, NULL) == EXIT_ERROR)
+        return EXIT_ERROR;
+    if (shell_exec(&sub_shell, get_env_entry(&shell->alias,
+    "cwdcmd=")) != EXIT_SUCCESS)
+        return EXIT_ERROR;
+    shell->exit_status = sub_shell.exit_status;
+    shell_destroy(&sub_shell);
+    return EXIT_SUCCESS;
+}
+
 int my_cd(char **cmd, shell_t *shell)
 {
     char *path;
@@ -43,5 +57,7 @@ int my_cd(char **cmd, shell_t *shell)
         shell->exit_status = ERROR_STATUS;
     }
     free(path);
+     if (my_env_exist(&shell->alias, "cwdcmd"))
+        return make_precmd(shell);
     return EXIT_SUCCESS;
 }

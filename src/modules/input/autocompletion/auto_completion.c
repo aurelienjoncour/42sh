@@ -38,23 +38,35 @@ static void print_list(file_t *files)
     print_list(files->next);
 }
 
+static int does_show_list(file_t *files, int size)
+{
+    if (size > 1) {
+        my_putchar('\n');
+        print_list(files);
+        return EXIT_SUCCESS;
+    }
+    return EXIT_FAILURE;
+}
+
 int check_tab(char **line, size_t *pos, int ch, env_t *env)
 {
     file_t *files;
     int size;
-    int exit_value = EXIT_FAILURE;
+    int exit_value;
+    char *backup = my_strdup(*line);
 
     if (ch != STAB)
         return EXIT_FAILURE;
     files = get_files(*line, *pos, env);
     size = get_list_size(files, 0);
-    if (size > 1) {
-        my_putchar('\n');
-        print_list(files);
-        exit_value = EXIT_SUCCESS;
-    }
-    if (size >= 1)
+    exit_value = does_show_list(files, size);
+    if (size >= 1) {
         exit_value = complete_line(line, files, pos, size > 1);
+        free(backup);
+    } else {
+        free(*line);
+        *line = backup;
+    }
     free_list(files);
     return exit_value;
 }

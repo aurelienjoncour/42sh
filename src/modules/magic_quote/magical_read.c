@@ -40,7 +40,7 @@ static char *read_quote(int *pipefd)
             return NULL;
     }
     close(pipefd[0]);
-    if (my_strlen(ret) != 0 || ret[my_strlen(ret) - 1] == ' ')
+    if (my_strlen(ret) != 0 && ret[my_strlen(ret) - 1] == ' ')
         ret[my_strlen(ret) - 1] = '\0';
     return ret;
 }
