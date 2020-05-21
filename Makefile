@@ -119,6 +119,7 @@ TOOLS	=	$(DSRC)$(DTOOL)/display_path_without_homepath.c	\
 			$(DSRC)$(DTOOL)/tool.c							\
 			$(DSRC)$(DTOOL)/my_array_to_str.c				\
 			$(DSRC)$(DTOOL)/get_home_path.c					\
+			$(DSRC)$(DTOOL)/sort_file_list.c				\
 
 SRC	=	$(DSRC)main.c										\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
