@@ -12,9 +12,9 @@ static int prepare_processing(shell_t *shell, cmd_t *cmd, redirect_t *redirect)
     if (substr_variables(shell, cmd) == EXIT_FAIL) {
         return EXIT_FAIL;
     }
-    // if (globbing(cmd, shell) == EXIT_ERROR) {
-    //     return EXIT_ERROR;
-    // }
+    if (globbing(cmd, shell) == EXIT_FAIL) {
+        return EXIT_FAIL;
+    }
     if (redirection_process(cmd, redirect) != EXIT_SUCCESS) {
         clean_redirect(redirect);
         shell->exit_status = ERROR_STATUS;
