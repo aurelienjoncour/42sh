@@ -4,8 +4,7 @@
 !.gitignore
 autorized_func.txt
 mysh
-noright
-
+.42history
 command.conf
 README
 tests.sample
@@ -46,7 +45,6 @@ tests.txt
 
 # Executables
 *.exe
-*.out
 *.app
 *.i*86
 *.x86_64
