@@ -11,5 +11,5 @@ const char *ERR_NO_MATCH = "%s: No match.\n";
 
 bool process_regexp(const char *pattern, const char *filename)
 {
-    
+
 }

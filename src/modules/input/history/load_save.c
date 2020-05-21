@@ -43,7 +43,7 @@ static int get_file_size(char const *filepath)
     return test.st_size;
 }
 
-static char *files_read(char const *filepath, int *fd)
+static char **files_read(char const *filepath, int *fd)
 {
     char *temp;
     int file_size;
@@ -60,21 +60,18 @@ static char *files_read(char const *filepath, int *fd)
     temp[file_size] = '\0';
     if (read(*fd, temp, file_size) < 0)
         return NULL;
-    return temp;
+    return my_str_to_word_array(temp, "\n");
 }
 
 bool flag_load(hist_build_t *load, shell_t *shell)
 {
     history_t ld;
-    char *file = files_read(load->file, &ld.fd);
 
-    ld.size = 0;
-    ld.pos = 0;
-    if (!file)
-        return false;
-    ld.history = my_str_to_word_array(file, "\n");
+    ld.history = files_read(load->file, &ld.fd);
     if (!ld.history)
         return false;
+    ld.size = 0;
+    ld.pos = 0;
     ld.size = get_history_size(ld.history) - 1;
     if (ld.size % 2 != 0)
         return false;
