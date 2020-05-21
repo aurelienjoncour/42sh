@@ -71,6 +71,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/substitute_var/main_subst.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
 			$(DSRC)modules/get_default_local.c						\
+			$(DSRC)modules/get_env_entry.c							\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/binary/exec_cmd_bin.c			\
