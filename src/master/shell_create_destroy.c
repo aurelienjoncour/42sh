@@ -20,9 +20,11 @@ static void init_struct(shell_t *shell, char *shell_script)
 
 int shell_create(shell_t *shell, char **env, char *shell_script)
 {
+    char **default_local = get_default_local(env);
+
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
         return EXIT_ERROR;
-    if (my_env_create(&shell->local, get_default_local(env)) != EXIT_SUCCESS)
+    if (my_env_create(&shell->local, default_local) != EXIT_SUCCESS)
         return EXIT_ERROR;
     if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
         return EXIT_ERROR;
@@ -33,6 +35,9 @@ int shell_create(shell_t *shell, char **env, char *shell_script)
     if (shell->fd.stdin == -1 || shell->fd.stdout == -1)
         return puterr("dup : fail\n", EXIT_ERROR);
     signal(SIGINT, handler);
+    for (size_t i = 0; default_local[i]; i++)
+        free(default_local[i]);
+    free(default_local);
     return EXIT_SUCCESS;
 }
 

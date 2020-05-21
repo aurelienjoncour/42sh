@@ -15,7 +15,7 @@ static char *get_line_path(char **path, int i)
     char *cmd;
     int k = 0;
 
-    if (*path == NULL) {
+    if (*path == NULL || **path == '\0') {
         *path = "./";
         return my_strdup("");
     }
@@ -62,6 +62,8 @@ static file_t *get_dir_files(file_t *files, char *path, char *cmd)
     DIR *dir = opendir(path);
     struct dirent *d_file = dir != NULL ? readdir(dir) : NULL;
 
+    if (dir == NULL)
+        fprintf(stdout, "\n%s not found\n\n", path);
     while (d_file != NULL && cmd != NULL) {
         files = add_file(d_file->d_name, files, path, cmd);
         d_file = readdir(dir);
@@ -86,15 +88,14 @@ static file_t *get_path_dir_files(file_t *files, env_t *env, char *cmd)
 
 file_t *get_files(char *path, size_t pos, env_t *env)
 {
-    char *cmd;
-    file_t *files;
     char *line = path;
+    file_t *files;
+    char *cmd = get_line_path(&path, pos);
 
-    cmd = get_line_path(&path, pos);
     if (cmd == NULL)
         return NULL;
     files = get_dir_files(NULL, path, cmd);
-    if (line != NULL) {
+    if (line != NULL && *line != '\0') {
         for (; line[0] == ' '; line++);
         if (!my_strcmp(line, cmd))
             files = get_path_dir_files(files, env, cmd);
