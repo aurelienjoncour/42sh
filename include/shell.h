@@ -166,5 +166,6 @@ int load_magic_quote(shell_t *shell, cmd_t *cmd, int *exit_status);
 
 
 char **get_default_local(char **env);
+char *get_env_entry(env_t *env, char *label);
 
 #endif
