@@ -149,4 +149,7 @@ bool flag_load(hist_build_t *load, shell_t *shell);
 char *get_magic_quote(shell_t *shell, char *entry);
 bool load_magic_quote(shell_t *shell, cmd_t *cmd);
 
+
+char **get_default_local(char **env);
+
 #endif

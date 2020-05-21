@@ -11,7 +11,7 @@ int shell_create(shell_t *shell, char **env)
 {
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
         return EXIT_ERROR;
-    if (my_env_create(&shell->local, NULL) != EXIT_SUCCESS)
+    if (my_env_create(&shell->local, get_default_local(env)) != EXIT_SUCCESS)
         return EXIT_ERROR;
     if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
         return EXIT_ERROR;
