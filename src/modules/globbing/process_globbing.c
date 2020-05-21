@@ -36,7 +36,8 @@ static int process_filelist(file_list_t **ptr_filenames, char *regexp)
     return EXIT_SUCCESS;
 }
 
-static int post_process(file_list_t *filenames, token_t *tok, cmd_t *cmd)
+static int post_process(file_list_t *filenames, token_t *tok, cmd_t *cmd,
+char *path)
 {
     token_t *token_list;
 
@@ -65,7 +66,7 @@ int process_globbing(token_t *tok, cmd_t *cmd)
         return EXIT_FAIL;
     }
     if (process_filelist(&filenames, regexp) == EXIT_ERROR
-            || post_process(filenames, tok, cmd) == EXIT_ERROR) {
+            || post_process(filenames, tok, cmd, path) == EXIT_ERROR) {
         ret = EXIT_FAIL;
     }
     free(path);
