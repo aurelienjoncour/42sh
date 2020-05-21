@@ -85,3 +85,87 @@ CLEAN=""
 TESTS=
   repeat 2 ls | grep t
 [011-END]
+
+[012]
+NAME="Precmd"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias precmd echo pre
+  ls
+  unalias precmd
+  ls
+[012-END]
+
+[013]
+NAME="Cwdcmd"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias cwdcmd echo cd
+  cd ..
+  unalias cwdcmd
+  cd ..
+[013-END]
+
+[014]
+NAME="Cwdcmd + Precmd"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias precmd echo pre
+  alias cwdcmd echo cd
+  cd ..
+  ls
+[014-END]
+
+[015]
+NAME="Alias"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo ls
+  echo
+  ls
+[015-END]
+
+[016]
+NAME="Alias small loop"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo ls
+  alias ls echo
+[016-END]
+
+[017]
+NAME="Alias big loop"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo ls
+  alias ls cd
+  alias cd echo
+[017-END]
+
+[018]
+NAME="Unalias"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias test ls
+  test
+  unalias test
+  test
+[018-END]
+
+[019]
+NAME="Set and unset"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  set test=alpha
+  echo $test
+  unset test
+  echo $test
+[019-END]
