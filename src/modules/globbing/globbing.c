@@ -24,47 +24,53 @@ static bool is_globbing_expr(token_t *node)
     return false;
 }
 
-static void check_error(int have_success, shell_t *shell, char *cmd_name)
+static bool check_error(int have_success, shell_t *shell, char *cmd_name)
 {
     if ((have_success & 16) == 0 && have_success != 0) {
         shell->exit_status = ERROR_STATUS;
         fprintf(stderr, ERR_NO_MATCH, cmd_name);
-    }
-}
-
-static bool process_token(token_t *ptr, shell_t *shell, int *have_success,
-char **cmd_name)
-{
-    if (is_command_name(ptr) == true) {
-        *cmd_name = ptr->token;
-    } else if (is_separator(ptr) == true) {
-        check_error(*have_success, shell, *cmd_name);
-        *cmd_name = NULL;
-        *have_success = 0;
-    }
-    if (is_globbing_expr(ptr) == false) {
         return true;
-    } else if (*cmd_name == NULL) {
-        *cmd_name = ptr->token;
-    }
-    if (process_globbing(ptr->token) == EXIT_FAIL) {
-        *have_success = *have_success | 4;
-    } else {
-        *have_success = *have_success | 16;
     }
     return false;
+}
+
+static int process_token(token_t **ptr, cmd_t *cmd, char **cmd_name)
+{
+    token_t *save_ptr = *ptr;
+
+    if (is_command_name(save_ptr) == true) {
+        *cmd_name = save_ptr->token;
+    }
+    if (is_globbing_expr(save_ptr) == false) {
+        return 2;
+    } else if (*cmd_name == NULL) {
+        *cmd_name = save_ptr->token;
+    }
+    *ptr = (*ptr)->next;
+    if (process_globbing(save_ptr, cmd) == EXIT_FAIL) {
+        return 4;
+    } else {
+        return 16;
+    }
 }
 
 int globbing(cmd_t *cmd, shell_t *shell)
 {
     char *cmd_name = NULL;
     int have_success = 0;
+    int ret = 0;
 
-    for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
-        if (process_token(ptr, shell, &have_success, &cmd_name)) {
+    for (token_t *ptr = cmd->begin; ptr != NULL;) {
+        ret = process_token(&ptr, cmd, &cmd_name);
+        if (ret == 2) {
+            ptr = ptr->next;
             continue;
+        } else if (ret == 16 || ret == 4) {
+            have_success = have_success | ret;
         }
     }
-    check_error(have_success, shell, cmd_name);
+    if (check_error(have_success, shell, cmd_name)) {
+        return EXIT_FAIL;
+    }
     return EXIT_SUCCESS;
 }
