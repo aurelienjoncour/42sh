@@ -15,7 +15,7 @@ static char *get_line_path(char **path, int i)
     char *cmd;
     int k = 0;
 
-    if (*path == NULL) {
+    if (*path == NULL || **path == '\0') {
         *path = "./";
         return my_strdup("");
     }
@@ -95,7 +95,7 @@ file_t *get_files(char *path, size_t pos, env_t *env)
     if (cmd == NULL)
         return NULL;
     files = get_dir_files(NULL, path, cmd);
-    if (line != NULL) {
+    if (line != NULL && *line != '\0') {
         for (; line[0] == ' '; line++);
         if (!my_strcmp(line, cmd))
             files = get_path_dir_files(files, env, cmd);
