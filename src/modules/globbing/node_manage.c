@@ -29,7 +29,11 @@ token_t *file_list_to_token_list(file_list_t *file_list, char *path)
     char *value;
 
     for (file_list_t *ptr = file_list; ptr != NULL; ptr = ptr->next) {
-        value = my_str_concat(path, ptr->name);
+        if (my_strcmp(path, ".") == 0) {
+            value = my_str_concat("", ptr->name);
+        } else {
+            value = my_str_concat(path, ptr->name);
+        }
         if (!value) {
             return NULL;
         }

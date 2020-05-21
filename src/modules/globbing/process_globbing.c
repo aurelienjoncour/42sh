@@ -41,6 +41,9 @@ char *path)
 {
     token_t *token_list;
 
+    if (sort_file_list(&filenames) == false) {
+        return EXIT_ERROR;
+    }
     token_list = file_list_to_token_list(filenames, path);
     if (!token_list) {
         return EXIT_ERROR;
