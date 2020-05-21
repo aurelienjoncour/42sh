@@ -7,6 +7,22 @@
 
 #include "shell.h"
 
+static int prepare_processing(shell_t *shell, cmd_t *cmd, redirect_t *redirect)
+{
+    if (substr_variables(shell, cmd) == EXIT_FAIL) {
+        return EXIT_FAIL;
+    }
+    if (globbing(cmd, shell) == EXIT_ERROR) {
+        return EXIT_ERROR;
+    }
+    if (redirection_process(cmd, redirect) != EXIT_SUCCESS) {
+        clean_redirect(redirect);
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_FAIL;
+    }
+    return EXIT_SUCCESS;
+}
+
 static int cmd_process_command(shell_t *shell, cmd_t *cmd)
 {
     int status;
@@ -30,12 +46,10 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
     redirect_t redirect;
     int ret;
 
-    if (substr_variables(shell, cmd) == EXIT_FAIL) {
-        return EXIT_SUCCESS;
-    }
-    if (redirection_process(cmd, &redirect) != EXIT_SUCCESS) {
-        clean_redirect(&redirect);
-        shell->exit_status = ERROR_STATUS;
+    ret = prepare_processing(shell, cmd, &redirect);
+    if (ret == EXIT_ERROR) {
+        return EXIT_ERROR;
+    } else if (ret == EXIT_FAIL) {
         return EXIT_SUCCESS;
     }
     ret = parenthesis_exec(shell, cmd);

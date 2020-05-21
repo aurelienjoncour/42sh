@@ -7,6 +7,8 @@
 
 #include <sys/types.h>
 #include <dirent.h>
+#include <errno.h>
+#include <string.h>
 
 #include "my.h"
 
@@ -17,15 +19,13 @@ int my_read_dir(file_list_t **files, const char *dirpath)
     int size = 0;
 
     if (!dir) {
-        my_putstr_error("read_filedir: Fail to open directory\n");
+        fprintf(stderr, "%s: %s.\n", dirpath, strerror(errno));
         return (-1);
     }
     (*files) = NULL;
     while ((file = readdir(dir)) != NULL) {
-        if (file->d_type == DT_REG) {
-            size++;
-            my_file_list_add(files, file->d_name);
-        }
+        size++;
+        my_file_list_add(files, file->d_name);
     }
     closedir(dir);
     return size;

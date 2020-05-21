@@ -9,36 +9,62 @@
 
 const char *ERR_NO_MATCH = "%s: No match.\n";
 
-static char *get_filepath(const char *str)
-{
-    int idx_slash = -1;
+static const char *CHAR_GLOBBING = "*?[]";
 
-    for (size_t i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '/') {
-            idx_slash = (int)i;
+static bool is_globbing_expr(token_t *node)
+{
+    if (!node || node->id != ID_WITHOUT) {
+        return false;
+    }
+    for (size_t i = 0; node->token[i] != '\0'; i++) {
+        if (my_str_have_char(CHAR_GLOBBING, node->token[i]) != -1) {
+            return true;
         }
     }
-    if (idx_slash == -1) {
-        return my_strdup("./");
-    } else {
-        return my_strndup(str, (idx_slash + 1));
+    return false;
+}
+
+static void check_error(int have_success, shell_t *shell, char *cmd_name)
+{
+    if ((have_success & 16) == 0 && have_success != 0) {
+        shell->exit_status = ERROR_STATUS;
+        fprintf(stderr, ERR_NO_MATCH, cmd_name);
     }
 }
 
-char **globbing(const char *str, const char *cmd_name)
+static bool process_token(token_t *ptr, shell_t *shell, int *have_success,
+char **cmd_name)
 {
-    char *path = get_filepath(str);
-    file_list_t *filenames;
-    int size;
-
-    size = my_read_dir(&filenames, path);
-    if (size == -1) {
-        free(path);
-        my_putstr_error("globbing: fail to browse directory.\n");
-        return NULL;
-    } else if (size == 0) {
-        fprintf(stderr, ERR_NO_MATCH, cmd_name);
-        return NULL;
+    if (is_command_name(ptr) == true) {
+        *cmd_name = ptr->token;
+    } else if (is_separator(ptr) == true) {
+        check_error(*have_success, shell, *cmd_name);
+        *cmd_name = NULL;
+        *have_success = 0;
     }
-    return NULL;
+    if (is_globbing_expr(ptr) == false) {
+        return true;
+    } else if (*cmd_name == NULL) {
+        *cmd_name = ptr->token;
+    }
+    if (process_globbing(ptr->token) == EXIT_FAIL) {
+        *have_success = *have_success | 4;
+    } else {
+        *have_success = *have_success | 16;
+    }
+    return false;
+}
+
+int globbing(cmd_t *cmd, shell_t *shell)
+{
+    char *cmd_name = NULL;
+    int have_success = 0;
+
+    for (token_t *ptr = cmd->begin; ptr != NULL; ptr = ptr->next) {
+        if (process_token(ptr, shell, &have_success, &cmd_name)) {
+            continue;
+        }
+    }
+    check_error(have_success, shell, cmd_name);
+    return EXIT_SUCCESS;
 }
