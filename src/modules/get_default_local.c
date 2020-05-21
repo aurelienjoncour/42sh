@@ -40,6 +40,7 @@ static int add_cwd(char **local)
     *local[0] = '\0';
     *local = my_strcat(*local, "cwd=");
     *local = my_strcat(*local, location);
+    free(location);
     return 1;
 }
 

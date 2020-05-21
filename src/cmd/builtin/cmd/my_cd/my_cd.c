@@ -57,7 +57,7 @@ int my_cd(char **cmd, shell_t *shell)
         shell->exit_status = ERROR_STATUS;
     }
     free(path);
-     if (my_env_exist(&shell->alias, "cwdcmd"))
+    if (my_env_exist(&shell->alias, "cwdcmd"))
         return make_precmd(shell);
     return EXIT_SUCCESS;
 }
