@@ -24,7 +24,7 @@ static int process_filelist(file_list_t **ptr_filenames, char *regexp)
     file_list_t *del_node = NULL;
 
     for (file_list_t *ptr = filenames; ptr != NULL;) {
-        if (ptr->name[0] == '.'/* IF Don't Match */) {
+        if (!process_regexp(regexp, ptr->name)) {
             del_node = ptr;
             ptr = ptr->next;
             remove_invalid_node(del_node, prev_node, ptr_filenames);
