@@ -101,5 +101,7 @@ char **history_manage(history_t *hist, char *new_line)
         return env;
     if (!add_time(hist))
         return env;
+    if (incorrect_line(new_line))
+        return env;
     return add_to_hist(env, new_line);
 }

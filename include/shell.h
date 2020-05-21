@@ -150,6 +150,7 @@ bool is_command_name(token_t *token);
 //                  - HISTORY -
 char *terminal_read(shell_t *shell);
 char *term_input(shell_t *shell, char *line, size_t pos);
+bool incorrect_line(char *new_line);
 void show_main_prompt(shell_t *shell);
 char **add_to_hist(char **env, char *new_line);
 int built_in_history(char **line, shell_t *shell);
