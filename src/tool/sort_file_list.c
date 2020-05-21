@@ -45,7 +45,7 @@ bool sort_file_list(file_list_t **list)
     file_list_t *tmp;
     file_list_t **tab;
 
-    if (size == 1)
+    if (size <= 1)
         return true;
     tab = malloc(sizeof(file_list_t *) * (size + 1));
     if (!tab)
