@@ -71,17 +71,39 @@ static int special_key(char *in)
     return 0;
 }
 
-int my_getch(void)
+static bool cpy_term(char *buf, char **line)
+{
+    int read_size = 4;
+    char *ret = space_cat(NULL, buf);
+
+    while (read_size == 4) {
+        read_size = read(0, buf, 4);
+        if (read_size < 0)
+            return false;
+        buf[read_size] = '\0';
+        ret = space_cat(ret, buf);
+        if (!ret)
+            return false;
+    }
+    *line = space_cat(*line, ret);
+    return true;
+}
+
+int my_getch(char **line)
 {
     int ret;
-    char buf[4] = {0};
+    char buf[5] = {0};
 
     canonical_mode_select(true);
     ret = read(0, buf, 4);
     if (ret <= 0)
         return 0;
     canonical_mode_select(false);
+    if (buf[0] == '\t')
+        return STAB;
     if (buf[1] == '\0')
         return (int) buf[0];
+    if (buf[0] != 27)
+        cpy_term(buf, line);
     return special_key(buf);
 }

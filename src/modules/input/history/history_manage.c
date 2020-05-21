@@ -7,17 +7,26 @@
 
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "history_t.h"
+#include "shell.h"
 
-static int open_history(int *fd)
+static bool open_history(int *fd)
 {
-    if (access(".history", F_OK) == -1)
-        *fd = open(".history", O_RDWR | O_CREAT, 0664);
+    char *homedir = get_home_path();
+    char *filepath = NULL;
+
+    if (homedir == NULL)
+        return false;
+    filepath = my_str_concat(homedir, "/.42history");
+    free(homedir);
+    if (filepath == NULL)
+        return false;
+    if (access(filepath, F_OK) == -1)
+        *fd = open(filepath, O_RDWR | O_CREAT, 0664);
     else
-        *fd = open(".history", O_RDWR | O_APPEND);
-    if (*fd < 0)
+        *fd = open(filepath, O_RDWR | O_APPEND);
+    free(filepath);
+    if (*fd <= 0)
         return false;
     return true;
 }

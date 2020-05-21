@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-static bool is_text_token(token_t *token)
+static bool is_text_token_alias(token_t *token)
 {
     if (!token) {
         return false;
@@ -25,7 +25,7 @@ static bool is_text_token(token_t *token)
 
 bool is_command_name(token_t *token)
 {
-    if (is_text_token(token) == false) {
+    if (is_text_token_alias(token) == false) {
         return false;
     }
     if (token->prev == NULL) {
@@ -35,7 +35,7 @@ bool is_command_name(token_t *token)
         if (ptr->type == D_SEPARATOR || ptr->id == ID_PIPE) {
             break;
         }
-        if (is_text_token(ptr) == true) {
+        if (is_text_token_alias(ptr) == true) {
             return false;
         }
     }
@@ -80,7 +80,7 @@ int try_subst_alias(cmd_t *cmd, token_t *tok, shell_t *shell)
 
     value = format_value(value);
     if (!value) {
-        return EXIT_SUCCESS;
+        return EXIT_FAIL;
     }
     sub_cmd = parse_entry(value);
     if (!sub_cmd || !sub_cmd->begin) {

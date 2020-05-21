@@ -16,5 +16,8 @@
 #define SUPPR_DC -20
 #define GO_START -21
 #define GO_END -22
+#define STAB  -9
+
+char *space_cat(char *str, char *src);
 
 #endif

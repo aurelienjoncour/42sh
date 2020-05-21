@@ -59,7 +59,7 @@ int my_exit(char **cmd, shell_t *shell)
         shell->exit_status = (char)my_getnbr(cmd[1]);
     }
     shell->exit = 1;
-    if (isatty(0)) {
+    if (isatty(0) && shell->shell_script == NULL) {
         write_history(&shell->history);
         my_putstr_error("exit\n");
     }

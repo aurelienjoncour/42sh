@@ -7,13 +7,16 @@
 
 #include "shell.h"
 
-int main(__attribute((unused))int argc, __attribute((unused))char **argv,
-    char **env)
+int main(int argc, char **argv, char **env)
 {
     shell_t shell;
     int ret;
+    char *shell_script = NULL;
 
-    if (shell_create(&shell, env)) {
+    if (argc == 2) {
+        shell_script = argv[1];
+    }
+    if (shell_create(&shell, env, shell_script) == EXIT_ERROR) {
         return EXIT_ERROR;
     } else {
         ret = shell_run(&shell);

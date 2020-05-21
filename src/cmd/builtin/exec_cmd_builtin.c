@@ -16,7 +16,7 @@ const char *BUILTIN_NAME[] =
     "unsetenv",
     "clear",
     "my_pwd",
-    "$?",
+    "??",
     "echo",
     "alias",
     "unalias",
@@ -45,8 +45,8 @@ static int (* const CMD_FUNCT_PTR[])(char **cmd, shell_t *shell) =
     &my_set,
     &my_which,
     &my_where,
-    &built_in_history, // history
-    NULL,  // fg
+    &built_in_history,
+    NULL,
     &my_repeat
 };
 

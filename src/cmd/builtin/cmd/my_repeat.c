@@ -32,11 +32,17 @@ static int repeat_command(char **cmd, shell_t *shell)
     int number = my_getnbr(cmd[1]);
     char *entry = NULL;
     int return_value = 0;
-    
+    shell_t sub_shell;
+
+    if (shell_create(&sub_shell, shell->env.var, NULL) == EXIT_ERROR) {
+        return EXIT_ERROR;
+    }
     for (int i = 0; i < number; i++) {
         entry = my_array_to_str(&cmd[2], false);
-        return_value = shell_exec(shell, entry);
+        return_value = shell_exec(&sub_shell, entry);
     }
+    shell->exit_status = sub_shell.exit_status;
+    shell_destroy(&sub_shell);
     return return_value;
 }
 

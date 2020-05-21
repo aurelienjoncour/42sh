@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-int shell_create(shell_t *shell, char **env)
+static void init_struct(shell_t *shell, char *shell_script)
 {
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
         return EXIT_ERROR;
@@ -21,10 +21,24 @@ int shell_create(shell_t *shell, char **env)
     shell->fd.stdin = dup(0);
     shell->fd.stdout = dup(1);
     shell->fd.prev_pipein = -1;
-    if (!init_history(&shell->history) || !init_input())
+    shell->shell_script = shell_script;
+}
+
+int shell_create(shell_t *shell, char **env, char *shell_script)
+{
+    if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
         return EXIT_ERROR;
+    if (my_env_create(&shell->local, NULL) != EXIT_SUCCESS)
+        return EXIT_ERROR;
+    if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
+        return EXIT_ERROR;
+    init_struct(shell, shell_script);
+    if ((!init_history(&shell->history) || !init_input())) {
+        return EXIT_ERROR;
+    }
     if (shell->fd.stdin == -1 || shell->fd.stdout == -1)
         return puterr("dup : fail\n", EXIT_ERROR);
+    signal(SIGINT, handler);
     return EXIT_SUCCESS;
 }
 

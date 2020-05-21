@@ -7,20 +7,22 @@ TESTS=
 [001-END]
 
 [002]
-NAME="LINE FORMATING"
+NAME="&& ||"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ls || echo && e || ls
+    xx &&echo X && echo A || echo E
+    xx || echo V && echo O || echo P
 [002-END]
 
 [003]
-NAME="LINE FORMATING"
+NAME="&& ||"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    e && ls
-    e || ls
+    e && echo X && echo J
+    e || ls && echo E
 [003-END]
 
 [004]
@@ -102,3 +104,125 @@ CLEAN=""
 TESTS=
     echo e && xxx && echo e
 [013-END]
+
+[014]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls (ls) > log
+[014-END]
+
+[015]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (ls) > log ; cat -e log
+[015-END]
+
+[016]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (echo A | cat -e ; (ls) > log; echo e) > log
+[016-END]
+
+[017]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (echo A | cat -e && ls && (ls -l; echo A); echo $PWD)
+[017-END]
+
+[018]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ( ls ) )
+[018-END]
+
+[019]
+NAME="parenthesis"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ( ls ) ( ls )
+[019-END]
+
+[020]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+                            x
+[020-END]
+
+[021]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    (ls) && echo e
+[021-END]
+
+[022]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls && echo e && echo a && ls && xx
+[022-END]
+
+[023]
+NAME="X"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    alias ls cd
+    which ls
+[023-END]
+
+[024]
+NAME="boolop"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls -l /dev && echo displayOK || echo err_disp4
+    ls -l /azerty && echo not_display || echo err_disp5
+[024-END]
+
+[025]
+NAME="VAR"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+        set hello=world; echo x$helloY; echo x${hello}Y
+[025-END]
+
+[026]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    touch "a "b/plip
+[026-END]
+
+[027]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo "$HOME"/coucou
+[027-END]
+
+[028]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo \"$HOME\"/coucou
+[028-END]

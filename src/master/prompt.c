@@ -32,7 +32,7 @@ void show_main_prompt(shell_t *shell)
     fprintf(stdout, "%s", "\033[1m");
     display_path_without_homepath(&shell->env, path);
     fprintf(stdout, "%s", "\033[0m\033[31m");
-    fprintf(stdout, "%s", "> \033[0m");
+    fprintf(stdout, " % 3i%s", shell->exit_status, "> \033[0m");
     free(path);
     free(host);
     free(user);

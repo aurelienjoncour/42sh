@@ -37,6 +37,8 @@ void display_list(token_t *start);
 token_t *tokeniser(char *entry);
 void remove_quote_token(size_t *size, size_t *cursor, ID token_id);
 
+int parser_move_quote(char *entry);
+
 ////////////////////////////
 // Main Functions
 void cmd_destroy(cmd_t *cmd);
