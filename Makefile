@@ -73,6 +73,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
 			$(DSRC)modules/globbing/globbing.c						\
 			$(DSRC)modules/globbing/process_globbing.c				\
+			$(DSRC)modules/globbing/process_regexp.c				\
 			$(DSRC)modules/globbing/node_manage.c					\
 			$(DSRC)modules/get_default_local.c						\
 			$(DSRC)modules/get_env_entry.c							\

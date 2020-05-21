@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <dirent.h>

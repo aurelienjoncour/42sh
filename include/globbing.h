@@ -11,6 +11,7 @@
 #include "shell.h"
 
 int process_globbing(token_t *token, cmd_t *cmd);
+bool process_regexp(const char *pattern, const char *filename);
 
 void remove_invalid_node(file_list_t *del_node, file_list_t *prev_node,
 file_list_t **first_node);
