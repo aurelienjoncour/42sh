@@ -1,5 +1,5 @@
-[901]
-NAME="BASE-01"
+[1]
+NAME="BASE 01"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -10,10 +10,10 @@ TESTS=
   ls -l /usr
   /usr/bin/ls /
   echo      aa      ss  bb
-[901-END]
+[1-END]
 
-[902]
-NAME="BASE-02 quotes"
+[2]
+NAME="BASE 02 - quotes"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -26,34 +26,34 @@ TESTS=
     echo "hello"aaa"hello"
     echo"hello world"
     echo "foo
-[902-END]
+[2-END]
 
-[903]
-NAME="BASE pipe"
+[3]
+NAME="BASE 3 - pipe with missing end"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo "hello" |
-[903-END]
+[3-END]
 
-[913]
-NAME="BASE pipe"
+[4]
+NAME="BASE 4 - pipe with missing begin"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     | echo "hello"
-[913-END]
+[4-END]
 
-[923]
-NAME="BASE pipe"
+[5]
+NAME="BASE 5 - pipe"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo hello | cat
-[923-END]
+[5-END]
 
-[904]
-NAME="BASE redirect"
+[6]
+NAME="BASE 6 - fail redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -64,10 +64,10 @@ TESTS=
     echo "b" >< log
     a<b
     a>exe/noright
-[904-END]
+[6]
 
-[905]
-NAME="BASE pointvirgule"
+[7]
+NAME="BASE 7 - semicolon"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -76,177 +76,177 @@ TESTS=
     echo hello; echo world
     echo hello;echo world
     echo hello ;echo world
-[905-END]
+[7-END]
 
-[906]
-NAME="BASE redirect => Ambiguous"
+[8]
+NAME="BASE 8 - ambiguous redirection"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo "Hello world" > log >> log
-[906-END]
+[8-END]
 
-[926]
-NAME="BASE redirect => Ambiguous"
+[9]
+NAME="BASE 9 - ambiguous redirection 2"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo "Hello world" > log > log
-[926-END]
+[9-END]
 
-[936]
-NAME="BASE redirect => Ambiguous"
+[10]
+NAME="BASE 10 - amiguous redirection 3"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     >> foo >> bar
-[936-END]
+[10-END]
 
-[946]
-NAME="BASE redirect => Ambiguous"
-SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
-CLEAN=""
-TESTS=
-    echo ss > log | cat log; rm log
-[946-END]
-
-[956]
-NAME="BASE redirect => Ambiguous"
+[11]
+NAME="BASE 11 - ambiguous redirection 4"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo "Hello world" < Makefile < Makefile
-[956-END]
+[11-END]
 
-[966]
-NAME="BASE redirect => Ambiguous"
+[12]
+NAME="BASE 12 - ambiguous redirection with pipe 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo ss > log | cat log; rm log
+[12-END]
+
+[13]
+NAME="BASE 13 - ambiguous redirection with pipe 2"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ls | cat < Makefile
-[966-END]
+[13-END]
 
-[907]
-NAME="BASE redirect / pipe"
+[14]
+NAME="BASE 14 - ambiguous redirection with pipe 3"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo hello > log
     cat < log | echo hello
-[907-END]
+[14-END]
 
-[917]
-NAME="BASE redirect / pipe"
+[15]
+NAME="BASE 15 - ambiguous redirection with pipe 4"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo < log | cat log
-[917-END]
+[15-END]
 
-[927]
-NAME="BASE redirect / pipe"
+[16]
+NAME="BASE 16 - ambiguous redirection with pipe 5"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo << A | cat log
-[927-END]
+[16-END]
 
-[908]
-NAME="BASE redirect"
+[17]
+NAME="BASE 17 - redirection in directory"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo hello > src
     echo hello > .
-[908-END]
+[17-END]
 
-[909]
-NAME="BASE redirect"
+[18]
+NAME="BASE 18 - redirection with missing rights"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     touch exe/noright
     chmod 000 exe/noright
     echo hello > exec/noright
-[909-END]
+[18-END]
 
-[910]
-NAME="BASE redirect"
+[19]
+NAME="BASE 19 - missing command in redirection 1"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     < file
-[910-END]
+[19-END]
 
-[919]
-NAME="BASE redirect"
+[20]
+NAME="BASE 20 - missing command in redirection 2"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     > file
-[919-END]
+[20-END]
 
-[914]
-NAME="BASE redirect"
+[21]
+NAME="BASE 21 - missing command in redirection 3"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     >> file
-[914-END]
+[21-END]
 
-[915]
-NAME="BASE redirect"
+[22]
+NAME="BASE 22 - missing command in redirection 4"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     << Makefile
-[915-END]
+[22-END]
 
-[924]
-NAME="BASE redirect"
+[23]
+NAME="BASE 23 - redirections 1"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     cat < tests > log
     rm log
-[924-END]
+[23-END]
 
-[916]
-NAME="BASE redirect"
+[24]
+NAME="BASE 24 - redirections 2"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo "hello" > log
     cat < log
     rm log
-[916-END]
+[24-END]
 
-[911]
-NAME="BASE redirect"
+[25]
+NAME="BASE 25 - missing file in redirection 1"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo >
-[911-END]
+[25-END]
 
-[922]
-NAME="BASE redirect"
+[26]
+NAME="BASE 26 - missing file in redirection 2"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo <
-[922-END]
+[26-END]
 
-[918]
-NAME="BASE redirect"
+[27]
+NAME="BASE 27 - redirection with random file"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     echo < /dev/urandom
-[918-END]
+[27-END]
 
-[912]
-NAME="BASE double redirect"
+[28]
+NAME="BASE 28 - double redirections"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -254,124 +254,124 @@ TESTS=
     cat << HEL > log
     cat > log << HEL
     >> log cat << HEL
-[912-END]
+[28-END]
 
-[001]
-NAME="EXE"
+[29]
+NAME="Division by zero"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ../exe/divzero.out
-[001-END]
+[29-END]
 
-[002]
-NAME="EXE"
+[30]
+NAME="No rights"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ../exe/right.out
-[002-END]
+[30-END]
 
-[003]
-NAME="EXE"
+[31]
+NAME="Segfault"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
     ../exe/segfault.out
-[003-END]
+[31-END]
 
-[004]
-NAME=""
+[32]
+NAME="Setenv without path"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
-     unsetenv PATH ; setenv TEST test
-[004-END]
+    unsetenv PATH ; setenv TEST test
+[32-END]
 
-[005]
-NAME=""
+[33]
+NAME="Wc"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     wc ; ls | cat
-[005-END]
+[33-END]
 
-[007]
-NAME=""
+[34]
+NAME="Setenv - Variable must begin with a letter"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     setenv 88
-[007-END]
+[34-END]
 
-[008]
-NAME=""
+[35]
+NAME="Setenv - Only alphanumeric characters"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     setenv a-
-[008-END]
+[35-END]
 
-[009]
-NAME=""
+[36]
+NAME="Setenv - Too many arguments"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     setenv a b c
-[009-END]
+[36-END]
 
-[010]
+[37]
 NAME=""
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     unsetenv
-[010-END]
+[37-END]
 
-[011]
-NAME=""
+[38]
+NAME="Setenv"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     setenv _
-[011-END]
+[38-END]
 
-[012]
-NAME=""
+[39]
+NAME="Fail at end of pipe"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     echo a | xx
-[012-END]
+[39-END]
 
-[014]
-NAME=""
+[40]
+NAME="Fail at begin and end of pipe"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     xx | echo b | yy
-[014-END]
+[40-END]
 
-[015]
-NAME=""
+[41]
+NAME="Setenv 2"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     setenv hello
-[015-END]
+[41-END]
 
-[016]
-NAME="Multi redirect with ; "
+[42]
+NAME="Multi redirect with semicolons"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     ls > log ; ls | ls >> log ; rm log
-[016-END]
+[42-END]
 
-[006]
+[43]
 NAME="Big pipe"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
     ls -lR /home/simon | grep package.json
-[006-END]
+[43-END]

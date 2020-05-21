@@ -1,5 +1,5 @@
 [001]
-NAME="WHERE-01"
+NAME="WHERE 01"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -7,7 +7,7 @@ TESTS=
 [001-END]
 
 [002]
-NAME="WHERE"
+NAME="WHERE 02"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -15,7 +15,7 @@ TESTS=
 [002-END]
 
 [003]
-NAME="WHERE"
+NAME="WHERE 03"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -23,7 +23,7 @@ TESTS=
 [003-END]
 
 [004]
-NAME="WHERE"
+NAME="WHERE 04"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -31,9 +31,57 @@ TESTS=
 [004-END]
 
 [005]
-NAME="WHERE"
+NAME="WHERE 05"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
   where /bin/ls
 [005-END]
+
+[006]
+NAME="REPEAT 01"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat 3 ls
+[006-END]
+
+[007]
+NAME="REPEAT 02"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat 0 ls
+[007-END]
+
+[008]
+NAME="REPEAT 03"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat 0 ls > mdr ; rm mdr
+[008-END]
+
+[009]
+NAME="REPEAT 04"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat -1 ls
+[009-END]
+
+[010]
+NAME="REPEAT 05"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat 2 ls ; repeat 2 echo e
+[010-END]
+
+[011]
+NAME="REPEAT 06"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  repeat 2 ls | grep t
+[011-END]

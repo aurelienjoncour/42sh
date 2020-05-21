@@ -34,7 +34,7 @@ TESTS=
 [004-END]
 
 [005]
-NAME="L"
+NAME="Magic quotes"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -162,7 +162,7 @@ TESTS=
 [020-END]
 
 [021]
-NAME="X"
+NAME="parenthesis + &&"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -170,7 +170,7 @@ TESTS=
 [021-END]
 
 [022]
-NAME="X"
+NAME="&& + X"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -178,7 +178,7 @@ TESTS=
 [022-END]
 
 [023]
-NAME="X"
+NAME="Which"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
