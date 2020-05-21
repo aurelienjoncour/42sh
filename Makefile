@@ -98,6 +98,7 @@ CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
 			$(DSRC)$(DCMD)/builtin/cmd/my_alias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_unalias.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/my_set.c				\
+			$(DSRC)$(DCMD)/builtin/cmd/my_unset.c				\
 			$(DSRC)$(DCMD)/builtin/cmd/my_which.c			\
 			$(DSRC)$(DCMD)/builtin/cmd/where/my_where.c		\
 			$(DSRC)$(DCMD)/builtin/cmd/where/show_path.c	\
