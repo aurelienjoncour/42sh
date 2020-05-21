@@ -7,13 +7,30 @@
 
 #include "shell.h"
 
+static int prepare_processing(shell_t *shell, cmd_t *cmd, redirect_t *redirect)
+{
+    if (substr_variables(shell, cmd) == EXIT_FAIL) {
+        return EXIT_FAIL;
+    }
+    // if (globbing(cmd, shell) == EXIT_ERROR) {
+    //     return EXIT_ERROR;
+    // }
+    if (redirection_process(cmd, redirect) != EXIT_SUCCESS) {
+        clean_redirect(redirect);
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_FAIL;
+    }
+    return EXIT_SUCCESS;
+}
+
 static int cmd_process_command(shell_t *shell, cmd_t *cmd)
 {
-    int status;
+    int mq_status;
+    int mq_exit_status;
     char **warray_cmd;
 
-    status = load_magic_quote(shell, cmd);
-    if (status == EXIT_ERROR)
+    mq_status = load_magic_quote(shell, cmd, &mq_exit_status);
+    if (mq_status == EXIT_ERROR)
         return EXIT_ERROR;
     warray_cmd = linked_list_to_warray(cmd);
     if (!warray_cmd)
@@ -22,6 +39,9 @@ static int cmd_process_command(shell_t *shell, cmd_t *cmd)
         return EXIT_ERROR;
     }
     word_array_destroy(warray_cmd);
+    if (mq_status == HAVE_MQUOTE && mq_exit_status != 0) {
+        shell->exit_status = mq_exit_status;
+    }
     return EXIT_SUCCESS;
 }
 
@@ -30,12 +50,10 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
     redirect_t redirect;
     int ret;
 
-    if (substr_variables(shell, cmd) == EXIT_FAIL) {
-        return EXIT_SUCCESS;
-    }
-    if (redirection_process(cmd, &redirect) != EXIT_SUCCESS) {
-        clean_redirect(&redirect);
-        shell->exit_status = ERROR_STATUS;
+    ret = prepare_processing(shell, cmd, &redirect);
+    if (ret == EXIT_ERROR) {
+        return EXIT_ERROR;
+    } else if (ret == EXIT_FAIL) {
         return EXIT_SUCCESS;
     }
     ret = parenthesis_exec(shell, cmd);

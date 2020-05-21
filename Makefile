@@ -62,14 +62,17 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/input/autocompletion/auto_completion.c	\
 			$(DSRC)modules/input/autocompletion/get_files.c			\
 			$(DSRC)modules/input/autocompletion/complete_line.c		\
-			$(DSRC)modules/input/input_result.c		\
+			$(DSRC)modules/input/input_result.c						\
 			$(DSRC)modules/input/ctrl_d.c							\
 			$(DSRC)modules/magic_quote/magical_read.c				\
 			$(DSRC)modules/magic_quote/exec_quote.c					\
+			$(DSRC)modules/magic_quote/space_cat.c					\
 			$(DSRC)modules/substitute_var/subst_alias.c				\
 			$(DSRC)modules/substitute_var/subst_var.c				\
 			$(DSRC)modules/substitute_var/main_subst.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
+			$(DSRC)modules/globbing/globbing.c						\
+			$(DSRC)modules/globbing/process_globbing.c				\
 			$(DSRC)modules/get_default_local.c						\
 
 CMD		=	$(DSRC)$(DCMD)/shell_exec_cmd.c					\
