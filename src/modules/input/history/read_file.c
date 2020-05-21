@@ -13,7 +13,7 @@ static bool rec_read(char ***ret, int size, int const fd)
 {
     char *tmp = get_next_line(fd);
 
-    if (tmp && size < MAX_LINE) {
+    if (tmp && size < MAX_LINE && tmp[0] != '\0') {
         if (!rec_read(ret, size + 1, fd))
             return false;
     }
