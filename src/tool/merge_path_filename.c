@@ -28,3 +28,24 @@ char *merge_path_filename(const char *path, const char *filename)
     merge[sizea + sizeb] = '\0';
     return merge;
 }
+
+int split_filepath(const char *str, char **ptr_path, char **ptr_filename)
+{
+    int idx_slash = -1;
+
+    for (size_t i = 0; str[i] != '\0'; i++) {
+        if (str[i] == '/') {
+            idx_slash = (int)i;
+        }
+    }
+    if (idx_slash == -1) {
+        *ptr_path = my_strdup("./");
+    } else {
+        *ptr_path = my_strndup(str, (idx_slash + 1));
+    }
+    *ptr_filename = my_strdup(&str[idx_slash + 1]);
+    if (!(*ptr_path) || !(*ptr_filename)) {
+        return EXIT_ERROR;
+    }
+    return EXIT_SUCCESS;
+}

@@ -121,7 +121,7 @@ load_test()
       $CP /tmp/.refer.$$ /tmp/test.$$/$id/tcsh.out
       echo "42sh / Tcsh DIFF:"
       echo -e "\e[31m"
-      git diff /tmp/test.$$/$id/mysh.out /tmp/test.$$/$id/tcsh.out
+      diff /tmp/test.$$/$id/mysh.out /tmp/test.$$/$id/tcsh.out
       echo -e "\e[0m"
     else
       echo "KO"

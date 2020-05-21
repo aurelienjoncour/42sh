@@ -7,9 +7,9 @@
 
 #include "shell.h"
 
-static void sub_process(char **cmd, shell_t *shell)
+static void sub_process_manage_ret(shell_t *shell, int ret,
+char **cmd)
 {
-    int ret = execve(cmd[0], cmd, shell->env.var);
     char *err_msg = NULL;
 
     if (ret == -1) {
@@ -28,6 +28,23 @@ static void sub_process(char **cmd, shell_t *shell)
     } else {
         shell->exit_status = SUCCESS_STATUS;
     }
+}
+
+static void sub_process(char **cmd, shell_t *shell)
+{
+    int ret;
+    char *path_filename[2];
+    char *save_cmd = cmd[0];
+
+    if (split_filepath(cmd[0], &path_filename[0], &path_filename[1]) != 0) {
+        return;
+    }
+    cmd[0] = path_filename[1];
+    ret = execve(save_cmd, cmd, shell->env.var);
+    cmd[0] = save_cmd;
+    sub_process_manage_ret(shell, ret, cmd);
+    free(path_filename[0]);
+    free(path_filename[1]);
 }
 
 int child_exit_status(int wstatus)
@@ -54,7 +71,7 @@ int child_exit_status(int wstatus)
     return status;
 }
 
-int fork_process(char **cmd, shell_t *shell)
+static int fork_process(char **cmd, shell_t *shell)
 {
     pid_t pid;
     int wstatus = 0;

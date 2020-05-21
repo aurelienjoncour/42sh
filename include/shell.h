@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <dirent.h>
@@ -129,6 +130,7 @@ int globbing(cmd_t *cmd, shell_t *shell);
 //                  - TOOLS -
 void display_path_without_homepath(env_t *env, char *path);
 char *merge_path_filename(const char *path, const char *filename);
+int split_filepath(const char *str, char **ptr_path, char **ptr_filename);
 
 int word_array_search(char **array, const int size, const char *str);
 int word_array_search2(const char **array, const char *str);

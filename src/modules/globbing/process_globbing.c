@@ -7,27 +7,6 @@
 
 #include "globbing.h"
 
-static int split_filepath(const char *str, char **ptr_path, char **ptr_regexp)
-{
-    int idx_slash = -1;
-
-    for (size_t i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '/') {
-            idx_slash = (int)i;
-        }
-    }
-    if (idx_slash == -1) {
-        *ptr_path = my_strdup("./");
-    } else {
-        *ptr_path = my_strndup(str, (idx_slash + 1));
-    }
-    *ptr_regexp = my_strdup(&str[idx_slash + 1]);
-    if (!(*ptr_path) || !(*ptr_regexp)) {
-        return EXIT_ERROR;
-    }
-    return EXIT_SUCCESS;
-}
-
 static int replace_token(token_t *token_list, cmd_t *cmd, token_t *old_token)
 {
     token_t *last = get_last_token(token_list);
