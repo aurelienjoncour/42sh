@@ -373,5 +373,5 @@ NAME="Big pipe"
 SETUP="export TERM=xterm"
 CLEAN=""
 TESTS=
-    ls -lR /home/simon | grep package.json
+    ls -lR /home | grep package.json
 [43-END]

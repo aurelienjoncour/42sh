@@ -34,7 +34,7 @@ TESTS=
 [004-END]
 
 [005]
-NAME="Magic quotes"
+NAME="Backquotes"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
@@ -226,3 +226,4 @@ CLEAN=""
 TESTS=
     echo \"$HOME\"/coucou
 [028-END]
+
