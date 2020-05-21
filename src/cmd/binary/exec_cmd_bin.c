@@ -8,12 +8,12 @@
 #include "shell.h"
 
 static void sub_process_manage_ret(shell_t *shell, int ret,
-char **path_filename)
+char **cmd)
 {
     char *err_msg = NULL;
 
     if (ret == -1) {
-        my_putstr_error(path_filename[0]);
+        my_putstr_error(cmd[0]);
         if (errno == ENOEXEC) {
             my_putstr_error(": Exec format error. Wrong Architecture.\n");
         } else {
@@ -42,7 +42,7 @@ static void sub_process(char **cmd, shell_t *shell)
     cmd[0] = path_filename[1];
     ret = execve(save_cmd, cmd, shell->env.var);
     cmd[0] = save_cmd;
-    sub_process_manage_ret(shell, ret, path_filename);
+    sub_process_manage_ret(shell, ret, cmd);
     free(path_filename[0]);
     free(path_filename[1]);
 }
