@@ -16,7 +16,7 @@ const char *BUILTIN_NAME[] =
     "unsetenv",
     "clear",
     "my_pwd",
-    "??",
+    "status",
     "echo",
     "alias",
     "unalias",
