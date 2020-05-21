@@ -9,12 +9,6 @@
 
 static void init_struct(shell_t *shell, char *shell_script)
 {
-    if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
-        return EXIT_ERROR;
-    if (my_env_create(&shell->local, get_default_local(env)) != EXIT_SUCCESS)
-        return EXIT_ERROR;
-    if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
-        return EXIT_ERROR;
     shell->prev_path = NULL;
     shell->exit = false;
     shell->exit_status = EXIT_SUCCESS;
@@ -28,7 +22,7 @@ int shell_create(shell_t *shell, char **env, char *shell_script)
 {
     if (my_env_create(&shell->env, env) != EXIT_SUCCESS)
         return EXIT_ERROR;
-    if (my_env_create(&shell->local, NULL) != EXIT_SUCCESS)
+    if (my_env_create(&shell->local, get_default_local(env)) != EXIT_SUCCESS)
         return EXIT_ERROR;
     if (my_env_create(&shell->alias, NULL) != EXIT_SUCCESS)
         return EXIT_ERROR;
