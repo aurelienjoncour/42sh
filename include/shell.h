@@ -174,5 +174,9 @@ char **get_default_local(char **env);
 char *get_env_entry(env_t *env, char *label);
 
 int my_unset(char **cmd, shell_t *shell);
+int process_subst_value_force(char *label, token_t *tok,
+const char *def_value, size_t idx);
+int subst_exit_status(token_t *tok, size_t idx, shell_t *shell, char *varname);
+int subst_exit_error(char *varname);
 
 #endif
