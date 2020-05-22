@@ -10,7 +10,7 @@
 #include "my.h"
 #include "autocompletion.h"
 
-static char *get_file_name(file_t *files, char *file_name)
+static char *get_file_name(file_list_t *files, char *file_name)
 {
     if (files == NULL)
         return file_name;
@@ -32,7 +32,7 @@ static void line_edit(char **line, size_t *pos, char **rest)
     (*line)[i + 1] = '\0';
 }
 
-int complete_line(char **line, file_t *files, size_t *pos, bool multi)
+int complete_line(char **line, file_list_t *files, size_t *pos, bool multi)
 {
     char *file_name = get_file_name(files->next, files->name);
     char *result;

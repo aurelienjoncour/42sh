@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <string.h>
 #include "my.h"
+#include "shell.h"
 #include "autocompletion.h"
 
 static char *get_line_path(char **path, int i)
@@ -33,15 +34,15 @@ static char *get_line_path(char **path, int i)
     return cmd;
 }
 
-static file_t *add_file(char *name, file_t *next,
+static file_list_t *add_file(char *name, file_list_t *next,
                         char *path, char const *cmd)
 {
     struct stat st;
-    file_t *file;
+    file_list_t *file;
 
     if (name != NULL && name[0] != '.'
     && !my_strncmp(cmd, name, my_strlen(cmd))) {
-        file = malloc(sizeof(file_t));
+        file = malloc(sizeof(file_list_t));
         path = my_strdupcat(3, path, "/", name);
         if (file == NULL || path == NULL || stat(path, &st) == -1)
             return next;
@@ -57,7 +58,7 @@ static file_t *add_file(char *name, file_t *next,
     return next;
 }
 
-static file_t *get_dir_files(file_t *files, char *path, char *cmd)
+static file_list_t *get_dir_files(file_list_t *files, char *path, char *cmd)
 {
     DIR *dir = opendir(path);
     struct dirent *d_file = dir != NULL ? readdir(dir) : NULL;
@@ -72,7 +73,8 @@ static file_t *get_dir_files(file_t *files, char *path, char *cmd)
     return files;
 }
 
-static file_t *get_path_dir_files(file_t *files, env_t *env, char *cmd)
+static file_list_t *get_path_dir_files(file_list_t *files, env_t *env,
+                                    char *cmd)
 {
     char **cmd_list = my_str_to_word_array(my_env_get_value(env, "PATH"), ":");
 
@@ -86,10 +88,10 @@ static file_t *get_path_dir_files(file_t *files, env_t *env, char *cmd)
     return files;
 }
 
-file_t *get_files(char *path, size_t pos, env_t *env)
+file_list_t *get_files(char *path, size_t pos, env_t *env)
 {
     char *line = path;
-    file_t *files;
+    file_list_t *files;
     char *cmd = get_line_path(&path, pos);
 
     if (cmd == NULL)
@@ -101,5 +103,6 @@ file_t *get_files(char *path, size_t pos, env_t *env)
             files = get_path_dir_files(files, env, cmd);
     }
     free(cmd);
+    sort_file_list(&files);
     return files;
 }
