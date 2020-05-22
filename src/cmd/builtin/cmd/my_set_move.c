@@ -24,9 +24,25 @@ static char *get_this_line(char **cmd, size_t *i)
     return ret;
 }
 
+static int get_len(char **cmd)
+{
+    int pos = 0;
+
+    for (size_t i = 1; cmd[i] != NULL; i++) {
+        if (cmd[i + 1] && my_strcmp(cmd[i + 1], "=") == 0) {
+            if (cmd[i + 2])
+                i += 2;
+            else
+                i += 1;
+        }
+        pos++;
+    }
+    return pos + 1;
+}
+
 char **make_my_list(char **cmd)
 {
-    int len = word_array_len(cmd);
+    int len = get_len(cmd);
     char **tab = malloc(sizeof(char *) * len);
     size_t pos = 0;
 

@@ -109,13 +109,14 @@ int my_set(char **cmd, shell_t *shell)
         return EXIT_ERROR;
     }
     if (move_in_list(list, shell, &len) == EXIT_ERROR) {
+        for (size_t i = 0; list[i] != NULL; free(list[i]), i++);
+        free(list);
         shell->exit_status = ERROR_STATUS;
         return EXIT_ERROR;
     }
     if (len == 0)
         my_env_display(&shell->local);
-    for (size_t i = 0; list[i] != NULL; i++)
-        free(list[i]);
+    for (size_t i = 0; list[i] != NULL; free(list[i]), i++);
     free(list);
     shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;
