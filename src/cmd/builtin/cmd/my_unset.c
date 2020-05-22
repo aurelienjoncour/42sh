@@ -10,7 +10,7 @@
 int my_unset(char **cmd, shell_t *shell)
 {
     int len = word_array_len(cmd);
-    
+
     if (len <= 1) {
         fprintf(stderr, "%s\n", "unset: Too few arguments.");
         shell->exit_status = ERROR_STATUS;

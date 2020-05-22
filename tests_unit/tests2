@@ -265,5 +265,21 @@ NAME="var interpreter"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    set _a; set -a; set ___a 
+    set _a; set -a; set ___a
 [033-END]
+
+[034]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    touch "a "b/plip
+[034-END]
+
+[035]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo "$HOME"/coucou
+[034-END]
