@@ -219,3 +219,12 @@ TESTS=
   alias echo hello ls
   echo hello
 [025-END]
+
+[026]
+NAME="Alias - Debug 4"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias truc echo
+  truc ok
+[026-END]
