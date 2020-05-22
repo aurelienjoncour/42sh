@@ -193,3 +193,29 @@ CLEAN=""
 TESTS=
     which lsss
 [022-END]
+
+[023]
+NAME="Alias - Debug 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias alias ls
+[023-END]
+
+[024]
+NAME="Alias - Debug 2"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias ls echo hello
+  ls
+[024-END]
+
+[025]
+NAME="Alias - Debug 3"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo hello ls
+  echo hello
+[025-END]
