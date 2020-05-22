@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <string.h>
 #include "my.h"
+#include "shell.h"
 #include "autocompletion.h"
 
 static char *get_line_path(char **path, int i)
@@ -102,5 +103,6 @@ file_list_t *get_files(char *path, size_t pos, env_t *env)
             files = get_path_dir_files(files, env, cmd);
     }
     free(cmd);
+    sort_file_list(&files);
     return files;
 }
