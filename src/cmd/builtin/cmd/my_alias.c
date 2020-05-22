@@ -22,7 +22,11 @@ static int print_alias(char *label, shell_t *shell, bool print_label)
         my_putstr("\t");
         free(label);
     }
-    my_putstr(str);
+    if (str[0] == '(') {
+        str[my_strlen(str) - 1] = '\0';
+        my_putstr(str + 1);
+    } else
+        my_putstr(str);
     my_putstr("\n");
     free(str);
     return EXIT_SUCCESS;
