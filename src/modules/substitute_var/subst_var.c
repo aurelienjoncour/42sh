@@ -15,6 +15,9 @@ static int check_variable_name(char *str)
     if (str == NULL || str[0] == '\0') {
         return EXIT_SUCCESS;
     }
+    if (strcmp(str, "?") == 0) {
+        return EXIT_SUCCESS;
+    }
     if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
         return EXIT_SUCCESS;
     }
