@@ -21,7 +21,7 @@ static bool handle_end_of_file(shell_t *shell, int *end_of_file)
         }
         ignoreeof_val = my_getnbr(ignoreeof_str_val);
         if (ignoreeof_val == 0 || ignoreeof_val != *end_of_file) {
-            printf("\nUse \"exit\" to leave tcsh.\n");
+            printf("\nUse \"exit\" to leave 42sh.\n");
             return false;
         } else {
             shell->exit = true;
