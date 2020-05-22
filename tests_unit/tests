@@ -64,7 +64,7 @@ TESTS=
     echo "b" >< log
     a<b
     a>exe/noright
-[6]
+[6-END]
 
 [7]
 NAME="BASE 7 - semicolon"

@@ -169,3 +169,29 @@ TESTS=
   unset test
   echo $test
 [019-END]
+
+[020]
+NAME="Alias - Debug 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias alias ls
+[020-END]
+
+[021]
+NAME="Alias - Debug 2"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias ls echo hello
+  ls
+[021-END]
+
+[022]
+NAME="Alias - Debug 3"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo hello ls
+  echo hello
+[022-END]
