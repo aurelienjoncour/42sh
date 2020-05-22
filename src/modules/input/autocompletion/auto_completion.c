@@ -53,10 +53,11 @@ int check_tab(char **line, size_t *pos, int ch, env_t *env)
     file_t *files;
     int size;
     int exit_value;
-    char *backup = my_strdup(*line);
+    char *backup;
 
     if (ch != STAB)
         return EXIT_FAILURE;
+    backup = my_strdup(*line);
     files = get_files(*line, *pos, env);
     size = get_list_size(files, 0);
     exit_value = does_show_list(files, size);

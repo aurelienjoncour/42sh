@@ -71,10 +71,13 @@ bool process_regexp(const char *pattern, const char *filename)
         return false;
     while (new_pattern[c_pat] != '\0' && filename[c_fil] != '\0') {
         ret = process_asterix(new_pattern, filename, &c_pat, &c_fil);
-        if (ret == -1)
+        if (ret == -1) {
+            free(new_pattern);
             return false;
-        if (ret == 1)
+        } else if (ret == 1) {
+            free(new_pattern);
             return true;
+        }
     }
     ret = analyse_end(new_pattern, filename, c_pat, c_fil);
     free(new_pattern);
