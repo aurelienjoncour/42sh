@@ -83,21 +83,22 @@ int try_subst_alias(cmd_t *cmd, token_t *tok, shell_t *shell)
 {
     char *value = my_env_get_value(&shell->alias, tok->token);
     cmd_t *sub_cmd;
+    int ret = EXIT_SUCCESS;
 
     value = format_value(value);
-    if (!value) {
+    if (!value)
         return EXIT_FAIL;
-    }
     sub_cmd = parse_entry(value);
     if (!sub_cmd || !sub_cmd->begin) {
         return puterr("Var subst: parse_entry : fail\n", EXIT_ERROR);
     }
-    fprintf(stderr, "\n");
     insert_new_token(tok, sub_cmd, cmd);
     cmd->size += (sub_cmd->size - 1);
+    if (strcmp(sub_cmd->begin->token, tok->token) == 0)
+        ret = EXIT_FAIL;
     free(tok->token);
     free(tok);
     free(value);
     free(sub_cmd);
-    return EXIT_SUCCESS;
+    return ret;
 }

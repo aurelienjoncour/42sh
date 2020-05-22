@@ -15,7 +15,7 @@ int try_subst_variable(token_t *tok, shell_t *shell);
 int process_subst_value(char *label, token_t *tok, env_t *var, size_t idx);
 
 int subst_undefined_argv(char *label, token_t *tok, size_t idx);
-
+int check_variable_name(char *str);
 
 // MAIN FUNCTIONS
 int substr_variables(shell_t *shell, cmd_t *cmd);
