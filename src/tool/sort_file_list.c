@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-static size_t get_list_size(file_list_t *list)
+static ssize_t get_list_size(file_list_t *list)
 {
     size_t i;
     file_list_t *move = list;
@@ -41,7 +41,7 @@ static void move_it(file_list_t **list, file_list_t **tab)
 
 bool sort_file_list(file_list_t **list)
 {
-    size_t size = get_list_size(*list);
+    ssize_t size = get_list_size(*list);
     file_list_t *tmp;
     file_list_t **tab;
 
