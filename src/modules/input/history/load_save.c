@@ -52,7 +52,7 @@ static char **files_read(char const *filepath, int *fd)
     if (*fd == -1)
         return NULL;
     file_size = get_file_size(filepath);
-    if (file_size == -1 || file_size == 0)
+    if (file_size == -1 || file_size == 0 || file_size > 100000)
         return NULL;
     temp = malloc(sizeof(char) * (file_size + 1));
     if (temp == NULL)
