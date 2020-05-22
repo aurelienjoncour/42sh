@@ -251,3 +251,11 @@ CLEAN=""
 TESTS=
     ls *e
 [031-END]
+
+[032]
+NAME="Globbing - Debug 2"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls *e*
+[032-END]
