@@ -57,6 +57,12 @@ static void insert_new_token(token_t *old, cmd_t *new, cmd_t *main_cmd)
     } else {
         main_cmd->end = new->end;
     }
+    if (new->end) {
+        new->end->next = post;
+    }
+    if (new->begin) {
+        new->begin->prev = prev;
+    }
 }
 
 static char *format_value(char *value)
@@ -86,6 +92,7 @@ int try_subst_alias(cmd_t *cmd, token_t *tok, shell_t *shell)
     if (!sub_cmd || !sub_cmd->begin) {
         return puterr("Var subst: parse_entry : fail\n", EXIT_ERROR);
     }
+    fprintf(stderr, "\n");
     insert_new_token(tok, sub_cmd, cmd);
     cmd->size += (sub_cmd->size - 1);
     free(tok->token);
