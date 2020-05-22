@@ -128,11 +128,6 @@ SRC	=	$(DSRC)main.c										\
 		$(MASTER) $(ENTRY) $(CMD) $(MODULES) $(TOOLS)
 
 
-SRC_UT =	tests_unit/test_minishell.c							\
-			$(DSRC)entry/parse_command/command_format.c			\
-			$(DSRC)entry/parse_command/command_parse_tool.c		\
-			$(DSRC)entry/parse_command/command_to_word_array.c	\
-
 OBJ	=	$(SRC:.c=.o)
 
 NAME	=	42sh
@@ -169,9 +164,6 @@ fclean:	clean
 re:	fclean all
 
 reall:	fclean all lib_re
-
-tests_run:
-	gcc -o $(NAME) $(SRC_UT) $(INCLUDE) -L./lib/my -lmy -lcriterion --coverage && ./$(NAME)
 
 .PHONY :        clean fclean re
 
