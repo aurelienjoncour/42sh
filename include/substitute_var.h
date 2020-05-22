@@ -19,5 +19,6 @@ int subst_undefined_argv(char *label, token_t *tok, size_t idx);
 
 // MAIN FUNCTIONS
 int substr_variables(shell_t *shell, cmd_t *cmd);
+int load_argv(shell_t *shell, char **argv);
 
 #endif

@@ -19,6 +19,9 @@ int main(int argc, char **argv, char **env)
     if (shell_create(&shell, env, shell_script) == EXIT_ERROR) {
         return EXIT_ERROR;
     } else {
+        if (load_argv(&shell, argv) == EXIT_ERROR) {
+            return EXIT_ERROR;
+        }
         ret = shell_run(&shell);
         shell_destroy(&shell);
         return ret;
