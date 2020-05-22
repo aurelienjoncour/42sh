@@ -42,7 +42,11 @@ static interval_t *get_interval_char(interval_t *interval, char *pattern)
             if (interval == NULL)
                 return NULL;
         } else {
-            if (add_interval(interval, pattern[i], pattern[i]))
+            if (interval == NULL)
+                interval = create_interval(pattern[i], pattern[i]);
+            else if (add_interval(interval, pattern[i], pattern[i]))
+                return NULL;
+            if (interval == NULL)
                 return NULL;
             i++;
         }

@@ -9,6 +9,8 @@
 
 void destroy_interval(interval_t *data)
 {
+    if (data == NULL)
+        return;
     if (data->next != NULL)
         destroy_interval(data->next);
     free(data);

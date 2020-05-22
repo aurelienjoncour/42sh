@@ -11,6 +11,8 @@ bool check_interval(interval_t *interval, const char *filename, size_t *c_fil)
 {
     bool ret = false;
 
+    if (interval == NULL)
+        return false;
     if ((interval->c[1] - interval->c[0]) > -1) {
         for (char c = interval->c[0]; c <= interval->c[1]; c++) {
             if (c == filename[*c_fil])
