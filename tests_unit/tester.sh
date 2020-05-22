@@ -193,4 +193,4 @@ else
     fi
 fi
 
-rm -f log
+rm -f log src

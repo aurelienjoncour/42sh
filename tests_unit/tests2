@@ -259,3 +259,11 @@ CLEAN=""
 TESTS=
     ls *e*
 [032-END]
+
+[033]
+NAME="var interpreter"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    set _a; set -a; set ___a 
+[033-END]
