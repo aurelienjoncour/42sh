@@ -62,6 +62,9 @@ static int process_subst(token_t *tok, size_t idx, shell_t *shell)
     if (ret[0] == EXIT_ERROR || ret[1] == EXIT_ERROR) {
         return EXIT_ERROR;
     } else if (ret[0] == EXIT_FAIL && ret[1] == EXIT_FAIL) {
+        ret[0] = subst_undefined_argv(varname, tok, idx);
+        if (ret[0] != EXIT_FAIL)
+            return ret[0];
         fprintf(stderr, ERR_VAR_UNDEFINED, varname);
         free(varname);
         return EXIT_ERROR;
