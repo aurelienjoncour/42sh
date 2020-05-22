@@ -24,7 +24,7 @@ bool token_is_file_redirect(ID id)
     return false;
 }
 
-static REDIRECT_TYPE GET_REDIRECTED_TYPE(ID id)
+static REDIRECT_TYPE get_redirected_type(ID id)
 {
     switch (id) {
         case ID_DOUBLE_RIGHT:
@@ -50,7 +50,7 @@ static void get_redirection_data(cmd_t *cmd, redirect_t *redirect)
         if (token_is_file_redirect(ptr->id) == false) {
             continue;
         }
-        redirect->type = redirect->type | GET_REDIRECTED_TYPE(ptr->id);
+        redirect->type = redirect->type | get_redirected_type(ptr->id);
         if ((ptr->id == ID_RIGHT || ptr->id == ID_DOUBLE_RIGHT) && ptr->next) {
             redirect->filename_right = my_strdup(ptr->next->token);
         } else if ((ptr->id == ID_LEFT || ptr->id == ID_DOUBLE_LEFT)
