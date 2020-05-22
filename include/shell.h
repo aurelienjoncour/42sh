@@ -180,6 +180,9 @@ const char *def_value, size_t idx);
 int subst_exit_status(token_t *tok, size_t idx, shell_t *shell, char *varname);
 int subst_exit_error(char *varname);
 
+int move_in_list(char **list, shell_t *shell, int *len);
+int set_variable_set(char **wa, size_t idx, env_t *var);
 int check_variable_name(char *str);
+char **make_my_list(char **cmd);
 
 #endif

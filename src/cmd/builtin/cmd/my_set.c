@@ -75,7 +75,7 @@ char **ptr_label, char **ptr_value)
     return EXIT_SUCCESS;
 }
 
-static int set_variable(char **wa, size_t idx, env_t *var)
+int set_variable_set(char **wa, size_t idx, env_t *var)
 {
     bool have_entry;
     char *label = NULL;
@@ -102,23 +102,21 @@ static int set_variable(char **wa, size_t idx, env_t *var)
 int my_set(char **cmd, shell_t *shell)
 {
     int len = 0;
-    int ret;
+    char **list = make_my_list(cmd);
 
-    for (size_t i = 1; cmd[i] != NULL; i++) {
-        if (str_have_only_chars(cmd[i], " \t") == true)
-            continue;
-        len++;
-        if (strcmp(cmd[i], "-r") == 0)
-            continue;
-        ret = set_variable(cmd, i, &shell->local);
-        if (ret == EXIT_ERROR) {
-            shell->exit_status = ERROR_STATUS;
-            return EXIT_ERROR;
-        }
+    if (!list) {
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_ERROR;
     }
-    if (len == 0) {
+    if (move_in_list(list, shell, &len) == EXIT_ERROR) {
+        shell->exit_status = ERROR_STATUS;
+        return EXIT_ERROR;
+    }
+    if (len == 0)
         my_env_display(&shell->local);
-    }
+    for (size_t i = 0; list[i] != NULL; i++)
+        free(list[i]);
+    free(list);
     shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;
 }
