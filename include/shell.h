@@ -33,6 +33,7 @@
 #include "shell_t.h"
 #include "fd_t.h"
 #include "cmd_t.h"
+#include "interval_t.h"
 #include "parser.h"
 #include "script.h"
 #include "redirection.h"

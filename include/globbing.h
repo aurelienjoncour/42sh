@@ -12,7 +12,12 @@
 
 int process_globbing(token_t *token, cmd_t *cmd);
 bool process_regexp(const char *pattern, const char *filename);
-
+int process_bracket(const char *pattern, const char *filename,
+size_t *c_pat, size_t *c_fil);
+interval_t *create_interval(char c1, char c2);
+int add_interval(interval_t *data, char c1, char c2);
+void destroy_interval(interval_t *data);
+bool check_interval(interval_t *interval, const char *filename, size_t *c_fil);
 void remove_invalid_node(file_list_t *del_node, file_list_t *prev_node,
 file_list_t **first_node);
 

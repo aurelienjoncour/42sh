@@ -60,6 +60,30 @@ size_t *c_pat, size_t *c_fil) {
     return 0;
 }
 
+static int analyse_regexp(char *new_pattern, const char *filename,
+size_t *c_pat, size_t *c_fil)
+{
+    int ret = 0;
+
+    ret = process_bracket(new_pattern, filename, c_pat, c_fil);
+    if (ret == -1) {
+        free(new_pattern);
+        return -1;
+    } else if (ret == 1) {
+        free(new_pattern);
+        return 1;
+    }
+    ret = process_asterix(new_pattern, filename, c_pat, c_fil);
+    if (ret == -1) {
+        free(new_pattern);
+        return -1;
+    } else if (ret == 1) {
+        free(new_pattern);
+        return 1;
+    }
+    return 0;
+}
+
 bool process_regexp(const char *pattern, const char *filename)
 {
     int ret = true;
@@ -70,12 +94,10 @@ bool process_regexp(const char *pattern, const char *filename)
     if (new_pattern == NULL)
         return false;
     while (new_pattern[c_pat] != '\0' && filename[c_fil] != '\0') {
-        ret = process_asterix(new_pattern, filename, &c_pat, &c_fil);
+        ret = analyse_regexp(new_pattern, filename, &c_pat, &c_fil);
         if (ret == -1) {
-            free(new_pattern);
             return false;
-        } else if (ret == 1) {
-            free(new_pattern);
+        } else if (ret == 1){
             return true;
         }
     }
