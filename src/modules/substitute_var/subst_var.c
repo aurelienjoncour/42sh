@@ -14,19 +14,20 @@ static int check_variable_name(char *str)
     if (str == NULL || str[0] == '\0') {
         return EXIT_SUCCESS;
     }
-    if (strcmp(str, "?") == 0) {
+    if (strncmp(str, "?", 1) == 0 && !(char_is_letter(str[1])
+            || (str[1] >= '0' && str[1] <= '9'))) {
+        return EXIT_SUCCESS;
+    } else if (strncmp(str, "{?}", 3) == 0) {
         return EXIT_SUCCESS;
     }
     if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
         return EXIT_SUCCESS;
-    }
-    if (str[0] == '{' && (char_is_letter(str[1])
+    } else if (str[0] == '{' && (char_is_letter(str[1])
         || (str[1] >= '0' && str[1] <= '9'))) {
         return EXIT_SUCCESS;
     }
-    if (str[0] == ' ' || str[0] == '\t') {
+    if (str[0] == ' ' || str[0] == '\t')
         return EXIT_FAIL;
-    }
     my_putstr_error(ERR_VAR_NAME);
     return EXIT_ERROR;
 }
