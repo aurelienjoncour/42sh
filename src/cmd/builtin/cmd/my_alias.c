@@ -36,9 +36,10 @@ static int set_alias(env_t *alias, const char *label, char *target_cmd,
     if (update)
         exit_value = my_env_update(alias, label, target_cmd);
     else {
-        if (!my_strcmp(label, "unalias")) {
+        if (!my_strcmp(label, "unalias") || !my_strcmp(label, "alias")) {
             free(target_cmd);
-            return my_puterror("unalias: Too dangerous to alias that.\n",
+            my_putstr_error(label);
+            return my_puterror(": Too dangerous to alias that.\n",
                                 EXIT_FAILURE);
         }
         exit_value = my_env_add(alias, label, target_cmd);
