@@ -169,3 +169,53 @@ TESTS=
   unset test
   echo $test
 [019-END]
+
+[020]
+NAME="Set and unset"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    which;
+[020-END]
+
+[021]
+NAME="Set and unset"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    which ls cd; which ls; which cd;
+[021-END]
+
+[022]
+NAME="Set and unset"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    which lsss
+[022-END]
+
+[023]
+NAME="Alias - Debug 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias alias ls
+[023-END]
+
+[024]
+NAME="Alias - Debug 2"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias ls echo hello
+  ls
+[024-END]
+
+[025]
+NAME="Alias - Debug 3"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  alias echo hello ls
+  echo hello
+[025-END]

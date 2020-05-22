@@ -9,8 +9,8 @@
 
 extern const char *BUILTIN_NAME[];
 
-static const char *ERR_FEW_ARG = "which: Too few arguments.";
-static const char *ERR_NOT_FOUND = ": Command not found.";
+static const char *ERR_FEW_ARG = "which: Too few arguments.\n";
+static const char *ERR_NOT_FOUND = "%s: Command not found.\n";
 static const char *INFO_BUILTIN = ": shell built-in command.";
 static const char *INFO_ALIAS = "%s: \t aliased to %s\n";
 
@@ -65,7 +65,7 @@ bool *not_found)
     }
     ret = check_for_binary_cmd(cmd_name, shell);
     if (ret == EXIT_ERROR) {
-        my_putstr_error(ERR_NOT_FOUND);
+        fprintf(stderr, ERR_NOT_FOUND, cmd_name);
         *not_found = true;
     }
     return EXIT_SUCCESS;
