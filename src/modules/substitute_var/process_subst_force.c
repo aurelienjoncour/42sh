@@ -49,7 +49,7 @@ char *label)
     return ret;
 }
 
-static int process_subst_value_force(char *label, token_t *tok,
+int process_subst_value_force(char *label, token_t *tok,
 const char *def_value, size_t idx)
 {
     char *value;

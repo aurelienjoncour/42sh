@@ -101,20 +101,23 @@ static int set_variable(char **wa, size_t idx, env_t *var)
 
 int my_set(char **cmd, shell_t *shell)
 {
-    int len = word_array_len(cmd);
+    int len = 0;
     int ret;
 
-    if (len == 1) {
-        my_env_display(&shell->local);
-        shell->exit_status = SUCCESS_STATUS;
-        return EXIT_SUCCESS;
-    }
     for (size_t i = 1; cmd[i] != NULL; i++) {
+        if (str_have_only_chars(cmd[i], " \t") == true)
+            continue;
+        len++;
+        if (strcmp(cmd[i], "-r") == 0)
+            continue;
         ret = set_variable(cmd, i, &shell->local);
         if (ret == EXIT_ERROR) {
             shell->exit_status = ERROR_STATUS;
             return EXIT_ERROR;
         }
+    }
+    if (len == 0) {
+        my_env_display(&shell->local);
     }
     shell->exit_status = SUCCESS_STATUS;
     return EXIT_SUCCESS;

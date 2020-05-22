@@ -73,6 +73,9 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/substitute_var/main_subst.c				\
 			$(DSRC)modules/substitute_var/process_subst.c			\
 			$(DSRC)modules/substitute_var/process_subst_force.c		\
+			$(DSRC)modules/substitute_var/load_argv.c				\
+			$(DSRC)modules/substitute_var/subst_var_exit_status.c	\
+			$(DSRC)modules/substitute_var/check_variable_name.c		\
 			$(DSRC)modules/globbing/globbing.c						\
 			$(DSRC)modules/globbing/process_globbing.c				\
 			$(DSRC)modules/globbing/process_regexp.c				\

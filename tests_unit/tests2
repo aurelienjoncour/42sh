@@ -227,3 +227,43 @@ TESTS=
     echo \"$HOME\"/coucou
 [028-END]
 
+[029]
+NAME="Globbing - No match"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls *.nop
+[029-END]
+
+[030]
+NAME="? variable"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    cat nop
+    echo $?
+[030-END]
+
+[031]
+NAME="Globbing - Debug 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls *e
+[031-END]
+
+[032]
+NAME="Globbing - Debug 2"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls *e*
+[032-END]
+
+[033]
+NAME="var interpreter"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    set _a; set -a; set ___a 
+[033-END]

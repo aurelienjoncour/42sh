@@ -7,28 +7,6 @@
 
 #include "shell.h"
 
-static const char *ERR_VAR_NAME = "Illegal variable name.\n";
-static const char *ERR_VAR_UNDEFINED = "%s: Undefined variable.\n";
-
-static int check_variable_name(char *str)
-{
-    if (str == NULL || str[0] == '\0') {
-        return EXIT_SUCCESS;
-    }
-    if (char_is_letter(str[0]) || (str[0] >= '0' && str[0] <= '9')) {
-        return EXIT_SUCCESS;
-    }
-    if (str[0] == '{' && (char_is_letter(str[1])
-        || (str[1] >= '0' && str[1] <= '9'))) {
-        return EXIT_SUCCESS;
-    }
-    if (str[0] == ' ' || str[0] == '\t') {
-        return EXIT_FAIL;
-    }
-    my_putstr_error(ERR_VAR_NAME);
-    return EXIT_ERROR;
-}
-
 static char *get_varname(token_t *tok, size_t idx)
 {
     size_t size = 0;
@@ -41,7 +19,8 @@ static char *get_varname(token_t *tok, size_t idx)
         if (!char_is_letter(tok->token[idx + size])
             && !(tok->token[idx + size] >= '0'
             && tok->token[idx + size] <= '9')
-            && tok->token[idx + size] != '_') {
+            && tok->token[idx + size] != '_'
+            && tok->token[idx + size] != '?') {
             break;
         }
     }
@@ -52,11 +31,13 @@ static char *get_varname(token_t *tok, size_t idx)
 static int process_subst(token_t *tok, size_t idx, shell_t *shell)
 {
     char *varname = get_varname(tok, idx);
+    int exit_val = subst_exit_status(tok, idx, shell, varname);
     int ret[2];
 
-    if (!varname) {
-        return puterr("strndup : fail", EXIT_ERROR);
-    }
+    if (exit_val == EXIT_ERROR)
+        return EXIT_ERROR;
+    else if (exit_val == EXIT_SUCCESS)
+        return EXIT_SUCCESS;
     ret[0] = process_subst_value(varname, tok, &shell->env, idx);
     ret[1] = process_subst_value(varname, tok, &shell->local, idx);
     if (ret[0] == EXIT_ERROR || ret[1] == EXIT_ERROR) {
@@ -65,9 +46,7 @@ static int process_subst(token_t *tok, size_t idx, shell_t *shell)
         ret[0] = subst_undefined_argv(varname, tok, idx);
         if (ret[0] != EXIT_FAIL)
             return ret[0];
-        fprintf(stderr, ERR_VAR_UNDEFINED, varname);
-        free(varname);
-        return EXIT_ERROR;
+        return subst_exit_error(varname);
     }
     free(varname);
     return EXIT_SUCCESS;
