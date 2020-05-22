@@ -9,8 +9,8 @@
 
 extern const char *BUILTIN_NAME[];
 
-static const char *ERR_FEW_ARG = "which: Too few arguments.";
-static const char *ERR_NOT_FOUND = ": Command not found.";
+static const char *ERR_FEW_ARG = "which: Too few arguments.\n";
+static const char *ERR_NOT_FOUND = ": Command not found.\n";
 static const char *INFO_BUILTIN = ": shell built-in command.";
 static const char *INFO_ALIAS = "%s: \t aliased to %s\n";
 
