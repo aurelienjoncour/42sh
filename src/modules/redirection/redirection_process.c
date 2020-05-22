@@ -24,7 +24,7 @@ bool token_is_file_redirect(ID id)
     return false;
 }
 
-static REDIRECT_TYPE get_redirected_type(ID id)
+static enum redirection_type get_redirected_type(ID id)
 {
     switch (id) {
         case ID_DOUBLE_RIGHT:
