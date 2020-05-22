@@ -227,3 +227,10 @@ TESTS=
     echo \"$HOME\"/coucou
 [028-END]
 
+[029]
+NAME="Globbing - No match"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    ls *.nop
+[029-END]
