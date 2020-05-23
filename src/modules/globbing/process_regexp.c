@@ -97,7 +97,7 @@ bool process_regexp(const char *pattern, const char *filename)
         ret = analyse_regexp(new_pattern, filename, &c_pat, &c_fil);
         if (ret == -1) {
             return false;
-        } else if (ret == 1){
+        } else if (ret == 1) {
             return true;
         }
     }
