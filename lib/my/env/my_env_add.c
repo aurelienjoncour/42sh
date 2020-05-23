@@ -14,7 +14,7 @@ static int env_set_entry(env_t *self, const char *label, const char *value)
 
     self->var[self->size - 1] = malloc(sizeof(char) * len_entry);
     if (!self->var[self->size - 1]) {
-        my_puterror("ERROR: malloc error (env_set_entry)\n", EXIT_ERROR);
+        return my_puterror("ERROR: malloc error (env_set_entry)\n", EXIT_ERROR);
     }
     my_strcpy(self->var[self->size - 1], label);
     self->var[self->size - 1][len_label] = '=';
