@@ -10,15 +10,17 @@
 
 static bool is_correct_char(int ch)
 {
-    if (ch == UP || ch == DOWN)
+    if (ch == UP || ch == DOWN) {
         return false;
-    if (ch == LEFT || ch == RIGHT)
+    } else if (ch == LEFT || ch == RIGHT) {
         return false;
+    }
     if (ch == SUPPR_DC || ch == SUPPR || ch == GO_END || ch == GO_START
-    || ch == STAB)
+    || ch == STAB) {
         return false;
-    if (ch == 0 || ch == 4 || ch == '\n')
+    } else if (ch == 0 || ch == 4 || ch == '\n') {
         return false;
+    }
     return true;
 }
 
@@ -73,13 +75,15 @@ int input_result(int ch, shell_t *shell, char **line, size_t *pos)
 {
     int auto_comp = check_tab(line, pos, ch, &shell->env);
 
-    if (auto_comp == EXIT_ERROR || ctrl_d_manage(ch, shell, *line, pos))
+    if (auto_comp == EXIT_ERROR || ctrl_d_manage(ch, shell, *line, pos)) {
         return EXIT_ERROR;
+    }
     if (!move_in_line(pos, ch, line, &shell->history)
     && is_correct_char(ch)) {
         *line = add_char(*line, ch, (*pos)++);
-        if (*line == NULL)
+        if (*line == NULL) {
             return EXIT_ERROR;
+        }
     }
     return EXIT_SUCCESS;
 }
