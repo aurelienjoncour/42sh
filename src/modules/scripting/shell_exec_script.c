@@ -13,8 +13,6 @@ int shell_exec_script(shell_t *shell, cmd_t *boolop_cmd)
         shell->exit_status = ERROR_STATUS;
         return EXIT_SUCCESS;
     }
-    // TODO : while + foreach eval
-
     if (cmd_process(shell, boolop_cmd) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
