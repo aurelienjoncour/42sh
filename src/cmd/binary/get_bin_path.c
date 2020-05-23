@@ -35,6 +35,8 @@ int get_bin_path(const char *cmd_name, char **ptr_path, shell_t *shell)
             return EXIT_ERROR;
         } else {
             *ptr_path = my_strdup(cmd_name);
+            if (!(*ptr_path))
+                return EXIT_ERROR;
             return EXIT_SUCCESS;
         }
     } else {
