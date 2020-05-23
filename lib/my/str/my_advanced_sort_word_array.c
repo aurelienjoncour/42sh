@@ -7,8 +7,9 @@
 
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 
-static void swap_if_true(char **array, int i,
+static char **swap_if_true(char **array, int i,
 char *sorted, int (*cmp)(char const *, char const *))
 {
     char *temp;
@@ -19,20 +20,18 @@ char *sorted, int (*cmp)(char const *, char const *))
         array[i + 1] = temp;
         *sorted = 'F';
     }
+    return array;
 }
 
-int my_advanced_sort_word_array(
-char **tab, int (*cmp)(char const *, char const *))
+char **my_advanced_sort_word_array(
+char **tab, int (*cmp)(char const *, char const *), ssize_t size)
 {
-    int size = 0;
     char is_sorted = 'T';
 
-    while (tab[size] != 0)
-        size++;
     do {
         is_sorted = 'T';
         for (ssize_t i = 0; i < (size - 1); i++)
-            swap_if_true(tab, i, &is_sorted, cmp);
+            tab = swap_if_true(tab, i, &is_sorted, cmp);
     } while (is_sorted == 'F');
-    return EXIT_SUCCESS;
+    return tab;
 }

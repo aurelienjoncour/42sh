@@ -6,6 +6,7 @@
 */
 
 #include "globbing.h"
+#include <glob.h>
 
 static int replace_token(token_t *token_list, cmd_t *cmd, token_t *old_token)
 {
@@ -17,63 +18,43 @@ static int replace_token(token_t *token_list, cmd_t *cmd, token_t *old_token)
     return EXIT_SUCCESS;
 }
 
-static int process_filelist(file_list_t **ptr_filenames, char *regexp)
-{
-    file_list_t *filenames = *ptr_filenames;
-    file_list_t *prev_node = NULL;
-    file_list_t *del_node = NULL;
-
-    for (file_list_t *ptr = filenames; ptr != NULL;) {
-        if (!process_regexp(regexp, ptr->name)) {
-            del_node = ptr;
-            ptr = ptr->next;
-            remove_invalid_node(del_node, prev_node, ptr_filenames);
-        } else {
-            prev_node = ptr;
-            ptr = ptr->next;
-        }
-    }
-    return EXIT_SUCCESS;
-}
-
 static int post_process(file_list_t *filenames, token_t *tok, cmd_t *cmd,
-char *path)
+glob_t *pglob)
 {
     token_t *token_list;
 
-    if (sort_file_list(&filenames) == false) {
-        return EXIT_ERROR;
+    pglob->gl_pathv = my_advanced_sort_word_array(pglob->gl_pathv,
+        &my_strcmp_nocase, pglob->gl_pathc);
+    for (size_t i = 0; i < pglob->gl_pathc; i++) {
+        my_file_list_add(&filenames, pglob->gl_pathv[i]);
     }
-    token_list = file_list_to_token_list(filenames, path);
+    token_list = list_to_token_list(filenames);
     if (!token_list) {
         return EXIT_ERROR;
     }
     if (replace_token(token_list, cmd, tok) == EXIT_ERROR) {
         return EXIT_ERROR;
     }
+    my_file_list_destroy(filenames);
     return EXIT_SUCCESS;
 }
 
 int process_globbing(token_t *tok, cmd_t *cmd)
 {
-    char *path;
-    char *regexp;
-    file_list_t *filenames = NULL;
     int ret = EXIT_SUCCESS;
+    int status;
+    file_list_t *list = NULL;
+    glob_t pglob;
 
-    if (split_filepath(tok->token, &path, &regexp) == EXIT_ERROR) {
-        return EXIT_FAIL;
-    } else if (my_read_dir(&filenames, path) <= 0) {
-        free(path);
-        free(regexp);
-        return EXIT_FAIL;
-    }
-    if (process_filelist(&filenames, regexp) == EXIT_ERROR
-            || post_process(filenames, tok, cmd, path) == EXIT_ERROR) {
+    status = glob(tok->token, GLOB_TILDE, NULL, &pglob);
+    if (status == GLOB_NOMATCH) {
+        ret = EXIT_FAIL;
+    } else if (status != 0) {
         ret = EXIT_FAIL;
     }
-    free(path);
-    free(regexp);
-    my_file_list_destroy(filenames);
+    if (status == 0 && post_process(list, tok, cmd, &pglob) == EXIT_ERROR) {
+        ret = EXIT_FAIL;
+    }
+    globfree(&pglob);
     return ret;
 }
