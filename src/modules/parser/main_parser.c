@@ -48,6 +48,7 @@ cmd_t *parse_entry(char *entry)
         return NULL;
     }
     parser_move_quote(entry);
+    parser_merge_quote(entry);
     cmd->begin = tokeniser(entry);
     token_list_clean(cmd->begin);
     if (!cmd->begin) {

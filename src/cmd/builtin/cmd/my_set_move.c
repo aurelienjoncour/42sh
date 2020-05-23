@@ -46,6 +46,8 @@ char **make_my_list(char **cmd)
     char **tab = malloc(sizeof(char *) * len);
     size_t pos = 0;
 
+    if (tab == NULL)
+        return NULL;
     tab[0] = NULL;
     for (size_t i = 1; cmd[i] != NULL; i++) {
         if (cmd[i + 1] && my_strcmp(cmd[i + 1], "=") == 0) {

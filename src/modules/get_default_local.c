@@ -32,15 +32,17 @@ char *env_name)
 
 static int add_cwd(char **local)
 {
-    char *location = getcwd(NULL, 0);
+    char path[PATH_MAX] = {0};
+    char *location = getcwd(path, sizeof(path));
 
+    if (location == NULL)
+        return 0;
     *local = malloc(sizeof(char) * (my_strlen(location) + 5));
     if (local == NULL)
         return 0;
     *local[0] = '\0';
     *local = my_strcat(*local, "cwd=");
     *local = my_strcat(*local, location);
-    free(location);
     return 1;
 }
 

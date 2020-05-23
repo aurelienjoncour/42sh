@@ -265,5 +265,63 @@ NAME="var interpreter"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    set _a; set -a; set ___a 
+    set _a; set -a; set ___a
 [033-END]
+
+[034]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    touch "a "b/plip
+[034-END]
+
+[035]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo "$HOME"/coucou
+[035-END]
+
+[036]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo $HOME/coucou
+    echo $HOME"/coucou"
+    echo HOME'/coucou'hello world
+[036-END]
+
+[037]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo 'prev'HOME'/coucou'hello world
+[037-END]
+
+[038]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo 'prev''$HOME'
+[038-END]
+
+[039]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo xxx'prev'HOME'/coucou'hello world
+[039-END]
+
+[040]
+NAME="Inhibitor"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+    echo "prev"$HOME"/coucou"hello world
+[040-END]

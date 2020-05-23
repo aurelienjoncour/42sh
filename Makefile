@@ -31,6 +31,7 @@ MODULES = 	$(DSRC)modules/redirection/do_redirection.c				\
 			$(DSRC)modules/parser/display_list.c					\
 			$(DSRC)modules/parser/parser_array.c					\
 			$(DSRC)modules/parser/move_quote.c						\
+			$(DSRC)modules/parser/merge_quote.c						\
 			$(DSRC)modules/parser/create_token.c					\
 			$(DSRC)modules/parser/tokeniser.c						\
 			$(DSRC)modules/parser/tool.c							\

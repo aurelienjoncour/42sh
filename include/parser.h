@@ -38,6 +38,8 @@ token_t *tokeniser(char *entry);
 void remove_quote_token(size_t *size, size_t *cursor, ID token_id);
 
 int parser_move_quote(char *entry);
+bool char_is_quote(char *entry, ssize_t idx);
+int parser_merge_quote(char *entry);
 
 ////////////////////////////
 // Main Functions
