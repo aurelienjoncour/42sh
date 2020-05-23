@@ -22,6 +22,6 @@ int redirect_stdin_to_command(redirect_t *redirect);
 
 // MAIN FUNCTIONS
 int redirection_process(cmd_t *cmd, redirect_t *ptr_redirect);
-void clean_redirect(redirect_t *redirect);
+void clean_redirect(redirect_t *redirect, shell_t *shell);
 
 #endif

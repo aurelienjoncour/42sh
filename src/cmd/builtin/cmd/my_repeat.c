@@ -57,7 +57,7 @@ static int make_only_redirection(char **cmd, shell_t *shell)
     if (entry_checker(shell, cmd_s, entry) == EXIT_ERROR)
         return EXIT_ERROR;
     return_value = redirection_process(cmd_s, &redirect);
-    clean_redirect(&redirect);
+    clean_redirect(&redirect, NULL);
     return return_value;
 }
 

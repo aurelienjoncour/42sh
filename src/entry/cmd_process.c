@@ -16,7 +16,7 @@ static int prepare_processing(shell_t *shell, cmd_t *cmd, redirect_t *redirect)
         return EXIT_FAIL;
     }
     if (redirection_process(cmd, redirect) != EXIT_SUCCESS) {
-        clean_redirect(redirect);
+        clean_redirect(redirect, shell);
         shell->exit_status = ERROR_STATUS;
         return EXIT_FAIL;
     }
@@ -63,6 +63,6 @@ int cmd_process(shell_t *shell, cmd_t *cmd)
         if (cmd_process_command(shell, cmd) == EXIT_ERROR)
             return EXIT_ERROR;
     }
-    clean_redirect(&redirect);
+    clean_redirect(&redirect, shell);
     return EXIT_SUCCESS;
 }

@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-void clean_redirect(redirect_t *redirect)
+void clean_redirect(redirect_t *redirect, shell_t *shell)
 {
     if (redirect->string_left) {
         free(redirect->string_left);
@@ -23,5 +23,9 @@ void clean_redirect(redirect_t *redirect)
     }
     if (redirect->pipe_redirect[0] > 0) {
         close(redirect->pipe_redirect[0]);
+    }
+    if (shell != NULL) {
+        dup2(shell->fd.stdin, 0);
+        dup2(shell->fd.stdout, 1);
     }
 }
