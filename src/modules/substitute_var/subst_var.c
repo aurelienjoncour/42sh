@@ -69,7 +69,7 @@ static int try_resolve_var(token_t *tok, size_t i, shell_t *shell)
 int try_subst_variable(token_t *tok, shell_t *shell)
 {
     if (tok->id != ID_WITHOUT && tok->id != ID_DOUBLE_QUOTE &&
-        tok->id != ID_BACK_QUOTE) {
+        tok->id != ID_BACK_QUOTE && tok->id != ID_PARENTHESE) {
         return EXIT_SUCCESS;
     } else if (tok->token == NULL) {
         return EXIT_SUCCESS;
