@@ -44,6 +44,18 @@ token_t *file_list_to_token_list(file_list_t *file_list, char *path)
     return list;
 }
 
+token_t *list_to_token_list(file_list_t *flist)
+{
+    token_t *list = NULL;
+    token_t *new;
+
+    for (file_list_t *ptr = flist; ptr != NULL; ptr = ptr->next) {
+        new = create_node(ptr->name, ID_WITHOUT, 0);
+        list_push_node(&list, new);
+    }
+    return list;
+}
+
 void insert_new_token(token_t *old, token_t *new_first, token_t *new_last,
 cmd_t *main_cmd)
 {

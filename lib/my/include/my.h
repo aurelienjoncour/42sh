@@ -92,8 +92,8 @@ int my_sort_word_array(char **tab);
 void word_array_destroy(char **array);
 int word_array_len(char **array);
 bool have_str_in_array(char **array, const int size, const char *str);
-int my_advanced_sort_word_array(char **tab,
-int (*cmp)(char const *, char const *));
+char **my_advanced_sort_word_array(
+char **tab, int (*cmp)(char const *, char const *), ssize_t size);
 bool my_str_replace_char(char *str, const char *from, const char *to);
 int my_str_have_char(const char *str, char c);
 char *my_strdupcat(int argc, ...);
