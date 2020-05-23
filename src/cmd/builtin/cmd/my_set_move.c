@@ -7,6 +7,8 @@
 
 #include "shell.h"
 
+extern const char *ERR_BEG_LETTER;
+
 static char *get_this_line(char **cmd, size_t *i)
 {
     char *ret;
@@ -62,6 +64,18 @@ char **make_my_list(char **cmd)
         pos++;
     }
     return tab;
+}
+
+bool check_cmd(char **cmd)
+{
+    for (size_t i = 0; cmd[i] != NULL; i++) {
+        if (my_str_have_char(cmd[i], '=') != -1 &&
+            strcmp(cmd[i + 1], "=") == 0) {
+                my_putstr_error(ERR_BEG_LETTER);
+            return true;
+        }
+    }
+    return false;
 }
 
 int move_in_list(char **list, shell_t *shell, int *len)

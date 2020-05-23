@@ -183,6 +183,7 @@ int subst_exit_error(char *varname);
 int move_in_list(char **list, shell_t *shell, int *len);
 int set_variable_set(char **wa, size_t idx, env_t *var);
 int check_variable_name(char *str);
+bool check_cmd(char **cmd);
 char **make_my_list(char **cmd);
 
 #endif

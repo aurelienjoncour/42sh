@@ -7,7 +7,7 @@
 
 #include "shell.h"
 
-static const char *ERR_BEG_LETTER = "set: Variable name must begin with "
+const char *ERR_BEG_LETTER = "set: Variable name must begin with "
 "a letter.\n";
 
 static const char *ERR_ALPHANUM = "set: Variable name must contain"
@@ -104,9 +104,9 @@ int my_set(char **cmd, shell_t *shell)
     int len = 0;
     char **list = make_my_list(cmd);
 
-    if (!list) {
+    if (!list || check_cmd(cmd) == true) {
         shell->exit_status = ERROR_STATUS;
-        return EXIT_ERROR;
+        return EXIT_SUCCESS;
     }
     if (move_in_list(list, shell, &len) == EXIT_ERROR) {
         for (size_t i = 0; list[i] != NULL; free(list[i]), i++);
