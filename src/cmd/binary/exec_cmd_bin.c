@@ -53,7 +53,7 @@ int child_exit_status(int wstatus)
 
     if (!wstatus)
         return SUCCESS_STATUS;
-    if (WIFSIGNALED(wstatus) && wstatus == 8) {
+    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGFPE) {
         my_putstr_error("Floating exception");
         status = DIVZERO_STATUS;
     } else if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV) {
@@ -63,8 +63,8 @@ int child_exit_status(int wstatus)
     if (WIFSIGNALED(wstatus) && WCOREDUMP(wstatus)) {
         my_putstr_error(" (core dumped)");
     }
-    if (WIFSIGNALED(wstatus)
-            && (WTERMSIG(wstatus) == SIGSEGV || wstatus == 8)) {
+    if (WIFSIGNALED(wstatus) &&
+        (WTERMSIG(wstatus) == SIGSEGV || WTERMSIG(wstatus) == SIGFPE)) {
         my_putstr_error("\n");
     } else if (WIFEXITED(wstatus))
         return WEXITSTATUS(wstatus);
