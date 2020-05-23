@@ -18,15 +18,6 @@ static bool is_number(char *number)
     return true;
 }
 
-static bool check_nb_args(char **command)
-{
-    for (size_t i = 0; command[i]; i++) {
-        if (i > 1)
-            return true;
-    }
-    return false;
-}
-
 static int repeat_command(char **cmd, shell_t *shell)
 {
     int number = my_getnbr(cmd[1]);
@@ -65,13 +56,13 @@ static int make_only_redirection(char **cmd, shell_t *shell)
 
 int my_repeat(char **cmd, shell_t *shell)
 {
-    if (!is_number(cmd[1])) {
-        my_putstr_error("repeat : Badly formed number.");
+    if (word_array_len(cmd) == 1) {
+        my_putstr_error("repeat : Too few arguments.\n");
         shell->exit_status = ERROR_STATUS;
         return EXIT_ERROR;
     }
-    if (!check_nb_args(cmd)) {
-        my_putstr_error("repeat : Too few arguments.");
+    if (!is_number(cmd[1])) {
+        my_putstr_error("repeat : Badly formed number.\n");
         shell->exit_status = ERROR_STATUS;
         return EXIT_ERROR;
     }
