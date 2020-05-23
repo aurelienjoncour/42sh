@@ -291,7 +291,7 @@ CLEAN=""
 TESTS=
     echo $HOME/coucou
     echo $HOME"/coucou"
-    echo $HOME'/coucou'hello world
+    echo HOME'/coucou'hello world
 [036-END]
 
 [037]
@@ -299,7 +299,7 @@ NAME="Inhibitor"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    echo 'prev'$HOME'/coucou'hello world
+    echo 'prev'HOME'/coucou'hello world
 [037-END]
 
 [038]
@@ -315,7 +315,7 @@ NAME="Inhibitor"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    echo xxx'prev'$HOME'/coucou'hello world
+    echo xxx'prev'HOME'/coucou'hello world
 [039-END]
 
 [040]
@@ -323,5 +323,5 @@ NAME="Inhibitor"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=
-    echo "prev"$HOME'/coucou'hello world
+    echo "prev"$HOME"/coucou"hello world
 [040-END]
