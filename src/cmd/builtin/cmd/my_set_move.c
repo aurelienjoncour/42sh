@@ -69,8 +69,8 @@ char **make_my_list(char **cmd)
 bool check_cmd(char **cmd)
 {
     for (size_t i = 0; cmd[i] != NULL; i++) {
-        if (my_str_have_char(cmd[i], '=') != -1 &&
-            strcmp(cmd[i + 1], "=") == 0) {
+        if (my_str_have_char(cmd[i], '=') != -1 && cmd[i + 1] != NULL
+            && strcmp(cmd[i + 1], "=") == 0) {
                 my_putstr_error(ERR_BEG_LETTER);
             return true;
         }
