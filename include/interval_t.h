@@ -11,7 +11,6 @@
 typedef struct interval_t{
     char c[2];
     struct interval_t *next;
-}interval_t;
-
+} interval_t;
 
 #endif /* !INTERVAL_T_H_ */
