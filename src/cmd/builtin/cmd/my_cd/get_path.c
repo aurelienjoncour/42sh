@@ -50,6 +50,8 @@ char *my_cd_get_path(char **cmd, shell_t *shell)
     } else if (len == 1) {
         path = my_strdup("~");
     }
+    if (!path)
+        return NULL;
     corrected_path = convert_path(path, shell->prev_path, &shell->env);
     return corrected_path;
 }
