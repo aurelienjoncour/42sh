@@ -24,21 +24,21 @@ static bool is_correct_char(int ch)
 
 static void select_hist(char **line, int ch, history_t *hist, size_t *pos)
 {
-    if (*line && ((hist->pos > 0 && ch == UP) ||
-    (ch == DOWN && hist->history[hist->pos] && hist->history[hist->pos + 1])))
+    if (*line && ((hist->pos > 0 && ch == UP) || (ch == DOWN
+    && hist->history[hist->pos] && hist->history[hist->pos + 1]))) {
         free(*line);
+    }
     if (ch == UP) {
         if (hist->pos > 0) {
             hist->pos--;
             *line = my_strdup(hist->history[hist->pos]);
         }
     }
-    else if (ch == DOWN) {
+    if (ch == DOWN) {
         if (hist->history[hist->pos] && hist->history[hist->pos + 1]) {
             hist->pos++;
             *line = my_strdup(hist->history[hist->pos]);
-        }
-        else {
+        } else {
             *line = NULL;
             hist->pos = get_history_size(hist->history);
         }
