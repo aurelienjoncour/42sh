@@ -15,8 +15,7 @@ int shell_exec_cmd(shell_t *shell, char **cmd)
         ret = shell_exec_bin_cmd(cmd, shell);
     }
     if (ret == EXIT_FAIL && cmd) {
-        my_putstr_error(cmd[0]);
-        my_putstr_error(": Command not found.\n");
+        fprintf(stderr, "%s: Command not found.\n", cmd[0]);
         shell->exit_status = ERROR_STATUS;
     }
     return EXIT_SUCCESS;
