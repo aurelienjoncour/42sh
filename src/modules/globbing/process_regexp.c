@@ -39,7 +39,8 @@ size_t c_pat, size_t c_fil)
 }
 
 static int process_asterix(const char *pattern, const char *filename,
-size_t *c_pat, size_t *c_fil) {
+size_t *c_pat, size_t *c_fil)
+{
     if (pattern[*c_pat] == '?' || (pattern[*c_pat] == filename[*c_fil])) {
         *c_pat = *c_pat + 1;
         *c_fil = *c_fil + 1;
