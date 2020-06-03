@@ -12,6 +12,7 @@ bool ctrl_d_manage(int ch, shell_t *shell, char *line, size_t *pos)
     if (ch == 4) {
         if (line && line[0] == '\0') {
             free(line);
+            return true;
         }
         if (!line || line[0] == '\0') {
             return true;
